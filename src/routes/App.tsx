@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import BackToTopButton from "../components/BackToTopButton";
+import CookieConsentBanner from "../components/CookieConsentBanner";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import {
   useBodyClass,
@@ -39,6 +41,8 @@ export default function App() {
       <main>
         <Outlet />
       </main>
+      <Footer />
+      <CookieConsentBanner />
       <BackToTopButton isVisible={showBackToTop} />
     </div>
   );

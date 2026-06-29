@@ -18,6 +18,29 @@ export default function Contact() {
               I will get back to you as soon as I can.
             </p>
           </div>
+
+          <div className="info-content contact-detail">
+            <section className="content-section">
+              <h2>Useful things to include</h2>
+              <ul className="content-list">
+                <li>The type of project and what needs to be delivered.</li>
+                <li>Any existing brand, design, content, or technical constraints.</li>
+                <li>Your preferred timeline and whether there is a fixed launch date.</li>
+                <li>Links to references, live sites, prototypes, or a current codebase.</li>
+              </ul>
+            </section>
+
+            <section className="content-section">
+              <h2>Email</h2>
+              <p>
+                Prefer email? Write to{" "}
+                <a className="text-link" href={`mailto:${contactEmail}`}>
+                  {contactEmail}
+                </a>
+                .
+              </p>
+            </section>
+          </div>
         </div>
 
         <form
@@ -54,7 +77,9 @@ export default function Contact() {
               required
             />
           </label>
-          <button type="submit">Send enquiry</button>
+          <button className="button-link" type="submit">
+            Send enquiry
+          </button>
         </form>
       </section>
     </div>

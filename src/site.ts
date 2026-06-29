@@ -1,9 +1,23 @@
 export const contactEmail = "hello@christhomas.design";
 
+export const companyName = "Chris Thomas Creative Limited";
+
 export const primaryNavigation = [
   { label: "Work", to: "/" },
   { label: "Info", to: "/info" },
   { label: "Contact", to: "/contact" },
+] as const;
+
+export const footerLinks = [
+  { label: "Sitemap", to: "/sitemap" },
+  { label: "Privacy policy", to: "/privacy-policy" },
+  { label: "Cookie policy", to: "/cookie-policy" },
+  { label: "Accessibility statement", to: "/accessibility-statement" },
+] as const;
+
+export const sitemapLinks = [
+  ...primaryNavigation,
+  ...footerLinks,
 ] as const;
 
 export const socialLinks = [

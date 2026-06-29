@@ -6,6 +6,7 @@ import CaseStudy from "./routes/CaseStudy";
 import Contact from "./routes/Contact";
 import Home from "./routes/Home";
 import Info from "./routes/Info";
+import LegalPage from "./routes/LegalPage";
 import "./styles.css";
 
 const router = createBrowserRouter([
@@ -28,6 +29,22 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "sitemap",
+        element: <LegalPage page="sitemap" />,
+      },
+      {
+        path: "privacy-policy",
+        element: <LegalPage page="privacy" />,
+      },
+      {
+        path: "cookie-policy",
+        element: <LegalPage page="cookies" />,
+      },
+      {
+        path: "accessibility-statement",
+        element: <LegalPage page="accessibility" />,
       },
     ],
   },
