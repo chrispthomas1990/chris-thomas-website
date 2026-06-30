@@ -24,11 +24,17 @@
   height: 16px;
 }
 
-.back-to-top:hover,
 .back-to-top:focus-visible {
   outline: none;
   color: var(--color-ink);
   background: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .back-to-top:hover {
+    color: var(--color-ink);
+    background: var(--color-accent);
+  }
 }
 
 .back-to-top:active {

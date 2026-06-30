@@ -16,6 +16,11 @@
   transform: translateY(-100%);
 }
 
+.site-header.is-menu-open {
+  background: var(--mobile-menu-background);
+  border-bottom-color: transparent;
+}
+
 .site-header-inner {
   display: flex;
   align-items: center;
@@ -37,9 +42,10 @@
 
 .brand {
   position: relative;
+  top: -1px;
   z-index: 22;
   display: grid;
-  gap: 0;
+  gap: 4px;
   font-size: var(--type-body-large);
   letter-spacing: -0.025em;
   line-height: 1;
@@ -81,10 +87,15 @@
     transform 240ms ease;
 }
 
-.menu-toggle:hover,
 .menu-toggle:focus-visible {
   outline: none;
   border-color: var(--color-paper);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu-toggle:hover {
+    border-color: var(--color-paper);
+  }
 }
 
 .menu-toggle:active {
@@ -143,13 +154,7 @@
   min-height: 100dvh;
   padding: 96px var(--page-pad-x) 40px;
   color: var(--color-paper);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-accent) 20%, transparent),
-      transparent 42%
-    ),
-    var(--color-ink);
+  background: var(--mobile-menu-background);
   font-size: clamp(44px, 15vw, 76px);
   opacity: 0;
   pointer-events: none;
@@ -226,12 +231,19 @@
   transform: translateY(0);
 }
 
-.top-nav a:hover,
 .top-nav a:focus-visible {
   outline: none;
   color: var(--color-accent);
   background: transparent;
   border-color: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .top-nav a:hover {
+    color: var(--color-accent);
+    background: transparent;
+    border-color: transparent;
+  }
 }
 
 @media (width >= 768px) {
@@ -300,11 +312,18 @@
     height: 16px;
   }
 
-  .top-nav a:hover,
   .top-nav a:focus-visible {
     outline: none;
     color: var(--color-ink);
     background: var(--color-accent);
     border-color: var(--color-accent);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .top-nav a:hover {
+      color: var(--color-ink);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+    }
   }
 }

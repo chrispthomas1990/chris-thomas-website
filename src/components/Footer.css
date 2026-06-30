@@ -35,10 +35,15 @@
   transition: color 240ms ease;
 }
 
-.footer-legal a:hover,
 .footer-legal a:focus-visible {
   outline: none;
   color: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer-legal a:hover {
+    color: var(--color-accent);
+  }
 }
 
 .site-footer .back-to-top {

@@ -50,11 +50,17 @@
     transform 240ms ease;
 }
 
-.cookie-banner button:hover,
 .cookie-banner button:focus-visible {
   outline: none;
   color: var(--color-ink);
   background: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cookie-banner button:hover {
+    color: var(--color-ink);
+    background: var(--color-accent);
+  }
 }
 
 .cookie-banner button:active {

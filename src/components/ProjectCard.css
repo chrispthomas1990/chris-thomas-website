@@ -13,7 +13,6 @@
   transition: transform 240ms ease;
 }
 
-.work-tile:hover,
 .work-tile:focus-visible {
   outline: none;
   transform: translateY(-2px);
@@ -37,14 +36,26 @@
     min-height 240ms ease;
 }
 
-.work-tile:hover .work-image,
 .work-tile:focus-visible .work-image {
   border-color: var(--color-ink);
 }
 
-.work-tile:hover .placeholder-image,
 .work-tile:focus-visible .placeholder-image {
   transform: scale(1.02);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .work-tile:hover {
+    transform: translateY(-2px);
+  }
+
+  .work-tile:hover .work-image {
+    border-color: var(--color-ink);
+  }
+
+  .work-tile:hover .placeholder-image {
+    transform: scale(1.02);
+  }
 }
 
 .work-meta {

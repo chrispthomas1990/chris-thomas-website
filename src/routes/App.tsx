@@ -12,6 +12,9 @@ import {
   useScrollChrome,
 } from "../hooks";
 
+const defaultThemeColor = "#101010";
+const menuThemeColor = "#354018";
+
 export default function App() {
   const { hash, pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,6 +39,12 @@ export default function App() {
   useEffect(() => {
     closeMenu();
   }, [closeMenu, hash, pathname]);
+
+  useEffect(() => {
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", isMenuOpen ? menuThemeColor : defaultThemeColor);
+  }, [isMenuOpen]);
 
   return (
     <>

@@ -6,6 +6,13 @@
   --color-panel: #ddd8ce;
   --color-accent: #c7ff38;
   --color-coral: #ff6b4a;
+  --mobile-menu-background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-accent) 20%, transparent),
+      transparent 42%
+    ),
+    var(--color-ink);
   --page-max: 1800px;
   --page-pad-x: 16px;
   --type-h1: 28px;
@@ -54,10 +61,15 @@ body {
 
 body.nav-open {
   overflow: hidden;
+  background: var(--mobile-menu-background);
 }
 
 a {
   color: inherit;
+}
+
+:where(a, button) {
+  -webkit-tap-highlight-color: transparent;
 }
 
 :where(
@@ -203,11 +215,17 @@ p {
     transform 240ms ease;
 }
 
-.button-link:hover,
 .button-link:focus-visible {
   outline: none;
   color: var(--color-ink);
   background: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-link:hover {
+    color: var(--color-ink);
+    background: var(--color-accent);
+  }
 }
 
 .button-link:active {
@@ -237,7 +255,7 @@ p {
   object-position: center;
 }
 
-@media (width <= 768px) {
+@media (width < 768px) {
   .content-section {
     gap: 8px;
   }

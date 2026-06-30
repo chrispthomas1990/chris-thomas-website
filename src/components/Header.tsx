@@ -28,7 +28,11 @@ export default function Header({
   onToggleMenu,
 }: HeaderProps) {
   return (
-    <header className={`site-header${isHidden ? " is-hidden" : ""}`}>
+    <header
+      className={`site-header${isHidden ? " is-hidden" : ""}${
+        isMenuOpen ? " is-menu-open" : ""
+      }`}
+    >
       <div className="site-header-inner">
         <Link
           className="brand"
