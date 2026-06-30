@@ -9,7 +9,7 @@ import Info from "./routes/Info";
 import LegalPage from "./routes/LegalPage";
 import "./styles.css";
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/",
     element: <App />,
@@ -31,10 +31,6 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
       {
-        path: "sitemap",
-        element: <LegalPage page="sitemap" />,
-      },
-      {
         path: "privacy-policy",
         element: <LegalPage page="privacy" />,
       },
@@ -42,13 +38,14 @@ const router = createBrowserRouter([
         path: "cookie-policy",
         element: <LegalPage page="cookies" />,
       },
-      {
-        path: "accessibility-statement",
-        element: <LegalPage page="accessibility" />,
-      },
     ],
   },
-]);
+];
+
+const basename =
+  import.meta.env.BASE_URL === "/" ? undefined : import.meta.env.BASE_URL;
+
+const router = createBrowserRouter(routes, { basename });
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -52,9 +52,27 @@ export function useEscapeKey(isActive: boolean, onEscape: () => void) {
   }, [isActive, onEscape]);
 }
 
+export function useScrollThreshold(threshold: number) {
+  const [hasPassedThreshold, setHasPassedThreshold] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasPassedThreshold(window.scrollY >= threshold);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [threshold]);
+
+  return hasPassedThreshold;
+}
+
 export function useScrollChrome(isHeaderPinned: boolean) {
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -62,16 +80,23 @@ export function useScrollChrome(isHeaderPinned: boolean) {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const scrollDelta = currentScrollY - lastScrollY;
+      const maxScrollY = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight,
+      );
+      const isAtScrollEnd = currentScrollY >= maxScrollY - 24;
 
       if (currentScrollY < 24 || isHeaderPinned) {
         setIsHeaderHidden(false);
+      } else if (isAtScrollEnd) {
+        lastScrollY = currentScrollY;
+        return;
       } else if (scrollDelta > 8) {
         setIsHeaderHidden(true);
       } else if (scrollDelta < -8) {
         setIsHeaderHidden(false);
       }
 
-      setShowBackToTop(currentScrollY > 480);
       lastScrollY = currentScrollY;
     };
 
@@ -83,5 +108,5 @@ export function useScrollChrome(isHeaderPinned: boolean) {
     };
   }, [isHeaderPinned]);
 
-  return { isHeaderHidden, showBackToTop };
+  return { isHeaderHidden };
 }

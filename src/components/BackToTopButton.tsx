@@ -1,16 +1,17 @@
-type BackToTopButtonProps = {
-  isVisible: boolean;
-};
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { utilityContent } from "../content/site";
+import "./BackToTopButton.css";
 
-export default function BackToTopButton({ isVisible }: BackToTopButtonProps) {
+export default function BackToTopButton() {
   return (
     <button
-      className={`back-to-top${isVisible ? " is-visible" : ""}`}
+      className="back-to-top"
       type="button"
-      aria-label="Return to top"
+      aria-label={utilityContent.backToTopAriaLabel}
       onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}
     >
-      <span aria-hidden="true">↑</span>
+      <FontAwesomeIcon icon={faArrowUp} aria-hidden="true" />
     </button>
   );
 }

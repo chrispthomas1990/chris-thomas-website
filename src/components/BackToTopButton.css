@@ -1,0 +1,36 @@
+.back-to-top {
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  width: 32px;
+  height: 32px;
+  border: 1px solid color-mix(in srgb, var(--color-paper) 20%, transparent);
+  border-radius: 999px;
+  color: var(--color-paper);
+  background: color-mix(in srgb, var(--color-muted) 20%, transparent);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 240ms ease,
+    color 240ms ease,
+    transform 240ms ease;
+}
+
+.back-to-top svg,
+.back-to-top .svg-inline--fa {
+  width: 16px;
+  height: 16px;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  outline: none;
+  color: var(--color-ink);
+  background: var(--color-accent);
+}
+
+.back-to-top:active {
+  transform: scale(0.96);
+}

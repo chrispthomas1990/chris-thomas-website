@@ -1,7 +1,13 @@
 import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { primaryNavigation, socialLinks } from "../site";
+import {
+  brandContent,
+  navigationContent,
+  primaryNavigation,
+  socialLinks,
+} from "../content/site";
+import "./Header.css";
 
 const socialIcons = {
   GitHub: faGithub,
@@ -27,18 +33,20 @@ export default function Header({
         <Link
           className="brand"
           to="/"
-          aria-label="Chris Thomas Front-End Engineer home"
+          aria-label={brandContent.homeAriaLabel}
           onClick={onCloseMenu}
         >
-          <span>Chris Thomas</span>
-          <span>Front-End Engineer</span>
+          <span>{brandContent.name}</span>
+          <span>{brandContent.role}</span>
         </Link>
         <button
           className={`menu-toggle${isMenuOpen ? " is-open" : ""}`}
           type="button"
-          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            isMenuOpen ? navigationContent.closeMenuLabel : navigationContent.openMenuLabel
+          }
           aria-expanded={isMenuOpen}
-          aria-controls="primary-navigation"
+          aria-controls={navigationContent.primaryNavId}
           onClick={onToggleMenu}
         >
           <span aria-hidden="true" />
@@ -47,8 +55,8 @@ export default function Header({
         </button>
         <nav
           className={`top-nav${isMenuOpen ? " is-open" : ""}`}
-          id="primary-navigation"
-          aria-label="Primary navigation"
+          id={navigationContent.primaryNavId}
+          aria-label={navigationContent.primaryAriaLabel}
         >
           <div className="primary-nav-links">
             {primaryNavigation.map((item) => (
@@ -57,7 +65,7 @@ export default function Header({
               </Link>
             ))}
           </div>
-          <div className="social-nav" aria-label="Social links">
+          <div className="social-nav" aria-label={navigationContent.socialAriaLabel}>
             {socialLinks.map((item) => (
               <a
                 className="icon-link"

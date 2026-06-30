@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { companyName, footerLinks } from "../site";
+import { companyName, footerLinks, navigationContent } from "../content/site";
+import BackToTopButton from "./BackToTopButton";
+import "./Footer.css";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -7,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
-        <nav className="footer-legal" aria-label="Legal links">
+        <nav className="footer-legal" aria-label={navigationContent.legalAriaLabel}>
           {footerLinks.map((item) => (
             <Link to={item.to} key={item.to}>
               {item.label}
@@ -16,8 +18,10 @@ export default function Footer() {
         </nav>
 
         <p className="footer-copyright">
-          © {currentYear} {companyName}. All rights reserved.
+          © {currentYear} {companyName.toUpperCase()}
         </p>
+
+        <BackToTopButton />
       </div>
     </footer>
   );

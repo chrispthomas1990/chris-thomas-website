@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { sharedContent } from "../content/shared";
+import "./CookieConsentBanner.css";
 
-const consentStorageKey = "chris-thomas-cookie-consent";
+const { cookieBanner } = sharedContent;
 
 export default function CookieConsentBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(window.localStorage.getItem(consentStorageKey) !== "accepted");
+    setIsVisible(window.localStorage.getItem(cookieBanner.storageKey) !== "accepted");
   }, []);
 
   const acceptCookies = () => {
-    window.localStorage.setItem(consentStorageKey, "accepted");
+    window.localStorage.setItem(cookieBanner.storageKey, "accepted");
     setIsVisible(false);
   };
 
@@ -20,20 +22,17 @@ export default function CookieConsentBanner() {
   }
 
   return (
-    <section className="cookie-banner" aria-label="Cookie consent">
+    <section className="cookie-banner" aria-label={cookieBanner.ariaLabel}>
       <div>
-        <h2>Cookie consent</h2>
-        <p>
-          This website uses essential cookies to keep the site working and may use
-          optional cookies to understand how the site is used.
-        </p>
+        <h2>{cookieBanner.heading}</h2>
+        <p>{cookieBanner.body}</p>
       </div>
       <div className="cookie-banner-actions">
-        <Link className="text-link" to="/cookie-policy">
-          Cookie policy
+        <Link className="text-link" to={cookieBanner.policyTo}>
+          {cookieBanner.policyLabel}
         </Link>
         <button type="button" onClick={acceptCookies}>
-          Accept
+          {cookieBanner.acceptLabel}
         </button>
       </div>
     </section>

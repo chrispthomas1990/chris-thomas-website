@@ -1,17 +1,14 @@
 import { Link } from "react-router-dom";
-import type { Project } from "../work";
+import type { Project } from "../content/projects";
+import "./ProjectCard.css";
 
 type ProjectCardProps = {
-  index: number;
   project: Project;
 };
 
-export default function ProjectCard({ index, project }: ProjectCardProps) {
+export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Link
-      className={`work-tile tile-${index + 1} is-${project.thumbnailOrientation}`}
-      to={`/work/${project.slug}`}
-    >
+    <Link className="work-tile" to={`/work/${project.slug}`}>
       <span className="work-image">
         <span className="placeholder-image" aria-hidden="true" />
       </span>

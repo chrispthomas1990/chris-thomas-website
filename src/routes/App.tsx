@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import BackToTopButton from "../components/BackToTopButton";
 import CookieConsentBanner from "../components/CookieConsentBanner";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { siteMetadata } from "../content/site";
 import {
   useBodyClass,
   useEscapeKey,
@@ -15,7 +15,7 @@ import {
 export default function App() {
   const { hash, pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isHeaderHidden, showBackToTop } = useScrollChrome(isMenuOpen);
+  const { isHeaderHidden } = useScrollChrome(isMenuOpen);
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   const toggleMenu = () => setIsMenuOpen((isOpen) => !isOpen);
@@ -27,23 +27,31 @@ export default function App() {
   useEscapeKey(isMenuOpen, closeMenu);
 
   useEffect(() => {
+    document.title = siteMetadata.title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", siteMetadata.description);
+  }, []);
+
+  useEffect(() => {
     closeMenu();
   }, [closeMenu, hash, pathname]);
 
   return (
-    <div className="site-shell">
-      <Header
-        isHidden={isHeaderHidden}
-        isMenuOpen={isMenuOpen}
-        onCloseMenu={closeMenu}
-        onToggleMenu={toggleMenu}
-      />
-      <main>
-        <Outlet />
-      </main>
+    <>
+      <div className="site-shell">
+        <Header
+          isHidden={isHeaderHidden}
+          isMenuOpen={isMenuOpen}
+          onCloseMenu={closeMenu}
+          onToggleMenu={toggleMenu}
+        />
+        <main>
+          <Outlet />
+        </main>
+      </div>
       <Footer />
       <CookieConsentBanner />
-      <BackToTopButton isVisible={showBackToTop} />
-    </div>
+    </>
   );
 }
