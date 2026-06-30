@@ -255,7 +255,7 @@ p {
   object-position: center;
 }
 
-@media (width < 768px) {
+@media (width <= 768px) {
   .content-section {
     gap: 8px;
   }
