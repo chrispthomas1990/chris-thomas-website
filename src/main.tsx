@@ -7,6 +7,7 @@ import Contact from "./routes/Contact";
 import Home from "./routes/Home";
 import Info from "./routes/Info";
 import LegalPage from "./routes/LegalPage";
+import NotFound from "./routes/NotFound";
 import "./styles.css";
 
 const routes = [
@@ -37,6 +38,10 @@ const routes = [
       {
         path: "cookie-policy",
         element: <LegalPage page="cookies" />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

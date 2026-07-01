@@ -40,3 +40,10 @@
 .back-to-top:active {
   transform: scale(0.96);
 }
+
+@media (width < 768px) {
+  .back-to-top {
+    width: 44px;
+    height: 44px;
+  }
+}

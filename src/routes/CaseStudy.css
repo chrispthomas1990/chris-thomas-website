@@ -158,10 +158,8 @@ body.header-hidden .case-study-subnav {
   background: #d8d8d8;
 }
 
-.not-found {
-  display: grid;
-  gap: 16px;
-  max-width: none;
+.case-grid > .cta-section {
+  padding-top: 48px;
 }
 
 @media (width >= 768px) {
@@ -186,6 +184,10 @@ body.header-hidden .case-study-subnav {
   .wide-panel,
   .case-grid .media-panel {
     grid-column: 1 / -1;
+  }
+
+  .case-grid > .cta-section {
+    padding-top: 64px;
   }
 }
 

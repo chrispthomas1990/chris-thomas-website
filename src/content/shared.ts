@@ -17,9 +17,11 @@ export const sharedContent = {
     acceptLabel: "Accept",
     storageKey: "chris-thomas-cookie-consent",
   },
-  notFound: {
-    kicker: "Project not found",
-    heading: "This case study is not available.",
+  pageNotFound: {
+    kicker: "404",
+    heading: "This page is not available.",
+    body:
+      "The page may have moved, the address may be incorrect, or the content may no longer be available.",
     actionLabel: "Back to the homepage",
     actionTo: "/",
   },

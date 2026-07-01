@@ -26,12 +26,12 @@
   --line-body: 1.5;
   --placeholder-media-height: 280px;
   --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
-    blinkmacsystemfont, "Segoe UI", sans-serif;
+    "BlinkMacSystemFont", "Segoe UI", sans-serif;
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system,
-    blinkmacsystemfont, "Segoe UI", sans-serif;
+    "BlinkMacSystemFont", "Segoe UI", sans-serif;
 
   color: var(--color-ink);
-  background: var(--color-paper);
+  background: var(--color-ink);
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizelegibility;
@@ -106,11 +106,6 @@ a {
 }
 
 .content-section {
-  display: grid;
-  gap: 16px;
-}
-
-.info-content {
   display: grid;
   gap: 16px;
 }
@@ -255,9 +250,13 @@ p {
   object-position: center;
 }
 
-@media (width <= 768px) {
+@media (width < 768px) {
   .content-section {
     gap: 8px;
+  }
+
+  .cta-section {
+    padding-top: 16px;
   }
 }
 

@@ -24,7 +24,7 @@ export default function CookieConsentBanner() {
   return (
     <section className="cookie-banner" aria-label={cookieBanner.ariaLabel}>
       <div>
-        <h2>{cookieBanner.heading}</h2>
+        <h3>{cookieBanner.heading}</h3>
         <p>{cookieBanner.body}</p>
       </div>
       <div className="cookie-banner-actions">

@@ -65,7 +65,7 @@ export default function Header({
           <div className="primary-nav-links">
             {primaryNavigation.map((item) => (
               <Link to={item.to} onClick={onCloseMenu} key={item.to}>
-                {item.label}
+                <span>{item.label}</span>
               </Link>
             ))}
           </div>

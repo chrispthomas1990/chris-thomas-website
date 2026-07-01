@@ -76,25 +76,30 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid var(--color-line);
+  border: 1px solid color-mix(in srgb, var(--color-paper) 20%, transparent);
   border-radius: 999px;
   color: var(--color-paper);
-  background: color-mix(in srgb, var(--color-paper) 20%, transparent);
+  background: color-mix(in srgb, var(--color-muted) 20%, transparent);
   cursor: pointer;
   transition:
     background-color 240ms ease,
+    color 240ms ease,
     border-color 240ms ease,
     transform 240ms ease;
 }
 
 .menu-toggle:focus-visible {
   outline: none;
-  border-color: var(--color-paper);
+  color: var(--color-ink);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .menu-toggle:hover {
-    border-color: var(--color-paper);
+    color: var(--color-ink);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
   }
 }
 
@@ -296,6 +301,11 @@
       background-color 240ms ease,
       border-color 240ms ease,
       color 240ms ease;
+  }
+
+  .primary-nav-links a span {
+    display: block;
+    transform: translateY(-0.5px);
   }
 
   .top-nav .icon-link {

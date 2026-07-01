@@ -9,6 +9,7 @@ import { caseStudyMediaPanelCount } from "../content/site";
 import { projectContent, projects } from "../content/projects";
 import { sharedContent } from "../content/shared";
 import { useScrollThreshold } from "../hooks";
+import NotFound from "./NotFound";
 import "./CaseStudy.css";
 
 export default function CaseStudy() {
@@ -17,18 +18,10 @@ export default function CaseStudy() {
   const projectIndex = projects.findIndex((item) => item.slug === slug);
   const project = projectIndex >= 0 ? projects[projectIndex] : undefined;
   const { caseStudy } = projectContent;
-  const { cta, notFound } = sharedContent;
+  const { cta } = sharedContent;
 
   if (!project) {
-    return (
-      <section className="not-found">
-        <p className="kicker">{notFound.kicker}</p>
-        <h1>{notFound.heading}</h1>
-        <Link className="text-link" to={notFound.actionTo}>
-          {notFound.actionLabel}
-        </Link>
-      </section>
-    );
+    return <NotFound />;
   }
 
   const previousProject =

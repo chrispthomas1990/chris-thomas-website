@@ -1,12 +1,12 @@
 .cookie-banner {
   position: fixed;
-  right: 16px;
+  right: var(--page-pad-x);
   bottom: 16px;
-  left: 16px;
+  left: var(--page-pad-x);
   z-index: 35;
   display: grid;
   gap: 16px;
-  max-width: 760px;
+  max-width: 700px;
   padding: 16px;
   border: 1px solid var(--color-ink);
   border-radius: 16px;
@@ -15,34 +15,46 @@
   background: #fbfaf6;
 }
 
-.cookie-banner h2 {
+.cookie-banner h3 {
+  font-family: var(--font-display);
   font-size: var(--type-h3);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: var(--line-tight);
 }
 
 .cookie-banner p {
-  font-size: var(--type-body);
+  font-size: var(--type-body-large);
+  line-height: var(--line-body);
 }
 
 .cookie-banner-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .cookie-banner button {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
+  width: fit-content;
+  min-height: 44px;
   padding: 0 16px;
   border: 1px solid var(--color-ink);
   border-radius: 999px;
   color: var(--color-paper);
   background: var(--color-ink);
   font-family: var(--font-display);
+  font-size: var(--type-body);
   font-weight: 800;
   letter-spacing: -0.025em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  text-wrap: balance;
   cursor: pointer;
   transition:
     background-color 240ms ease,
@@ -69,10 +81,16 @@
 
 @media (width >= 768px) {
   .cookie-banner {
-    right: 24px;
-    bottom: 24px;
+    right: var(--page-pad-x);
+    bottom: calc(var(--page-pad-x) * 0.5);
     left: auto;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
+    width: calc(100vw - (var(--page-pad-x) * 2));
+  }
+
+  .cookie-banner-actions {
+    display: grid;
+    justify-items: end;
   }
 }
