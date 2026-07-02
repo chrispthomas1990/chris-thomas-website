@@ -8,18 +8,14 @@ export type Project = {
 
 export const projectContent = {
   caseStudy: {
-    kicker: "Case Study",
     navAriaLabel: "Case study navigation",
     previousAriaLabel: "Previous case study",
     homeAriaLabel: "Back to work",
     nextAriaLabel: "Next case study",
     gridAriaSuffix: "case study",
-    overviewKicker: "Overview",
     overviewHeading: "Project context.",
-    roleKicker: "Role",
     roleBody:
       "Placeholder copy for responsibilities, collaborators, constraints, and outcomes.",
-    resultKicker: "Result",
     resultHeading: "A concise case study area ready for final content.",
     resultBody:
       "Add process notes, metrics, client impact, and links to live work here. The bento layout will adapt from desktop to mobile.",

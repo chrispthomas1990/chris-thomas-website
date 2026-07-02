@@ -17,9 +17,15 @@
   --case-study-subnav-gap: 8px;
 
   position: fixed;
-  top: 80px;
-  right: max(var(--page-pad-x), calc((100% - var(--page-max)) / 2 + var(--page-pad-x)));
-  left: max(var(--page-pad-x), calc((100% - var(--page-max)) / 2 + var(--page-pad-x)));
+  top: max(calc(var(--page-pad-x) / 2), env(safe-area-inset-top, 0px));
+  right: max(
+    var(--page-gutter-right),
+    calc((100% - var(--page-max)) / 2 + var(--page-gutter-right))
+  );
+  left: max(
+    var(--page-gutter-left),
+    calc((100% - var(--page-max)) / 2 + var(--page-gutter-left))
+  );
   z-index: 20;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -50,10 +56,6 @@
     opacity 240ms ease,
     transform 240ms ease,
     visibility 240ms ease;
-}
-
-body.header-hidden .case-study-subnav {
-  top: calc(var(--page-pad-x) / 2);
 }
 
 .case-study-subnav a {
@@ -166,6 +168,10 @@ body.header-hidden .case-study-subnav {
   .case-study-subnav {
     top: 88px;
     height: 32px;
+  }
+
+  body.header-hidden .case-study-subnav {
+    top: calc(var(--page-pad-x) / 2);
   }
 
   .case-study-subnav a {

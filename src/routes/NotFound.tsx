@@ -8,7 +8,6 @@ export default function NotFound() {
     <div className="page-stack">
       <section className="content-main">
         <section className="content-section">
-          <p className="kicker">{pageNotFound.kicker}</p>
           <h1>{pageNotFound.heading}</h1>
           <p>{pageNotFound.body}</p>
           <Link className="button-link" to={pageNotFound.actionTo}>

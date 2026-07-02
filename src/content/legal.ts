@@ -18,7 +18,6 @@ export type LegalBlock =
 export type LegalPageKey = "privacy" | "cookies";
 
 export type LegalPageContent = {
-  kicker: string;
   title: string;
   sections: Array<{
     heading: string;
@@ -28,7 +27,6 @@ export type LegalPageContent = {
 
 export const legalContent = {
   privacy: {
-    kicker: "Privacy policy",
     title: "Privacy policy.",
     sections: [
       {
@@ -90,7 +88,6 @@ export const legalContent = {
     ],
   },
   cookies: {
-    kicker: "Cookie policy",
     title: "Cookie policy.",
     sections: [
       {

@@ -32,6 +32,32 @@ export function useBodyClass(className: string, isActive: boolean) {
   }, [className, isActive]);
 }
 
+export function useBodyScrollLock(isLocked: boolean) {
+  useEffect(() => {
+    if (!isLocked) {
+      return;
+    }
+
+    const scrollY = window.scrollY;
+    const { overflow, position, top, width } = document.body.style;
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = overflow;
+      document.body.style.position = position;
+      document.body.style.top = top;
+      document.body.style.width = width;
+      window.scrollTo({ top: scrollY, left: 0 });
+    };
+  }, [isLocked]);
+}
+
 export function useEscapeKey(isActive: boolean, onEscape: () => void) {
   useEffect(() => {
     if (!isActive) {
@@ -50,6 +76,22 @@ export function useEscapeKey(isActive: boolean, onEscape: () => void) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isActive, onEscape]);
+}
+
+export function useMediaQueryChange(query: string, onChange: (matches: boolean) => void) {
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const handleChange = (event: MediaQueryListEvent) => {
+      onChange(event.matches);
+    };
+
+    onChange(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, [onChange, query]);
 }
 
 export function useScrollThreshold(threshold: number) {

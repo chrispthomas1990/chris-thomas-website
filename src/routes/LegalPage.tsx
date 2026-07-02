@@ -40,7 +40,6 @@ export default function LegalPage({ page }: LegalPageProps) {
       <section className="legal-page">
         <div className="content-main">
           <section className="content-section">
-            <p className="kicker">{content.kicker}</p>
             <h1>{content.title}</h1>
           </section>
           {content.sections.map((section) => (

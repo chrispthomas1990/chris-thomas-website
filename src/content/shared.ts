@@ -1,6 +1,5 @@
 export const sharedContent = {
   cta: {
-    kicker: "Start a conversation",
     heading: "Interested in work like this?",
     body:
       "If this project feels close to what you are planning, send over a few details and I will help shape the next step.",
@@ -18,7 +17,6 @@ export const sharedContent = {
     storageKey: "chris-thomas-cookie-consent",
   },
   pageNotFound: {
-    kicker: "404",
     heading: "This page is not available.",
     body:
       "The page may have moved, the address may be incorrect, or the content may no longer be available.",

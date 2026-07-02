@@ -1,5 +1,4 @@
 export type ContentSection = {
-  kicker?: string;
   heading?: string;
   paragraphs?: string[];
   list?: string[];
@@ -9,7 +8,6 @@ export type ContentSection = {
 export const pageContent = {
   home: {
     hero: {
-      kicker: "Work",
       heading: "Brand identity, digital and campaign work with a clear point of view.",
     },
     workAriaLabel: "Selected work",
@@ -17,7 +15,6 @@ export const pageContent = {
   info: {
     sections: [
       {
-        kicker: "Info",
         heading:
           "UI Designer/Front-End Engineer creating interfaces, launches, and visual systems.",
         paragraphs: [
@@ -55,7 +52,6 @@ export const pageContent = {
   contact: {
     sections: [
       {
-        kicker: "Contact",
         heading: "Have a project in mind or a role to discuss? Send over the details.",
         paragraphs: [
           "I am interested in thoughtful front-end work, design systems, portfolio sites, and digital products where visual craft and implementation need to move together.",

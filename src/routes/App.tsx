@@ -6,7 +6,9 @@ import Header from "../components/Header";
 import { siteMetadata } from "../content/site";
 import {
   useBodyClass,
+  useBodyScrollLock,
   useEscapeKey,
+  useMediaQueryChange,
   useManualScrollRestoration,
   useRouteScrollReset,
   useScrollChrome,
@@ -22,12 +24,19 @@ export default function App() {
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   const toggleMenu = () => setIsMenuOpen((isOpen) => !isOpen);
+  const closeMenuAtDesktop = useCallback((matchesDesktop: boolean) => {
+    if (matchesDesktop) {
+      setIsMenuOpen(false);
+    }
+  }, []);
 
   useManualScrollRestoration();
   useRouteScrollReset(hash, pathname);
   useBodyClass("nav-open", isMenuOpen);
+  useBodyScrollLock(isMenuOpen);
   useBodyClass("header-hidden", isHeaderHidden);
   useEscapeKey(isMenuOpen, closeMenu);
+  useMediaQueryChange("(width >= 768px)", closeMenuAtDesktop);
 
   useEffect(() => {
     document.title = siteMetadata.title;

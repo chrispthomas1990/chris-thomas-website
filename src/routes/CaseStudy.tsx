@@ -56,7 +56,6 @@ export default function CaseStudy() {
       <section className="case-study-page">
         <div className="content-main">
           <div className="content-section">
-            <p className="kicker">{caseStudy.kicker}</p>
             <h1>{project.title}</h1>
             <p>{project.summary}</p>
           </div>
@@ -71,12 +70,10 @@ export default function CaseStudy() {
           <span className="placeholder-image" aria-hidden="true" />
         </div>
         <div className="case-panel text-panel">
-          <p className="kicker">{caseStudy.overviewKicker}</p>
           <h2>{caseStudy.overviewHeading}</h2>
           <p>{project.context}</p>
         </div>
         <div className="case-panel text-panel">
-          <p className="kicker">{caseStudy.roleKicker}</p>
           <h2>{project.role}</h2>
           <p>{caseStudy.roleBody}</p>
         </div>
@@ -90,12 +87,10 @@ export default function CaseStudy() {
           />
         ))}
         <div className="case-panel text-panel wide-panel">
-          <p className="kicker">{caseStudy.resultKicker}</p>
           <h2>{caseStudy.resultHeading}</h2>
           <p>{caseStudy.resultBody}</p>
         </div>
         <div className="cta-section">
-          <p className="kicker">{cta.kicker}</p>
           <h2>{cta.heading}</h2>
           <p>{cta.body}</p>
           <Link className="button-link" to={cta.actionTo}>

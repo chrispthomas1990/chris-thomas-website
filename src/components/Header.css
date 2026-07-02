@@ -12,10 +12,6 @@
   transition: transform 240ms ease;
 }
 
-.site-header.is-hidden {
-  transform: translateY(-100%);
-}
-
 .site-header.is-menu-open {
   background: var(--mobile-menu-background);
   border-bottom-color: transparent;
@@ -30,7 +26,7 @@
   height: 72px;
   min-height: 72px;
   margin: 0 auto;
-  padding: 0 var(--page-pad-x);
+  padding: 0 var(--page-gutter-right) 0 var(--page-gutter-left);
   transition: padding 240ms ease;
 }
 
@@ -46,6 +42,7 @@
   z-index: 22;
   display: grid;
   gap: 4px;
+  mix-blend-mode: difference;
   font-size: var(--type-body-large);
   letter-spacing: -0.025em;
   line-height: 1;
@@ -157,7 +154,10 @@
   align-items: center;
   gap: 16px;
   min-height: 100dvh;
-  padding: 96px var(--page-pad-x) 40px;
+  padding: 96px var(--page-gutter-right) 40px var(--page-gutter-left);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
   color: var(--color-paper);
   background: var(--mobile-menu-background);
   font-size: clamp(44px, 15vw, 76px);
@@ -165,7 +165,12 @@
   pointer-events: none;
   transform: translateY(-12px);
   visibility: hidden;
+  -webkit-overflow-scrolling: touch;
   transition: none;
+}
+
+.top-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .primary-nav-links {
@@ -236,6 +241,37 @@
   transform: translateY(0);
 }
 
+@media (width < 768px) and (orientation: landscape) {
+  .top-nav {
+    align-content: start;
+    gap: 8px;
+    min-height: 100svh;
+    padding-top: calc(72px + 16px + env(safe-area-inset-top, 0px));
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    font-size: clamp(30px, 8vw, 46px);
+  }
+
+  .primary-nav-links {
+    gap: 8px;
+  }
+
+  .social-nav {
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .top-nav .icon-link {
+    width: 42px;
+    height: 42px;
+  }
+
+  .icon-link svg,
+  .icon-link .svg-inline--fa {
+    width: 18px;
+    height: 18px;
+  }
+}
+
 .top-nav a:focus-visible {
   outline: none;
   color: var(--color-accent);
@@ -252,6 +288,10 @@
 }
 
 @media (width >= 768px) {
+  .site-header.is-hidden {
+    transform: translateY(-100%);
+  }
+
   .menu-toggle {
     display: none;
   }

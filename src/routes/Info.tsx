@@ -8,11 +8,10 @@ export default function Info() {
     <div className="page-stack">
       <section className="info-page">
         <div className="content-main">
-          {info.sections.map((section) => (
+          {info.sections.map((section, index) => (
             <section className="content-section" key={section.heading}>
-              {section.kicker ? <p className="kicker">{section.kicker}</p> : null}
               {section.heading ? (
-                section.kicker ? (
+                index === 0 ? (
                   <h1>{section.heading}</h1>
                 ) : (
                   <h2>{section.heading}</h2>

@@ -128,11 +128,10 @@ export default function Contact() {
     <div className="page-stack">
       <section className="contact-page">
         <div className="content-main">
-          {contact.sections.map((section) => (
+          {contact.sections.map((section, index) => (
             <div className="content-section" key={section.heading}>
-              {"kicker" in section ? <p className="kicker">{section.kicker}</p> : null}
               {section.heading ? (
-                "kicker" in section ? (
+                index === 0 ? (
                   <h1>{section.heading}</h1>
                 ) : (
                   <h2>{section.heading}</h2>

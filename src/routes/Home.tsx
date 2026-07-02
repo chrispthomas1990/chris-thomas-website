@@ -14,7 +14,6 @@ export default function Home() {
       <section className="portfolio-page">
         <div className="content-main">
           <div className="content-section">
-            <p className="kicker">{home.hero.kicker}</p>
             <h1>{home.hero.heading}</h1>
           </div>
         </div>
@@ -27,7 +26,6 @@ export default function Home() {
       </section>
 
       <div className="cta-section">
-        <p className="kicker">{cta.kicker}</p>
         <h2>{cta.heading}</h2>
         <p>{cta.body}</p>
         <Link className="button-link" to={cta.actionTo}>
