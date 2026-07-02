@@ -137,26 +137,15 @@ export default function Contact() {
                   <h2>{section.heading}</h2>
                 )
               ) : null}
-              {"paragraphs" in section
-                ? section.paragraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))
-                : null}
-              {"list" in section ? (
+              {section.paragraphs?.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+              {section.list ? (
                 <ul className="content-list">
                   {section.list.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
-              ) : null}
-              {"emailPrompt" in section ? (
-                <p>
-                  {section.emailPrompt}{" "}
-                  <a className="text-link" href={`mailto:${contactEmail}`}>
-                    {contactEmail}
-                  </a>
-                  .
-                </p>
               ) : null}
             </div>
           ))}

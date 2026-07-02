@@ -15,7 +15,6 @@ import {
 } from "../hooks";
 
 const defaultThemeColor = "#101010";
-const menuThemeColor = "#354018";
 
 export default function App() {
   const { hash, pathname } = useLocation();
@@ -52,7 +51,7 @@ export default function App() {
   useEffect(() => {
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", isMenuOpen ? menuThemeColor : defaultThemeColor);
+      ?.setAttribute("content", defaultThemeColor);
   }, [isMenuOpen]);
 
   return (

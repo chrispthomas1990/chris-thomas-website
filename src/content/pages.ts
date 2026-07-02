@@ -2,7 +2,6 @@ export type ContentSection = {
   heading?: string;
   paragraphs?: string[];
   list?: string[];
-  emailPrompt?: string;
 };
 
 export const pageContent = {
@@ -67,11 +66,7 @@ export const pageContent = {
           "Links to references, live sites, prototypes, or a current codebase.",
         ],
       },
-      {
-        heading: "Email.",
-        emailPrompt: "Prefer email? Write to",
-      },
-    ],
+    ] satisfies ContentSection[],
     form: {
       labels: {
         name: "Name",
