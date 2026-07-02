@@ -46,12 +46,12 @@
   z-index: 22;
   display: grid;
   gap: 4px;
-  mix-blend-mode: difference;
   font-size: var(--type-body-large);
   letter-spacing: -0.025em;
   line-height: 1;
   text-transform: uppercase;
   text-wrap: balance;
+  mix-blend-mode: difference;
 }
 
 .brand span:first-child {
@@ -159,9 +159,6 @@
   gap: 16px;
   min-height: 100dvh;
   padding: 96px var(--page-gutter-right) 40px var(--page-gutter-left);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: none;
   color: var(--color-paper);
   background: var(--mobile-menu-background);
   font-size: clamp(44px, 15vw, 76px);
@@ -169,8 +166,11 @@
   pointer-events: none;
   transform: translateY(-12px);
   visibility: hidden;
-  -webkit-overflow-scrolling: touch;
   transition: none;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
 }
 
 .top-nav::-webkit-scrollbar {
@@ -250,9 +250,9 @@
     align-content: start;
     gap: 8px;
     min-height: 100dvh;
-    padding-top: calc(72px + 16px + env(safe-area-inset-top, 0px));
-    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
     font-size: clamp(30px, 8vw, 46px);
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    padding-top: calc(72px + 16px + env(safe-area-inset-top, 0px));
   }
 
   .primary-nav-links {
