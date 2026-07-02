@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="page-stack">
       <section className="content-main">
-        <section className="content-section">
+        <section className="content-section not-found-section">
           <h1>{pageNotFound.heading}</h1>
           <p>{pageNotFound.body}</p>
           <Link className="button-link" to={pageNotFound.actionTo}>

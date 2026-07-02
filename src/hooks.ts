@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export function useManualScrollRestoration() {
   useEffect(() => {
@@ -32,13 +32,20 @@ export function useBodyClass(className: string, isActive: boolean) {
   }, [className, isActive]);
 }
 
-export function useBodyScrollLock(isLocked: boolean) {
+export function useBodyScrollLock(isLocked: boolean, restoreKey: string) {
+  const latestRestoreKey = useRef(restoreKey);
+
+  useLayoutEffect(() => {
+    latestRestoreKey.current = restoreKey;
+  }, [restoreKey]);
+
   useEffect(() => {
     if (!isLocked) {
       return;
     }
 
     const scrollY = window.scrollY;
+    const lockRestoreKey = restoreKey;
     const { overflow, position, top, width } = document.body.style;
 
     document.documentElement.style.overflow = "hidden";
@@ -53,9 +60,12 @@ export function useBodyScrollLock(isLocked: boolean) {
       document.body.style.position = position;
       document.body.style.top = top;
       document.body.style.width = width;
-      window.scrollTo({ top: scrollY, left: 0 });
+
+      if (lockRestoreKey === latestRestoreKey.current) {
+        window.scrollTo({ top: scrollY, left: 0 });
+      }
     };
-  }, [isLocked]);
+  }, [isLocked, restoreKey]);
 }
 
 export function useEscapeKey(isActive: boolean, onEscape: () => void) {

@@ -17,6 +17,10 @@
   border-bottom-color: transparent;
 }
 
+.site-header.is-hidden {
+  transform: translateY(-100%);
+}
+
 .site-header-inner {
   display: flex;
   align-items: center;
@@ -245,7 +249,7 @@
   .top-nav {
     align-content: start;
     gap: 8px;
-    min-height: 100svh;
+    min-height: 100dvh;
     padding-top: calc(72px + 16px + env(safe-area-inset-top, 0px));
     padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
     font-size: clamp(30px, 8vw, 46px);
@@ -288,10 +292,6 @@
 }
 
 @media (width >= 768px) {
-  .site-header.is-hidden {
-    transform: translateY(-100%);
-  }
-
   .menu-toggle {
     display: none;
   }

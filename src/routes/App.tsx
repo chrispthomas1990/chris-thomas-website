@@ -33,7 +33,7 @@ export default function App() {
   useManualScrollRestoration();
   useRouteScrollReset(hash, pathname);
   useBodyClass("nav-open", isMenuOpen);
-  useBodyScrollLock(isMenuOpen);
+  useBodyScrollLock(isMenuOpen, pathname);
   useBodyClass("header-hidden", isHeaderHidden);
   useEscapeKey(isMenuOpen, closeMenu);
   useMediaQueryChange("(width >= 768px)", closeMenuAtDesktop);
