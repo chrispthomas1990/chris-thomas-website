@@ -1,4 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  getInitialThemeMode,
+  themeStorageKey,
+  type ThemeMode,
+} from "./theme";
 
 export function useManualScrollRestoration() {
   useEffect(() => {
@@ -102,6 +107,21 @@ export function useMediaQueryChange(query: string, onChange: (matches: boolean) 
       mediaQuery.removeEventListener("change", handleChange);
     };
   }, [onChange, query]);
+}
+
+export function useThemeMode() {
+  const [themeMode, setThemeMode] = useState<ThemeMode>(getInitialThemeMode);
+
+  const toggleTheme = () => {
+    setThemeMode((currentTheme) => (currentTheme === "light" ? "dark" : "light"));
+  };
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = themeMode;
+    window.localStorage.setItem(themeStorageKey, themeMode);
+  }, [themeMode]);
+
+  return { themeMode, toggleTheme };
 }
 
 export function useScrollThreshold(threshold: number, resetThreshold = threshold) {

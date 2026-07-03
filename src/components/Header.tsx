@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +10,7 @@ import {
   primaryNavigation,
   socialLinks,
 } from "../content/site";
+import type { ThemeMode } from "../theme";
 import "./Header.css";
 
 const socialIcons = {
@@ -19,11 +21,70 @@ const socialIcons = {
 type HeaderProps = {
   isHidden: boolean;
   isMenuOpen: boolean;
-  themeMode: "light" | "dark";
+  themeMode: ThemeMode;
   onCloseMenu: () => void;
   onToggleTheme: () => void;
   onToggleMenu: () => void;
 };
+
+type HeaderIconLinkProps = {
+  href: string;
+  icon: IconDefinition;
+  label: string;
+  tabIndex?: number;
+  onClick: () => void;
+};
+
+function HeaderIconLink({
+  href,
+  icon,
+  label,
+  onClick,
+  tabIndex,
+}: HeaderIconLinkProps) {
+  return (
+    <a
+      className="icon-link"
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={label}
+      onClick={onClick}
+      tabIndex={tabIndex}
+    >
+      <FontAwesomeIcon icon={icon} aria-hidden="true" />
+    </a>
+  );
+}
+
+type ThemeToggleButtonProps = {
+  isDarkMode: boolean;
+  tabIndex?: number;
+  onToggleTheme: () => void;
+};
+
+function ThemeToggleButton({
+  isDarkMode,
+  onToggleTheme,
+  tabIndex,
+}: ThemeToggleButtonProps) {
+  return (
+    <button
+      className="theme-toggle icon-link"
+      type="button"
+      aria-label={
+        isDarkMode
+          ? navigationContent.enableLightModeLabel
+          : navigationContent.enableDarkModeLabel
+      }
+      aria-pressed={isDarkMode}
+      tabIndex={tabIndex}
+      onClick={onToggleTheme}
+    >
+      <FontAwesomeIcon icon={faCircleHalfStroke} aria-hidden="true" />
+    </button>
+  );
+}
 
 export default function Header({
   isHidden,
@@ -70,6 +131,7 @@ export default function Header({
 
   const isMobileNavHidden = !isMenuOpen && !isDesktopNav;
   const isDarkMode = themeMode === "dark";
+  const mobileNavTabIndex = isMobileNavHidden ? -1 : undefined;
 
   return (
     <header
@@ -123,35 +185,22 @@ export default function Header({
           <div className="nav-actions">
             <div className="social-nav" aria-label={navigationContent.socialAriaLabel}>
               {socialLinks.map((item) => (
-                <a
-                  className="icon-link"
+                <HeaderIconLink
                   href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={item.label}
+                  icon={socialIcons[item.label]}
+                  label={item.label}
                   onClick={onCloseMenu}
-                  tabIndex={isMobileNavHidden ? -1 : undefined}
+                  tabIndex={mobileNavTabIndex}
                   key={item.href}
-                >
-                  <FontAwesomeIcon icon={socialIcons[item.label]} aria-hidden="true" />
-                </a>
+                />
               ))}
             </div>
             <span className="nav-action-divider" aria-hidden="true" />
-            <button
-              className="theme-toggle icon-link"
-              type="button"
-              aria-label={
-                isDarkMode
-                  ? navigationContent.enableLightModeLabel
-                  : navigationContent.enableDarkModeLabel
-              }
-              aria-pressed={isDarkMode}
-              tabIndex={isMobileNavHidden ? -1 : undefined}
-              onClick={onToggleTheme}
-            >
-              <FontAwesomeIcon icon={faCircleHalfStroke} aria-hidden="true" />
-            </button>
+            <ThemeToggleButton
+              isDarkMode={isDarkMode}
+              onToggleTheme={onToggleTheme}
+              tabIndex={mobileNavTabIndex}
+            />
           </div>
         </nav>
       </div>

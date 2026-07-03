@@ -157,6 +157,7 @@
   transform: rotate(-45deg);
 }
 
+/* Mobile menu */
 .top-nav {
   position: fixed;
   inset: 0;
@@ -259,10 +260,6 @@
     transform 240ms ease;
 }
 
-.theme-toggle {
-  border-style: solid;
-}
-
 .icon-link svg,
 .icon-link .svg-inline--fa {
   width: 24px;
@@ -323,6 +320,7 @@
   }
 }
 
+/* Mobile menu states */
 .top-nav a:focus-visible {
   outline: none;
   box-shadow: 0 1px 0 var(--color-accent);
@@ -398,6 +396,7 @@
   }
 }
 
+/* Desktop navigation */
 @media (width >= 768px) {
   .menu-toggle {
     display: none;
