@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
@@ -18,14 +19,18 @@ const socialIcons = {
 type HeaderProps = {
   isHidden: boolean;
   isMenuOpen: boolean;
+  themeMode: "light" | "dark";
   onCloseMenu: () => void;
+  onToggleTheme: () => void;
   onToggleMenu: () => void;
 };
 
 export default function Header({
   isHidden,
   isMenuOpen,
+  themeMode,
   onCloseMenu,
+  onToggleTheme,
   onToggleMenu,
 }: HeaderProps) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -64,6 +69,7 @@ export default function Header({
   }, [isDesktopNav, isMenuOpen]);
 
   const isMobileNavHidden = !isMenuOpen && !isDesktopNav;
+  const isDarkMode = themeMode === "dark";
 
   return (
     <header
@@ -115,6 +121,20 @@ export default function Header({
             ))}
           </div>
           <div className="social-nav" aria-label={navigationContent.socialAriaLabel}>
+            <button
+              className="theme-toggle icon-link"
+              type="button"
+              aria-label={
+                isDarkMode
+                  ? navigationContent.enableLightModeLabel
+                  : navigationContent.enableDarkModeLabel
+              }
+              aria-pressed={isDarkMode}
+              tabIndex={isMobileNavHidden ? -1 : undefined}
+              onClick={onToggleTheme}
+            >
+              <FontAwesomeIcon icon={faCircleHalfStroke} aria-hidden="true" />
+            </button>
             {socialLinks.map((item) => (
               <a
                 className="icon-link"

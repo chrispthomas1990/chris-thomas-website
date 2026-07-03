@@ -15,14 +15,31 @@ import {
 } from "../hooks";
 
 const defaultThemeColor = "#101010";
+const themeStorageKey = "preferred-theme";
+
+type ThemeMode = "light" | "dark";
+
+function getInitialTheme(): ThemeMode {
+  const savedTheme = window.localStorage.getItem(themeStorageKey);
+
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
 export default function App() {
   const { hash, pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [themeMode, setThemeMode] = useState<ThemeMode>(getInitialTheme);
   const { isHeaderHidden } = useScrollChrome(isMenuOpen);
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   const toggleMenu = () => setIsMenuOpen((isOpen) => !isOpen);
+  const toggleTheme = () => {
+    setThemeMode((currentTheme) => (currentTheme === "light" ? "dark" : "light"));
+  };
   const skipToContent = (event: MouseEvent<HTMLAnchorElement>) => {
     const mainContent = document.querySelector<HTMLElement>("#main-content");
 
@@ -67,14 +84,22 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    document.documentElement.dataset.theme = themeMode;
+    window.localStorage.setItem(themeStorageKey, themeMode);
+  }, [themeMode]);
+
+  useEffect(() => {
     closeMenu();
   }, [closeMenu, hash, pathname]);
 
   useEffect(() => {
+    const themeColor =
+      themeMode === "dark" || isMenuOpen ? defaultThemeColor : "#f3f0e8";
+
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", defaultThemeColor);
-  }, [isMenuOpen]);
+      ?.setAttribute("content", themeColor);
+  }, [isMenuOpen, themeMode]);
 
   return (
     <>
@@ -85,7 +110,9 @@ export default function App() {
         <Header
           isHidden={isHeaderHidden}
           isMenuOpen={isMenuOpen}
+          themeMode={themeMode}
           onCloseMenu={closeMenu}
+          onToggleTheme={toggleTheme}
           onToggleMenu={toggleMenu}
         />
         <main id="main-content" tabIndex={-1}>

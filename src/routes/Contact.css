@@ -32,7 +32,7 @@
   border: 1px solid var(--color-line);
   border-radius: 16px;
   color: var(--color-ink);
-  background: #fbfaf6;
+  background: var(--color-surface-raised);
   font-family: var(--font-body);
   font-size: var(--type-body);
   font-weight: 400;

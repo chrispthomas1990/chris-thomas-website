@@ -20,6 +20,8 @@ export const navigationContent = {
   socialAriaLabel: "Social links",
   openMenuLabel: "Open navigation menu",
   closeMenuLabel: "Close navigation menu",
+  enableDarkModeLabel: "Switch to dark mode",
+  enableLightModeLabel: "Switch to light mode",
   legalAriaLabel: "Legal links",
 } as const;
 

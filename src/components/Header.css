@@ -5,9 +5,9 @@
   left: 0;
   z-index: 30;
   height: var(--site-header-height);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-paper) 20%, transparent);
-  color: var(--color-paper);
-  background: var(--color-ink);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
+  color: var(--color-chrome-text);
+  background: var(--color-chrome-bg);
   transform: translateY(0);
   transition: transform 240ms ease;
 }
@@ -50,7 +50,6 @@
   line-height: 1;
   text-transform: uppercase;
   text-wrap: balance;
-  mix-blend-mode: difference;
 }
 
 .brand span:first-child {
@@ -59,7 +58,7 @@
 }
 
 .brand span:last-child {
-  color: var(--color-paper);
+  color: var(--color-chrome-text);
   font-family:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -85,9 +84,9 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--color-paper) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
   border-radius: 999px;
-  color: var(--color-paper);
+  color: var(--color-chrome-text);
   background: color-mix(in srgb, var(--color-muted) 20%, transparent);
   cursor: pointer;
   transition:
@@ -100,14 +99,14 @@
 .menu-toggle:focus-visible {
   outline: none;
   box-shadow: 0 0 0 1px var(--color-accent);
-  color: var(--color-ink);
+  color: var(--color-accent-contrast);
   background: var(--color-accent);
   border-color: var(--color-accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .menu-toggle:hover {
-    color: var(--color-ink);
+    color: var(--color-accent-contrast);
     background: var(--color-accent);
     border-color: var(--color-accent);
   }
@@ -141,9 +140,9 @@
 }
 
 .menu-toggle.is-open {
-  color: var(--color-ink);
-  background: var(--color-paper);
-  border-color: var(--color-paper);
+  color: var(--color-chrome-bg);
+  background: var(--color-chrome-text);
+  border-color: var(--color-chrome-text);
 }
 
 .menu-toggle.is-open span:nth-child(1) {
@@ -168,7 +167,7 @@
   gap: 16px;
   min-height: 100dvh;
   padding: 96px var(--page-gutter-right) 40px var(--page-gutter-left);
-  color: var(--color-paper);
+  color: var(--color-chrome-text);
   background: var(--mobile-menu-background);
   font-size: clamp(44px, 15vw, 76px);
   opacity: 0;
@@ -192,6 +191,7 @@
 }
 
 .top-nav a,
+.theme-toggle,
 .social-nav {
   opacity: 0;
   transform: translateY(100px);
@@ -224,11 +224,32 @@
 }
 
 .top-nav .icon-link {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 54px;
   height: 54px;
   min-height: 0;
-  border: 1px solid color-mix(in srgb, var(--color-paper) 20%, transparent);
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
   border-radius: 999px;
+  color: inherit;
+  background: color-mix(in srgb, var(--color-muted) 20%, transparent);
+  font: inherit;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease,
+    opacity 240ms ease,
+    transform 240ms ease;
+}
+
+.theme-toggle {
+  border-style: solid;
 }
 
 .icon-link svg,
@@ -249,6 +270,7 @@
 }
 
 .top-nav.is-open a,
+.top-nav.is-open .theme-toggle,
 .top-nav.is-open .social-nav {
   opacity: 1;
   transform: translateY(0);
@@ -294,9 +316,40 @@
 }
 
 .top-nav .icon-link:focus-visible {
+  outline: none;
   box-shadow: 0 0 0 1px var(--color-accent);
   color: var(--color-accent);
   border-color: var(--color-accent);
+}
+
+:root[data-theme="dark"] .site-header.is-menu-open,
+:root[data-theme="dark"] .top-nav.is-open {
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+}
+
+:root[data-theme="dark"] .menu-toggle.is-open {
+  color: var(--color-accent-contrast);
+  background: transparent;
+  border-color: color-mix(in srgb, var(--color-accent-contrast) 24%, transparent);
+}
+
+:root[data-theme="dark"] .site-header.is-menu-open .brand,
+:root[data-theme="dark"] .site-header.is-menu-open .brand span:last-child {
+  color: var(--color-accent-contrast);
+}
+
+:root[data-theme="dark"] .top-nav.is-open .icon-link {
+  color: var(--color-accent-contrast);
+  background: color-mix(in srgb, var(--color-accent-contrast) 8%, transparent);
+  border-color: color-mix(in srgb, var(--color-accent-contrast) 24%, transparent);
+}
+
+:root[data-theme="dark"] .top-nav.is-open a:focus-visible,
+:root[data-theme="dark"] .top-nav.is-open .icon-link:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-accent-contrast);
+  color: var(--color-accent-contrast);
+  border-color: var(--color-accent-contrast);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -304,6 +357,22 @@
     color: var(--color-accent);
     background: transparent;
     border-color: transparent;
+  }
+
+  .top-nav .icon-link:hover {
+    color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-muted) 20%, transparent);
+    border-color: var(--color-accent);
+  }
+
+  :root[data-theme="dark"] .top-nav.is-open a:hover {
+    color: var(--color-accent-contrast);
+  }
+
+  :root[data-theme="dark"] .top-nav.is-open .icon-link:hover {
+    color: var(--color-accent-contrast);
+    background: color-mix(in srgb, var(--color-accent-contrast) 12%, transparent);
+    border-color: var(--color-accent-contrast);
   }
 }
 
@@ -321,7 +390,7 @@
     min-height: 0;
     padding: 0;
     overflow: visible;
-    color: var(--color-paper);
+    color: var(--color-chrome-text);
     background: transparent;
     font-size: var(--type-small);
     opacity: 1;
@@ -345,11 +414,16 @@
     padding-top: 0;
   }
 
+  .theme-toggle {
+    opacity: 1;
+    transform: none;
+  }
+
   .top-nav a {
     width: auto;
     min-height: 32px;
     padding: 0 16px;
-    border: 1px solid color-mix(in srgb, var(--color-paper) 20%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
     border-radius: 999px;
     background: color-mix(in srgb, var(--color-muted) 20%, transparent);
     line-height: normal;
@@ -371,7 +445,13 @@
     height: 32px;
     min-height: 32px;
     padding: 0;
-    border-color: color-mix(in srgb, var(--color-paper) 20%, transparent);
+    opacity: 1;
+    transform: none;
+    transition:
+      background-color 240ms ease,
+      border-color 240ms ease,
+      color 240ms ease;
+    border-color: color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
   }
 
   .icon-link svg,
@@ -390,7 +470,13 @@
 
   @media (hover: hover) and (pointer: fine) {
     .top-nav a:hover {
-      color: var(--color-ink);
+      color: var(--color-accent-contrast);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    .top-nav .icon-link:hover {
+      color: var(--color-accent-contrast);
       background: var(--color-accent);
       border-color: var(--color-accent);
     }
