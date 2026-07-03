@@ -69,11 +69,12 @@
 
 .brand:focus-visible {
   outline: none;
-  color: var(--color-accent);
+  color: var(--color-coral);
+  transition: none;
 }
 
 .brand:focus-visible span:last-child {
-  color: var(--color-accent);
+  color: var(--color-coral);
 }
 
 .menu-toggle {
@@ -98,15 +99,34 @@
 
 .menu-toggle:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 1px var(--color-accent);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
   color: var(--color-accent-contrast);
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--color-coral);
+  transition: none;
+  border-color: var(--color-coral);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .menu-toggle:hover {
     color: var(--color-accent-contrast);
+    background: var(--color-coral);
+    border-color: var(--color-coral);
+  }
+}
+
+:root[data-theme="dark"] .brand:focus-visible,
+:root[data-theme="dark"] .brand:focus-visible span:last-child {
+  color: var(--color-accent);
+}
+
+:root[data-theme="dark"] .menu-toggle:focus-visible {
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .menu-toggle:hover {
     background: var(--color-accent);
     border-color: var(--color-accent);
   }
@@ -192,6 +212,7 @@
 }
 
 .top-nav a,
+.theme-toggle,
 .nav-actions {
   opacity: 0;
   transform: translateY(100px);
@@ -278,6 +299,7 @@
 }
 
 .top-nav.is-open a,
+.top-nav.is-open .theme-toggle,
 .top-nav.is-open .nav-actions {
   opacity: 1;
   transform: translateY(0);
@@ -323,17 +345,19 @@
 /* Mobile menu states */
 .top-nav a:focus-visible {
   outline: none;
-  box-shadow: 0 1px 0 var(--color-accent);
-  color: var(--color-accent);
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-coral);
+  color: var(--color-coral);
   background: transparent;
+  transition: none;
   border-color: transparent;
 }
 
 .top-nav .icon-link:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 1px var(--color-accent);
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
+  color: var(--color-coral);
+  transition: none;
+  border-color: var(--color-coral);
 }
 
 :root[data-theme="dark"] .site-header.is-menu-open,
@@ -360,29 +384,29 @@
 }
 
 :root[data-theme="dark"] .top-nav.is-open a:focus-visible {
-  box-shadow: 0 1px 0 var(--color-accent-contrast);
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-accent-contrast);
   color: var(--color-accent-contrast);
   background: transparent;
   border-color: transparent;
 }
 
 :root[data-theme="dark"] .top-nav.is-open .icon-link:focus-visible {
-  box-shadow: 0 0 0 1px var(--color-accent-contrast);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent-contrast);
   color: var(--color-accent-contrast);
   border-color: var(--color-accent-contrast);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .top-nav a:hover {
-    color: var(--color-accent);
+    color: var(--color-coral);
     background: transparent;
     border-color: transparent;
   }
 
   .top-nav .icon-link:hover {
-    color: var(--color-accent);
+    color: var(--color-coral);
     background: color-mix(in srgb, var(--color-muted) 20%, transparent);
-    border-color: var(--color-accent);
+    border-color: var(--color-coral);
   }
 
   :root[data-theme="dark"] .top-nav.is-open a:hover {
@@ -393,6 +417,28 @@
     color: var(--color-accent-contrast);
     background: color-mix(in srgb, var(--color-accent-contrast) 12%, transparent);
     border-color: var(--color-accent-contrast);
+  }
+}
+
+:root[data-theme="dark"] .top-nav a:focus-visible {
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-accent);
+  color: var(--color-accent);
+}
+
+:root[data-theme="dark"] .top-nav .icon-link:focus-visible {
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .top-nav a:hover {
+    color: var(--color-accent);
+  }
+
+  :root[data-theme="dark"] .top-nav .icon-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
   }
 }
 
@@ -482,20 +528,33 @@
 
   .top-nav a:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 1px var(--color-accent);
-    color: var(--color-accent);
+    box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
+    color: var(--color-coral);
     background: color-mix(in srgb, var(--color-muted) 20%, transparent);
+    border-color: var(--color-coral);
+  }
+
+  :root[data-theme="dark"] .top-nav a:focus-visible {
+    box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
+    color: var(--color-accent);
     border-color: var(--color-accent);
   }
 
   @media (hover: hover) and (pointer: fine) {
     .top-nav a:hover {
       color: var(--color-accent-contrast);
-      background: var(--color-accent);
-      border-color: var(--color-accent);
+      background: var(--color-coral);
+      border-color: var(--color-coral);
     }
 
     .top-nav .icon-link:hover {
+      color: var(--color-accent-contrast);
+      background: var(--color-coral);
+      border-color: var(--color-coral);
+    }
+
+    :root[data-theme="dark"] .top-nav a:hover,
+    :root[data-theme="dark"] .top-nav .icon-link:hover {
       color: var(--color-accent-contrast);
       background: var(--color-accent);
       border-color: var(--color-accent);

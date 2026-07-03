@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "lint": "npm run lint:css && npm run lint:ts",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
+    "lint:ts": "tsc -b --pretty false",
     "preview": "vite preview"
   },
   "dependencies": {

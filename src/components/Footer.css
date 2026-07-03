@@ -37,12 +37,24 @@
 
 .footer-legal a:focus-visible {
   outline: none;
-  box-shadow: 0 1px 0 var(--color-accent);
-  color: var(--color-accent);
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-coral);
+  color: var(--color-coral);
+  transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .footer-legal a:hover {
+    color: var(--color-coral);
+  }
+}
+
+:root[data-theme="dark"] .footer-legal a:focus-visible {
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-accent);
+  color: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .footer-legal a:hover {
     color: var(--color-accent);
   }
 }

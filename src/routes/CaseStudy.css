@@ -35,7 +35,7 @@
   gap: var(--case-study-subnav-gap);
   height: 40px;
   overflow: hidden;
-  border: 1px solid var(--color-chrome-bg);
+  border: var(--focus-keyline-width) solid var(--color-line);
   border-radius: 9999px;
   background: var(--color-chrome-bg);
   opacity: 0;
@@ -118,11 +118,22 @@ body.header-hidden .case-study-subnav {
 
 .case-study-subnav a:focus-visible {
   outline: none;
-  color: var(--color-accent);
+  color: var(--color-coral);
+  transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .case-study-subnav a:hover {
+    color: var(--color-coral);
+  }
+}
+
+:root[data-theme="dark"] .case-study-subnav a:focus-visible {
+  color: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .case-study-subnav a:hover {
     color: var(--color-accent);
   }
 }

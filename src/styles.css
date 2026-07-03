@@ -12,6 +12,7 @@
   --color-accent: #c7ff38;
   --color-accent-contrast: #101010;
   --color-coral: #ff6b4a;
+  --focus-keyline-width: 1px;
   --mobile-menu-background: var(--color-chrome-bg);
   --site-header-height: 72px;
   --page-max: 1800px;
@@ -50,8 +51,8 @@
   --color-surface-raised: #171715;
   --color-media-surface: #2b2a27;
   --color-body-muted: #c7c0b4;
-  --color-chrome-bg: #101010;
-  --color-chrome-text: #f3f0e8;
+  --color-chrome-bg: var(--color-paper);
+  --color-chrome-text: var(--color-ink);
   --color-coral: #ff8a6f;
 
   color-scheme: dark;
@@ -115,7 +116,7 @@ a {
   border: 1px solid var(--color-accent-contrast);
   border-radius: 999px;
   color: var(--color-accent-contrast);
-  background: var(--color-accent);
+  background: var(--color-coral);
   font-family: var(--font-display);
   font-size: var(--type-small);
   font-weight: 800;
@@ -134,6 +135,7 @@ a {
 }
 
 :root[data-theme="dark"] .skip-link {
+  background: var(--color-accent);
   border-color: transparent;
 }
 
@@ -293,14 +295,25 @@ p {
 
 .button-link:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 1px var(--color-ink);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
   color: var(--color-accent-contrast);
-  background: var(--color-accent);
+  background: var(--color-coral);
+  transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .button-link:hover {
     color: var(--color-accent-contrast);
+    background: var(--color-coral);
+  }
+}
+
+:root[data-theme="dark"] .button-link:focus-visible {
+  background: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .button-link:hover {
     background: var(--color-accent);
   }
 }

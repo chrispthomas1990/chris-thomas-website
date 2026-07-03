@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type MouseEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   getInitialThemeMode,
   themeStorageKey,
@@ -122,6 +122,28 @@ export function useThemeMode() {
   }, [themeMode]);
 
   return { themeMode, toggleTheme };
+}
+
+export function useSkipToContent(targetId: string) {
+  return (event: MouseEvent<HTMLAnchorElement>) => {
+    const target = document.getElementById(targetId);
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const rootStyles = getComputedStyle(document.documentElement);
+    const headerHeight =
+      Number.parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 0;
+    const pagePad = Number.parseFloat(rootStyles.getPropertyValue("--page-pad-x")) || 0;
+    const targetTop =
+      target.getBoundingClientRect().top + window.scrollY - headerHeight - pagePad;
+
+    target.focus({ preventScroll: true });
+    window.scrollTo({ top: Math.max(0, targetTop), left: 0 });
+  };
 }
 
 export function useScrollThreshold(threshold: number, resetThreshold = threshold) {

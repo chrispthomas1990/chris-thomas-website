@@ -68,7 +68,7 @@
 .contact-form select:focus,
 .contact-form textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 1px var(--color-ink);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
   border-color: var(--color-ink);
 }
 

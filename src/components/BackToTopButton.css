@@ -26,14 +26,26 @@
 
 .back-to-top:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 1px var(--color-accent);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
   color: var(--color-accent-contrast);
-  background: var(--color-accent);
+  background: var(--color-coral);
+  transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .back-to-top:hover {
     color: var(--color-accent-contrast);
+    background: var(--color-coral);
+  }
+}
+
+:root[data-theme="dark"] .back-to-top:focus-visible {
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
+  background: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .back-to-top:hover {
     background: var(--color-accent);
   }
 }

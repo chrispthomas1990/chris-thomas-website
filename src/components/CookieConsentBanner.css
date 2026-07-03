@@ -64,14 +64,25 @@
 
 .cookie-banner button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 1px var(--color-ink);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
   color: var(--color-accent-contrast);
-  background: var(--color-accent);
+  background: var(--color-coral);
+  transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .cookie-banner button:hover {
     color: var(--color-accent-contrast);
+    background: var(--color-coral);
+  }
+}
+
+:root[data-theme="dark"] .cookie-banner button:focus-visible {
+  background: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme="dark"] .cookie-banner button:hover {
     background: var(--color-accent);
   }
 }

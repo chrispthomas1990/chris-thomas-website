@@ -1,4 +1,4 @@
-import { type MouseEvent, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import CookieConsentBanner from "../components/CookieConsentBanner";
 import Footer from "../components/Footer";
@@ -12,6 +12,7 @@ import {
   useManualScrollRestoration,
   useRouteScrollReset,
   useScrollChrome,
+  useSkipToContent,
   useThemeMode,
 } from "../hooks";
 import { getThemeColor } from "../theme";
@@ -21,31 +22,10 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { themeMode, toggleTheme } = useThemeMode();
   const { isHeaderHidden } = useScrollChrome(isMenuOpen);
+  const skipToContent = useSkipToContent("main-content");
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   const toggleMenu = () => setIsMenuOpen((isOpen) => !isOpen);
-  const skipToContent = (event: MouseEvent<HTMLAnchorElement>) => {
-    const mainContent = document.querySelector<HTMLElement>("#main-content");
-
-    if (!mainContent) {
-      return;
-    }
-
-    event.preventDefault();
-
-    const rootStyles = getComputedStyle(document.documentElement);
-    const headerHeight =
-      Number.parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 0;
-    const pagePad = Number.parseFloat(rootStyles.getPropertyValue("--page-pad-x")) || 0;
-    const targetTop =
-      mainContent.getBoundingClientRect().top +
-      window.scrollY -
-      headerHeight -
-      pagePad;
-
-    mainContent.focus({ preventScroll: true });
-    window.scrollTo({ top: Math.max(0, targetTop), left: 0 });
-  };
   const closeMenuAtDesktop = useCallback((matchesDesktop: boolean) => {
     if (matchesDesktop) {
       setIsMenuOpen(false);

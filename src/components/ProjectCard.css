@@ -37,7 +37,7 @@
 }
 
 .work-tile:focus-visible .work-image {
-  box-shadow: 0 0 0 1px var(--color-ink);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
   border-color: var(--color-ink);
 }
 
