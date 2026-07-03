@@ -17,7 +17,10 @@
   --case-study-subnav-gap: 8px;
 
   position: fixed;
-  top: max(calc(var(--page-pad-x) / 2), env(safe-area-inset-top, 0px));
+  top: calc(
+    var(--site-header-height) +
+    max(calc(var(--page-pad-x) / 2), env(safe-area-inset-top, 0px))
+  );
   right: max(
     var(--page-gutter-right),
     calc((100% - var(--page-max)) / 2 + var(--page-gutter-right))
@@ -37,13 +40,18 @@
   background: var(--color-ink);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-8px);
+  transform: translateY(-10px) scaleX(0.88);
   visibility: hidden;
   transition:
     top 240ms ease,
-    opacity 240ms ease,
-    transform 240ms ease,
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
     visibility 240ms ease;
+  transform-origin: top center;
+}
+
+body.header-hidden .case-study-subnav {
+  top: max(calc(var(--page-pad-x) / 2), env(safe-area-inset-top, 0px));
 }
 
 .case-study-subnav.is-visible {
@@ -53,8 +61,8 @@
   visibility: visible;
   transition:
     top 240ms ease,
-    opacity 240ms ease,
-    transform 240ms ease,
+    opacity 220ms ease,
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
     visibility 240ms ease;
 }
 
@@ -73,7 +81,25 @@
   text-align: center;
   text-decoration: none;
   text-wrap: balance;
-  transition: color 240ms ease;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    color 240ms ease,
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.case-study-subnav.is-visible a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-study-subnav.is-visible a:nth-child(2) {
+  transition-delay: 30ms;
+}
+
+.case-study-subnav.is-visible a:nth-child(3) {
+  transition-delay: 60ms;
 }
 
 .case-study-subnav a + a::before {
@@ -166,7 +192,7 @@
 
 @media (width >= 768px) {
   .case-study-subnav {
-    top: 88px;
+    top: calc(var(--site-header-height) + var(--page-pad-x) / 2);
     height: 32px;
   }
 
@@ -207,6 +233,37 @@
   .case-study-subnav a {
     width: 100%;
     padding: 0;
+  }
+}
+
+@media (width < 768px) {
+  .case-study-subnav {
+    transform: translateY(-6px);
+    transition:
+      top 240ms ease,
+      opacity 200ms ease,
+      transform 240ms ease,
+      visibility 240ms ease;
+  }
+
+  .case-study-subnav.is-visible {
+    transform: translateY(0);
+    transition:
+      top 240ms ease,
+      opacity 200ms ease,
+      transform 240ms ease,
+      visibility 240ms ease;
+  }
+
+  .case-study-subnav a {
+    opacity: 1;
+    transform: none;
+    transition: color 240ms ease;
+  }
+
+  .case-study-subnav.is-visible a:nth-child(2),
+  .case-study-subnav.is-visible a:nth-child(3) {
+    transition-delay: 0ms;
   }
 }
 

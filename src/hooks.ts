@@ -104,12 +104,18 @@ export function useMediaQueryChange(query: string, onChange: (matches: boolean) 
   }, [onChange, query]);
 }
 
-export function useScrollThreshold(threshold: number) {
+export function useScrollThreshold(threshold: number, resetThreshold = threshold) {
   const [hasPassedThreshold, setHasPassedThreshold] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setHasPassedThreshold(window.scrollY >= threshold);
+      setHasPassedThreshold((hasPassed) => {
+        if (hasPassed) {
+          return window.scrollY > resetThreshold;
+        }
+
+        return window.scrollY >= threshold;
+      });
     };
 
     handleScroll();
@@ -118,7 +124,7 @@ export function useScrollThreshold(threshold: number) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [threshold]);
+  }, [resetThreshold, threshold]);
 
   return hasPassedThreshold;
 }

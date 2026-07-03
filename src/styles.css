@@ -7,6 +7,7 @@
   --color-accent: #c7ff38;
   --color-coral: #ff6b4a;
   --mobile-menu-background: var(--color-ink);
+  --site-header-height: 72px;
   --page-max: 1800px;
   --page-pad-x: 16px;
   --page-gutter-left: max(var(--page-pad-x), env(safe-area-inset-left, 0px));

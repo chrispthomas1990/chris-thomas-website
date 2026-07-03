@@ -14,7 +14,7 @@ import "./CaseStudy.css";
 
 export default function CaseStudy() {
   const { slug } = useParams();
-  const isSubnavVisible = useScrollThreshold(128);
+  const isSubnavVisible = useScrollThreshold(128, 80);
   const projectIndex = projects.findIndex((item) => item.slug === slug);
   const project = projectIndex >= 0 ? projects[projectIndex] : undefined;
   const { caseStudy } = projectContent;
