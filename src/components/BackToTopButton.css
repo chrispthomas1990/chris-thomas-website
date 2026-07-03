@@ -26,6 +26,7 @@
 
 .back-to-top:focus-visible {
   outline: none;
+  box-shadow: 0 0 0 1px var(--color-accent);
   color: var(--color-ink);
   background: var(--color-accent);
 }

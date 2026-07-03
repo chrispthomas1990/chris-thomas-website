@@ -78,6 +78,7 @@ function createContactMailto(values: ContactFormValues) {
 export default function Contact() {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState<ContactFormErrors>({});
+  const formErrorCount = Object.keys(formErrors).length;
 
   const updateField = (field: keyof ContactFormValues, value: string) => {
     setFormValues((currentValues) => ({
@@ -237,6 +238,9 @@ export default function Contact() {
           <button className="button-link" type="submit">
             {form.submitLabel}
           </button>
+          <p className="sr-only" aria-live="polite">
+            {formErrorCount > 0 ? "Please check the highlighted fields." : ""}
+          </p>
         </form>
       </section>
     </div>

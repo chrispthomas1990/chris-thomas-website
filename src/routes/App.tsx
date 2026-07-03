@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { type MouseEvent, useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import CookieConsentBanner from "../components/CookieConsentBanner";
 import Footer from "../components/Footer";
@@ -23,6 +23,28 @@ export default function App() {
 
   const closeMenu = useCallback(() => setIsMenuOpen(false), []);
   const toggleMenu = () => setIsMenuOpen((isOpen) => !isOpen);
+  const skipToContent = (event: MouseEvent<HTMLAnchorElement>) => {
+    const mainContent = document.querySelector<HTMLElement>("#main-content");
+
+    if (!mainContent) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const rootStyles = getComputedStyle(document.documentElement);
+    const headerHeight =
+      Number.parseFloat(rootStyles.getPropertyValue("--site-header-height")) || 0;
+    const pagePad = Number.parseFloat(rootStyles.getPropertyValue("--page-pad-x")) || 0;
+    const targetTop =
+      mainContent.getBoundingClientRect().top +
+      window.scrollY -
+      headerHeight -
+      pagePad;
+
+    mainContent.focus({ preventScroll: true });
+    window.scrollTo({ top: Math.max(0, targetTop), left: 0 });
+  };
   const closeMenuAtDesktop = useCallback((matchesDesktop: boolean) => {
     if (matchesDesktop) {
       setIsMenuOpen(false);
@@ -57,13 +79,16 @@ export default function App() {
   return (
     <>
       <div className="site-shell">
+        <a className="skip-link" href="#main-content" onClick={skipToContent}>
+          Skip to content
+        </a>
         <Header
           isHidden={isHeaderHidden}
           isMenuOpen={isMenuOpen}
           onCloseMenu={closeMenu}
           onToggleMenu={toggleMenu}
         />
-        <main>
+        <main id="main-content" tabIndex={-1}>
           <Outlet />
         </main>
       </div>

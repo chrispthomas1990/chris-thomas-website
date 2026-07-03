@@ -64,6 +64,7 @@
 
 .cookie-banner button:focus-visible {
   outline: none;
+  box-shadow: 0 0 0 1px var(--color-ink);
   color: var(--color-ink);
   background: var(--color-accent);
 }

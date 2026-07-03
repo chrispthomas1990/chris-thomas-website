@@ -27,7 +27,6 @@
   justify-content: space-between;
   gap: 24px;
   width: min(var(--page-max), 100%);
-  height: var(--site-header-height);
   min-height: var(--site-header-height);
   margin: 0 auto;
   padding: 0 var(--page-gutter-right) 0 var(--page-gutter-left);
@@ -69,6 +68,15 @@
   letter-spacing: 0;
 }
 
+.brand:focus-visible {
+  outline: none;
+  color: var(--color-accent);
+}
+
+.brand:focus-visible span:last-child {
+  color: var(--color-accent);
+}
+
 .menu-toggle {
   position: relative;
   z-index: 22;
@@ -91,6 +99,7 @@
 
 .menu-toggle:focus-visible {
   outline: none;
+  box-shadow: 0 0 0 1px var(--color-accent);
   color: var(--color-ink);
   background: var(--color-accent);
   border-color: var(--color-accent);
@@ -278,9 +287,16 @@
 
 .top-nav a:focus-visible {
   outline: none;
+  box-shadow: 0 1px 0 var(--color-accent);
   color: var(--color-accent);
   background: transparent;
   border-color: transparent;
+}
+
+.top-nav .icon-link:focus-visible {
+  box-shadow: 0 0 0 1px var(--color-accent);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -304,6 +320,7 @@
     gap: 8px;
     min-height: 0;
     padding: 0;
+    overflow: visible;
     color: var(--color-paper);
     background: transparent;
     font-size: var(--type-small);
@@ -318,6 +335,7 @@
   .social-nav {
     display: flex;
     gap: 8px;
+    overflow: visible;
   }
 
   .social-nav {
@@ -364,8 +382,9 @@
 
   .top-nav a:focus-visible {
     outline: none;
-    color: var(--color-ink);
-    background: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent);
+    color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-muted) 20%, transparent);
     border-color: var(--color-accent);
   }
 

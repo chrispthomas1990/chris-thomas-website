@@ -37,6 +37,7 @@
 
 .footer-legal a:focus-visible {
   outline: none;
+  box-shadow: 0 1px 0 var(--color-accent);
   color: var(--color-accent);
 }
 
