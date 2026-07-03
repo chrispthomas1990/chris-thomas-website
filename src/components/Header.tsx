@@ -120,7 +120,24 @@ export default function Header({
               </Link>
             ))}
           </div>
-          <div className="social-nav" aria-label={navigationContent.socialAriaLabel}>
+          <div className="nav-actions">
+            <div className="social-nav" aria-label={navigationContent.socialAriaLabel}>
+              {socialLinks.map((item) => (
+                <a
+                  className="icon-link"
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={item.label}
+                  onClick={onCloseMenu}
+                  tabIndex={isMobileNavHidden ? -1 : undefined}
+                  key={item.href}
+                >
+                  <FontAwesomeIcon icon={socialIcons[item.label]} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+            <span className="nav-action-divider" aria-hidden="true" />
             <button
               className="theme-toggle icon-link"
               type="button"
@@ -135,20 +152,6 @@ export default function Header({
             >
               <FontAwesomeIcon icon={faCircleHalfStroke} aria-hidden="true" />
             </button>
-            {socialLinks.map((item) => (
-              <a
-                className="icon-link"
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={item.label}
-                onClick={onCloseMenu}
-                tabIndex={isMobileNavHidden ? -1 : undefined}
-                key={item.href}
-              >
-                <FontAwesomeIcon icon={socialIcons[item.label]} aria-hidden="true" />
-              </a>
-            ))}
           </div>
         </nav>
       </div>

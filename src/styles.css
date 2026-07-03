@@ -105,7 +105,7 @@ a {
 
 .skip-link {
   position: fixed;
-  bottom: calc(var(--page-pad-x) / 2);
+  bottom: var(--page-pad-x);
   left: var(--page-gutter-left);
   z-index: 60;
   display: inline-flex;
@@ -367,6 +367,10 @@ p {
 
   .not-found-section .button-link {
     margin-top: 0;
+  }
+
+  .skip-link {
+    bottom: calc(var(--page-pad-x) / 2);
   }
 
 }

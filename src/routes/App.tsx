@@ -14,7 +14,9 @@ import {
   useScrollChrome,
 } from "../hooks";
 
-const defaultThemeColor = "#101010";
+const darkThemeColor = "#101010";
+const lightThemeColor = "#f3f0e8";
+const darkMenuThemeColor = "#c7ff38";
 const themeStorageKey = "preferred-theme";
 
 type ThemeMode = "light" | "dark";
@@ -94,7 +96,11 @@ export default function App() {
 
   useEffect(() => {
     const themeColor =
-      themeMode === "dark" || isMenuOpen ? defaultThemeColor : "#f3f0e8";
+      themeMode === "dark" && isMenuOpen
+        ? darkMenuThemeColor
+        : themeMode === "dark" || isMenuOpen
+          ? darkThemeColor
+          : lightThemeColor;
 
     document
       .querySelector('meta[name="theme-color"]')

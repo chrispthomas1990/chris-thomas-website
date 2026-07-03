@@ -191,8 +191,7 @@
 }
 
 .top-nav a,
-.theme-toggle,
-.social-nav {
+.nav-actions {
   opacity: 0;
   transform: translateY(100px);
   transition:
@@ -217,10 +216,22 @@
   text-wrap: balance;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .social-nav {
   display: flex;
   gap: 16px;
-  padding-top: 16px;
+}
+
+.nav-action-divider {
+  width: 1px;
+  height: 54px;
+  background: color-mix(in srgb, currentcolor 20%, transparent);
 }
 
 .top-nav .icon-link {
@@ -270,8 +281,7 @@
 }
 
 .top-nav.is-open a,
-.top-nav.is-open .theme-toggle,
-.top-nav.is-open .social-nav {
+.top-nav.is-open .nav-actions {
   opacity: 1;
   transform: translateY(0);
 }
@@ -279,7 +289,7 @@
 @media (width < 768px) and (orientation: landscape) {
   .top-nav {
     align-content: start;
-    gap: 8px;
+    gap: 16px;
     min-height: 100dvh;
     font-size: clamp(30px, 8vw, 46px);
     padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
@@ -287,12 +297,18 @@
   }
 
   .primary-nav-links {
-    gap: 8px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
   }
 
+  .nav-actions,
   .social-nav {
-    gap: 8px;
-    padding-top: 4px;
+    gap: 16px;
+  }
+
+  .nav-action-divider {
+    height: 42px;
   }
 
   .top-nav .icon-link {
@@ -345,7 +361,13 @@
   border-color: color-mix(in srgb, var(--color-accent-contrast) 24%, transparent);
 }
 
-:root[data-theme="dark"] .top-nav.is-open a:focus-visible,
+:root[data-theme="dark"] .top-nav.is-open a:focus-visible {
+  box-shadow: 0 1px 0 var(--color-accent-contrast);
+  color: var(--color-accent-contrast);
+  background: transparent;
+  border-color: transparent;
+}
+
 :root[data-theme="dark"] .top-nav.is-open .icon-link:focus-visible {
   box-shadow: 0 0 0 1px var(--color-accent-contrast);
   color: var(--color-accent-contrast);
@@ -401,22 +423,21 @@
   }
 
   .primary-nav-links,
+  .nav-actions,
   .social-nav {
     display: flex;
     gap: 8px;
     overflow: visible;
   }
 
-  .social-nav {
+  .nav-actions {
     opacity: 1;
     transform: none;
     transition: none;
-    padding-top: 0;
   }
 
-  .theme-toggle {
-    opacity: 1;
-    transform: none;
+  .nav-action-divider {
+    height: 32px;
   }
 
   .top-nav a {
