@@ -37,14 +37,14 @@
 
 .footer-legal a:focus-visible {
   outline: none;
-  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-coral);
-  color: var(--color-coral);
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-accent);
+  color: var(--color-accent);
   transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .footer-legal a:hover {
-    color: var(--color-coral);
+    color: var(--color-accent);
   }
 }
 

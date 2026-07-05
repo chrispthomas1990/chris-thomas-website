@@ -118,13 +118,13 @@ body.header-hidden .case-study-subnav {
 
 .case-study-subnav a:focus-visible {
   outline: none;
-  color: var(--color-coral);
+  color: var(--color-accent);
   transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .case-study-subnav a:hover {
-    color: var(--color-coral);
+    color: var(--color-accent);
   }
 }
 

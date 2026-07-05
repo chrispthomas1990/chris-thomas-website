@@ -19,7 +19,14 @@ export function useManualScrollRestoration() {
 export function useRouteScrollReset(hash: string, pathname: string) {
   useLayoutEffect(() => {
     if (hash) {
-      document.querySelector(hash)?.scrollIntoView({ block: "start" });
+      try {
+        document
+          .getElementById(decodeURIComponent(hash.slice(1)))
+          ?.scrollIntoView({ block: "start" });
+      } catch {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+      }
+
       return;
     }
 
@@ -107,6 +114,26 @@ export function useMediaQueryChange(query: string, onChange: (matches: boolean) 
       mediaQuery.removeEventListener("change", handleChange);
     };
   }, [onChange, query]);
+}
+
+export function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const handleChange = (event: MediaQueryListEvent) => {
+      setMatches(event.matches);
+    };
+
+    setMatches(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, [query]);
+
+  return matches;
 }
 
 export function useThemeMode() {

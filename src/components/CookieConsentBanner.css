@@ -66,14 +66,14 @@
   outline: none;
   box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
   color: var(--color-accent-contrast);
-  background: var(--color-coral);
+  background: var(--color-accent);
   transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .cookie-banner button:hover {
     color: var(--color-accent-contrast);
-    background: var(--color-coral);
+    background: var(--color-accent);
   }
 }
 

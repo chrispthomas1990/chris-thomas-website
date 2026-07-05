@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,7 @@ import {
   primaryNavigation,
   socialLinks,
 } from "../content/site";
+import { useMediaQuery } from "../hooks";
 import type { ThemeMode } from "../theme";
 import "./Header.css";
 
@@ -97,23 +98,7 @@ export default function Header({
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const firstNavLinkRef = useRef<HTMLAnchorElement>(null);
   const wasMenuOpenRef = useRef(isMenuOpen);
-  const [isDesktopNav, setIsDesktopNav] = useState(() =>
-    window.matchMedia("(width >= 768px)").matches,
-  );
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(width >= 768px)");
-    const handleChange = (event: MediaQueryListEvent) => {
-      setIsDesktopNav(event.matches);
-    };
-
-    setIsDesktopNav(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
-  }, []);
+  const isDesktopNav = useMediaQuery("(width >= 768px)");
 
   useEffect(() => {
     if (isMenuOpen && !isDesktopNav) {

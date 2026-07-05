@@ -69,12 +69,12 @@
 
 .brand:focus-visible {
   outline: none;
-  color: var(--color-coral);
+  color: var(--color-accent);
   transition: none;
 }
 
 .brand:focus-visible span:last-child {
-  color: var(--color-coral);
+  color: var(--color-accent);
 }
 
 .menu-toggle {
@@ -99,18 +99,18 @@
 
 .menu-toggle:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
   color: var(--color-accent-contrast);
-  background: var(--color-coral);
+  background: var(--color-accent);
   transition: none;
-  border-color: var(--color-coral);
+  border-color: var(--color-accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .menu-toggle:hover {
     color: var(--color-accent-contrast);
-    background: var(--color-coral);
-    border-color: var(--color-coral);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
   }
 }
 
@@ -160,12 +160,19 @@
 }
 
 .menu-toggle.is-open {
-  color: var(--color-chrome-bg);
-  background: var(--color-chrome-text);
-  border-color: var(--color-chrome-text);
+  color: var(--color-chrome-text);
+  background: transparent;
+  border-color: color-mix(in srgb, var(--color-chrome-text) 24%, transparent);
+}
+
+.menu-toggle.is-open:focus-visible {
+  box-shadow: 0 0 0 calc(var(--focus-keyline-width) * 1) var(--color-accent);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .menu-toggle.is-open span:nth-child(1) {
+  height: 1px;
   transform: rotate(45deg);
 }
 
@@ -174,6 +181,7 @@
 }
 
 .menu-toggle.is-open span:nth-child(3) {
+  height: 1px;
   transform: rotate(-45deg);
 }
 
@@ -345,8 +353,8 @@
 /* Mobile menu states */
 .top-nav a:focus-visible {
   outline: none;
-  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-coral);
-  color: var(--color-coral);
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-accent);
+  color: var(--color-accent);
   background: transparent;
   transition: none;
   border-color: transparent;
@@ -354,69 +362,80 @@
 
 .top-nav .icon-link:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
-  color: var(--color-coral);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
+  color: var(--color-accent);
   transition: none;
-  border-color: var(--color-coral);
+  border-color: var(--color-accent);
 }
 
 :root[data-theme="dark"] .site-header.is-menu-open,
 :root[data-theme="dark"] .top-nav.is-open {
-  color: var(--color-accent-contrast);
-  background: var(--color-accent);
+  color: var(--color-ink);
+  background: var(--color-accent-contrast);
 }
 
 :root[data-theme="dark"] .menu-toggle.is-open {
-  color: var(--color-accent-contrast);
+  color: var(--color-ink);
   background: transparent;
-  border-color: color-mix(in srgb, var(--color-accent-contrast) 24%, transparent);
+  border-color: color-mix(in srgb, var(--color-ink) 24%, transparent);
 }
 
 :root[data-theme="dark"] .site-header.is-menu-open .brand,
 :root[data-theme="dark"] .site-header.is-menu-open .brand span:last-child {
-  color: var(--color-accent-contrast);
+  color: var(--color-ink);
+}
+
+:root[data-theme="dark"] .site-header.is-menu-open .brand:focus-visible,
+:root[data-theme="dark"] .site-header.is-menu-open .brand:focus-visible span:last-child {
+  color: var(--color-accent);
+}
+
+:root[data-theme="dark"] .menu-toggle.is-open:focus-visible {
+  box-shadow: 0 0 0 calc(var(--focus-keyline-width) * 1) var(--color-accent);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 :root[data-theme="dark"] .top-nav.is-open .icon-link {
-  color: var(--color-accent-contrast);
-  background: color-mix(in srgb, var(--color-accent-contrast) 8%, transparent);
-  border-color: color-mix(in srgb, var(--color-accent-contrast) 24%, transparent);
+  color: var(--color-ink);
+  background: color-mix(in srgb, var(--color-ink) 8%, transparent);
+  border-color: color-mix(in srgb, var(--color-ink) 24%, transparent);
 }
 
 :root[data-theme="dark"] .top-nav.is-open a:focus-visible {
-  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-accent-contrast);
-  color: var(--color-accent-contrast);
+  box-shadow: 0 var(--focus-keyline-width) 0 var(--color-accent);
+  color: var(--color-accent);
   background: transparent;
   border-color: transparent;
 }
 
 :root[data-theme="dark"] .top-nav.is-open .icon-link:focus-visible {
-  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent-contrast);
-  color: var(--color-accent-contrast);
-  border-color: var(--color-accent-contrast);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .top-nav a:hover {
-    color: var(--color-coral);
+    color: var(--color-accent);
     background: transparent;
     border-color: transparent;
   }
 
   .top-nav .icon-link:hover {
-    color: var(--color-coral);
+    color: var(--color-accent);
     background: color-mix(in srgb, var(--color-muted) 20%, transparent);
-    border-color: var(--color-coral);
+    border-color: var(--color-accent);
   }
 
   :root[data-theme="dark"] .top-nav.is-open a:hover {
-    color: var(--color-accent-contrast);
+    color: var(--color-accent);
   }
 
   :root[data-theme="dark"] .top-nav.is-open .icon-link:hover {
-    color: var(--color-accent-contrast);
-    background: color-mix(in srgb, var(--color-accent-contrast) 12%, transparent);
-    border-color: var(--color-accent-contrast);
+    color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    border-color: var(--color-accent);
   }
 }
 
@@ -528,10 +547,10 @@
 
   .top-nav a:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
-    color: var(--color-coral);
+    box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
+    color: var(--color-accent);
     background: color-mix(in srgb, var(--color-muted) 20%, transparent);
-    border-color: var(--color-coral);
+    border-color: var(--color-accent);
   }
 
   :root[data-theme="dark"] .top-nav a:focus-visible {
@@ -543,14 +562,14 @@
   @media (hover: hover) and (pointer: fine) {
     .top-nav a:hover {
       color: var(--color-accent-contrast);
-      background: var(--color-coral);
-      border-color: var(--color-coral);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
     }
 
     .top-nav .icon-link:hover {
       color: var(--color-accent-contrast);
-      background: var(--color-coral);
-      border-color: var(--color-coral);
+      background: var(--color-accent);
+      border-color: var(--color-accent);
     }
 
     :root[data-theme="dark"] .top-nav a:hover,

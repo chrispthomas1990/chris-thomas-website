@@ -14,6 +14,7 @@
   cursor: pointer;
   transition:
     background-color 240ms ease,
+    border-color 240ms ease,
     color 240ms ease,
     transform 240ms ease;
 }
@@ -26,16 +27,24 @@
 
 .back-to-top:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-coral);
+  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-accent);
   color: var(--color-accent-contrast);
-  background: var(--color-coral);
+  background: var(--color-accent);
   transition: none;
+}
+
+:root:not([data-theme="dark"]) .back-to-top:focus-visible {
+  border-color: transparent;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .back-to-top:hover {
     color: var(--color-accent-contrast);
-    background: var(--color-coral);
+    background: var(--color-accent);
+  }
+
+  :root:not([data-theme="dark"]) .back-to-top:hover {
+    border-color: transparent;
   }
 }
 
