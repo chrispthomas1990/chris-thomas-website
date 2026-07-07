@@ -5,8 +5,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useParams } from "react-router-dom";
-import { caseStudyMediaPanelCount } from "../content/site";
-import { projectContent, projects } from "../content/projects";
+import {
+  caseStudies,
+  caseStudyMediaPanelCount,
+  projectContent,
+} from "../content/caseStudies";
 import { sharedContent } from "../content/shared";
 import { useScrollThreshold } from "../hooks";
 import NotFound from "./NotFound";
@@ -15,8 +18,8 @@ import "./CaseStudy.css";
 export default function CaseStudy() {
   const { slug } = useParams();
   const isSubnavVisible = useScrollThreshold(128, 80);
-  const projectIndex = projects.findIndex((item) => item.slug === slug);
-  const project = projectIndex >= 0 ? projects[projectIndex] : undefined;
+  const projectIndex = caseStudies.findIndex((item) => item.slug === slug);
+  const project = projectIndex >= 0 ? caseStudies[projectIndex] : undefined;
   const { caseStudy } = projectContent;
   const { cta } = sharedContent;
 
@@ -25,8 +28,8 @@ export default function CaseStudy() {
   }
 
   const previousProject =
-    projects[(projectIndex - 1 + projects.length) % projects.length];
-  const nextProject = projects[(projectIndex + 1) % projects.length];
+    caseStudies[(projectIndex - 1 + caseStudies.length) % caseStudies.length];
+  const nextProject = caseStudies[(projectIndex + 1) % caseStudies.length];
   const projectTitleForLabels = project.title.replace(/\.$/, "");
   const mediaPanelIndexes = Array.from(
     { length: caseStudyMediaPanelCount },

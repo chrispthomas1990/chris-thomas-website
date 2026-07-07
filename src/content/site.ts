@@ -50,5 +50,3 @@ export const socialLinks = [
     href: "https://www.linkedin.com/in/christhomas1990/",
   },
 ] as const;
-
-export const caseStudyMediaPanelCount = 8;

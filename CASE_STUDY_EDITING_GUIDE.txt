@@ -1,0 +1,138 @@
+Case Study Editing Guide
+========================
+
+Case study content now lives in one place:
+
+src/content/caseStudies.ts
+
+Use that file to edit:
+
+- Case study slugs
+- Case study titles
+- Case study summary copy
+- Case study context copy
+- Case study role labels
+- Homepage thumbnail media
+- Homepage case study order
+
+
+Editing Case Study Page Content
+-------------------------------
+
+Each case study is currently generated as a placeholder object:
+
+{
+  slug: "case-study-1",
+  title: "Case Study 1.",
+  summary: "A placeholder case study page ready for project imagery, notes, and outcomes.",
+  context: "Use this space for project background, design process, constraints, and the story behind the work.",
+  role: "Brand design.",
+  thumbnail: homepageThumbnailOrder[index],
+}
+
+The slug controls the URL.
+
+Example:
+
+slug: "le-creuset-classic-kettle"
+
+becomes:
+
+/work/le-creuset-classic-kettle
+
+
+Editing Homepage Thumbnails
+---------------------------
+
+Homepage thumbnail media is defined in:
+
+thumbnailMedia
+
+The current homepage order is defined in:
+
+homepageThumbnailOrder
+
+The current order is:
+
+1. Kettle thumbnail
+2. Soft drink thumbnail
+3. Soft drink thumbnail
+4. Kettle thumbnail
+5. Kettle thumbnail
+6. Soft drink thumbnail
+
+This matches the current wide/small homepage layout.
+
+
+Adding New Images Or Videos
+---------------------------
+
+Add project assets in folders like:
+
+src/assets/case-studies/my-project/
+
+Then import them in:
+
+src/content/caseStudies.ts
+
+Example:
+
+import myThumbnail from "../assets/case-studies/my-project/my-thumbnail.mp4";
+
+Then add the media to thumbnailMedia:
+
+myProject: {
+  src: myThumbnail,
+  alt: "Describe the thumbnail.",
+  kind: "video",
+}
+
+For an image, use:
+
+myProject: {
+  src: myThumbnail,
+  alt: "Describe the thumbnail.",
+}
+
+
+Case Study Page Images
+----------------------
+
+The case study pages currently use placeholder image panels. When you are ready
+to manually add real page images, edit:
+
+src/routes/CaseStudy.tsx
+
+Replace a placeholder like this:
+
+<span className="placeholder-image" aria-hidden="true" />
+
+with an image:
+
+<img className="case-study-media" src={myImage} alt="Describe the image." />
+
+Then add CSS in:
+
+src/routes/CaseStudy.css
+
+Example:
+
+.case-study-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+Useful Commands
+---------------
+
+Run checks after editing:
+
+npm run lint
+npm run build
+
+Preview locally:
+
+npm run dev
