@@ -14,45 +14,29 @@
   gap: 32px 16px;
 }
 
-.gallery-grid .work-tile:nth-child(1) .work-image,
-.gallery-grid .work-tile:nth-child(4) .work-image,
-.gallery-grid .work-tile:nth-child(5) .work-image {
+.gallery-grid .work-tile-wide .work-image {
   height: auto;
   min-height: 0;
   aspect-ratio: 16 / 9;
 }
 
-.gallery-grid .work-tile:nth-child(1) .work-image img,
-.gallery-grid .work-tile:nth-child(1) .work-image video,
-.gallery-grid .work-tile:nth-child(4) .work-image img,
-.gallery-grid .work-tile:nth-child(4) .work-image video,
-.gallery-grid .work-tile:nth-child(5) .work-image img,
-.gallery-grid .work-tile:nth-child(5) .work-image video {
-  min-height: 0;
-  object-fit: contain;
-}
-
-.gallery-grid .work-tile:nth-child(2) .work-image {
+.gallery-grid [data-height-target="row-1"] {
   height: var(--work-row-1-image-height);
   min-height: 0;
 }
 
-.gallery-grid .work-tile:nth-child(3) .work-image {
+.gallery-grid [data-height-target="row-2"] {
   height: var(--work-row-2-image-height);
   min-height: 0;
 }
 
-.gallery-grid .work-tile:nth-child(6) .work-image {
+.gallery-grid [data-height-target="row-3"] {
   height: var(--work-row-3-image-height);
   min-height: 0;
 }
 
-.gallery-grid .work-tile:nth-child(2) .work-image img,
-.gallery-grid .work-tile:nth-child(2) .work-image video,
-.gallery-grid .work-tile:nth-child(3) .work-image img,
-.gallery-grid .work-tile:nth-child(3) .work-image video,
-.gallery-grid .work-tile:nth-child(6) .work-image img,
-.gallery-grid .work-tile:nth-child(6) .work-image video {
+.gallery-grid .work-image img,
+.gallery-grid .work-image video {
   min-height: 0;
   object-fit: cover;
 }
@@ -67,20 +51,12 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .gallery-grid .work-tile:nth-child(odd) {
+  .gallery-grid .work-tile-wide {
     grid-column: span 2;
   }
 
-  .gallery-grid .work-tile:nth-child(even) {
+  .gallery-grid .work-tile-narrow {
     grid-column: span 1;
-  }
-
-  .gallery-grid .work-tile:nth-child(3) {
-    grid-column: span 1;
-  }
-
-  .gallery-grid .work-tile:nth-child(4) {
-    grid-column: span 2;
   }
 }
 

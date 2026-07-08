@@ -5,7 +5,7 @@
   left: 0;
   z-index: 30;
   height: var(--site-header-height);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
+  border-bottom: 1px solid var(--color-subtle-line);
   color: var(--color-chrome-text);
   background: var(--color-chrome-bg);
   transform: translateY(0);
@@ -85,7 +85,7 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
+  border: 1px solid var(--color-subtle-line);
   border-radius: 999px;
   color: var(--color-chrome-text);
   background: color-mix(in srgb, var(--color-muted) 20%, transparent);
@@ -273,7 +273,7 @@
   height: 54px;
   min-height: 0;
   padding: 0;
-  border: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
+  border: 1px solid var(--color-subtle-line);
   border-radius: 999px;
   color: inherit;
   background: color-mix(in srgb, var(--color-muted) 20%, transparent);
@@ -508,7 +508,7 @@
     width: auto;
     min-height: 32px;
     padding: 0 16px;
-    border: 1px solid color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
+    border: 1px solid var(--color-subtle-line);
     border-radius: 999px;
     background: color-mix(in srgb, var(--color-muted) 20%, transparent);
     line-height: normal;
@@ -536,7 +536,7 @@
       background-color 240ms ease,
       border-color 240ms ease,
       color 240ms ease;
-    border-color: color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
+    border-color: var(--color-subtle-line);
   }
 
   .icon-link svg,

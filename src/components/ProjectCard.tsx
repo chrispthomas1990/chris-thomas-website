@@ -3,15 +3,28 @@ import type { Project } from "../content/caseStudies";
 import "./ProjectCard.css";
 
 type ProjectCardProps = {
+  className?: string;
+  mediaHeightSource?: string;
+  mediaHeightTarget?: string;
   project: Project;
 };
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({
+  className,
+  mediaHeightSource,
+  mediaHeightTarget,
+  project,
+}: ProjectCardProps) {
   const { thumbnail } = project;
+  const tileClassName = ["work-tile", className].filter(Boolean).join(" ");
 
   return (
-    <Link className="work-tile" to={`/work/${project.slug}`}>
-      <span className="work-image">
+    <Link className={tileClassName} to={`/work/${project.slug}`}>
+      <span
+        className="work-image"
+        data-height-source={mediaHeightSource}
+        data-height-target={mediaHeightTarget}
+      >
         {thumbnail.kind === "video" ? (
           <video
             className={thumbnail.className}

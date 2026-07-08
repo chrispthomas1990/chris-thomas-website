@@ -23,20 +23,30 @@
   height: var(--placeholder-media-height);
   min-height: var(--placeholder-media-height);
   overflow: hidden;
-  border: 1px solid var(--color-line);
+  border: 0;
   border-radius: 16px;
   background: var(--color-panel);
-  transition:
-    border-color 240ms ease,
-    min-height 240ms ease;
+  transition: min-height 240ms ease;
+}
+
+.work-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--color-subtle-line);
+  pointer-events: none;
+  transition: box-shadow 240ms ease;
 }
 
 .work-image img,
 .work-image video {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
-  min-height: var(--placeholder-media-height);
+  min-height: 0;
   object-fit: cover;
   object-position: center;
   transition: transform 240ms ease;
@@ -44,7 +54,10 @@
 
 .work-tile:focus-visible .work-image {
   box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
-  border-color: var(--color-ink);
+}
+
+.work-tile:focus-visible .work-image::after {
+  box-shadow: inset 0 0 0 1px var(--color-subtle-line);
 }
 
 .work-tile:focus-visible .work-image img,
@@ -58,7 +71,11 @@
   }
 
   .work-tile:hover .work-image {
-    border-color: var(--color-ink);
+    box-shadow: none;
+  }
+
+  .work-tile:hover .work-image::after {
+    box-shadow: inset 0 0 0 1px var(--color-subtle-line);
   }
 
   .work-tile:hover .work-image img,
@@ -82,6 +99,10 @@
 }
 
 @media (width <= 768px) {
+  .work-tile {
+    gap: 8px;
+  }
+
   .work-image {
     height: auto;
     min-height: 0;

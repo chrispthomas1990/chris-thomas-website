@@ -48,29 +48,68 @@ export const projectContent = {
 
 export const caseStudyMediaPanelCount = 8;
 
-const homepageThumbnailOrder = [
-  thumbnailMedia.kettle,
-  thumbnailMedia.softDrink,
-  thumbnailMedia.softDrink,
-  thumbnailMedia.kettle,
-  thumbnailMedia.kettle,
-  thumbnailMedia.softDrink,
-] as const;
-
-export const caseStudies = Array.from({ length: 6 }, (_, index) => {
-  const caseStudyNumber = index + 1;
-
-  return {
-    slug: `case-study-${caseStudyNumber}`,
-    title: `Case Study ${caseStudyNumber}.`,
+export const caseStudies = [
+  {
+    slug: "case-study-1",
+    title: "Case Study 1.",
     summary:
       "A placeholder case study page ready for project imagery, notes, and outcomes.",
     context:
       "Use this space for project background, design process, constraints, and the story behind the work.",
     role: "Brand design.",
-    thumbnail: homepageThumbnailOrder[index],
-  };
-}) satisfies CaseStudy[];
+    thumbnail: thumbnailMedia.kettle,
+  },
+  {
+    slug: "case-study-2",
+    title: "Case Study 2.",
+    summary:
+      "A placeholder case study page ready for project imagery, notes, and outcomes.",
+    context:
+      "Use this space for project background, design process, constraints, and the story behind the work.",
+    role: "Brand design.",
+    thumbnail: thumbnailMedia.softDrink,
+  },
+  {
+    slug: "case-study-3",
+    title: "Case Study 3.",
+    summary:
+      "A placeholder case study page ready for project imagery, notes, and outcomes.",
+    context:
+      "Use this space for project background, design process, constraints, and the story behind the work.",
+    role: "Brand design.",
+    thumbnail: thumbnailMedia.softDrink,
+  },
+  {
+    slug: "case-study-4",
+    title: "Case Study 4.",
+    summary:
+      "A placeholder case study page ready for project imagery, notes, and outcomes.",
+    context:
+      "Use this space for project background, design process, constraints, and the story behind the work.",
+    role: "Brand design.",
+    thumbnail: thumbnailMedia.kettle,
+  },
+  {
+    slug: "case-study-5",
+    title: "Case Study 5.",
+    summary:
+      "A placeholder case study page ready for project imagery, notes, and outcomes.",
+    context:
+      "Use this space for project background, design process, constraints, and the story behind the work.",
+    role: "Brand design.",
+    thumbnail: thumbnailMedia.kettle,
+  },
+  {
+    slug: "case-study-6",
+    title: "Case Study 6.",
+    summary:
+      "A placeholder case study page ready for project imagery, notes, and outcomes.",
+    context:
+      "Use this space for project background, design process, constraints, and the story behind the work.",
+    role: "Brand design.",
+    thumbnail: thumbnailMedia.softDrink,
+  },
+] satisfies CaseStudy[];
 
 export const homepageCaseStudies = caseStudies;
 export type Project = CaseStudy;

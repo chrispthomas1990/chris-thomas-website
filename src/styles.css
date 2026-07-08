@@ -3,6 +3,7 @@
   --color-paper: #fbfaf4;
   --color-muted: #756f63;
   --color-line: #d5cfc3;
+  --color-subtle-line: color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
   --color-panel: #eae7e1;
   --color-surface-raised: var(--color-paper);
   --color-media-surface: #f4f1e1;

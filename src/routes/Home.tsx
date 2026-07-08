@@ -6,10 +6,19 @@ import { pageContent } from "../content/pages";
 import { sharedContent } from "../content/shared";
 import "./Home.css";
 
-const syncedThumbnailPairs = [
-  { source: 1, property: "--work-row-1-image-height" },
-  { source: 4, property: "--work-row-2-image-height" },
-  { source: 5, property: "--work-row-3-image-height" },
+type HomepageTileLayout = {
+  className: string;
+  mediaHeightSource?: string;
+  mediaHeightTarget?: string;
+};
+
+const homepageTileLayouts: HomepageTileLayout[] = [
+  { className: "work-tile-wide", mediaHeightSource: "row-1" },
+  { className: "work-tile-narrow", mediaHeightTarget: "row-1" },
+  { className: "work-tile-narrow", mediaHeightTarget: "row-2" },
+  { className: "work-tile-wide", mediaHeightSource: "row-2" },
+  { className: "work-tile-wide", mediaHeightSource: "row-3" },
+  { className: "work-tile-narrow", mediaHeightTarget: "row-3" },
 ] as const;
 
 export default function Home() {
@@ -24,12 +33,23 @@ export default function Home() {
       return undefined;
     }
 
-    const sourceImages = syncedThumbnailPairs.flatMap((pair) => {
+    const sourceImages = homepageTileLayouts.flatMap((layout) => {
+      if (!layout.mediaHeightSource) {
+        return [];
+      }
+
       const image = gallery.querySelector<HTMLElement>(
-        `.work-tile:nth-child(${pair.source}) .work-image`,
+        `[data-height-source="${layout.mediaHeightSource}"]`,
       );
 
-      return image ? [{ image, property: pair.property }] : [];
+      return image
+        ? [
+            {
+              image,
+              property: `--work-${layout.mediaHeightSource}-image-height`,
+            },
+          ]
+        : [];
     });
 
     const syncFeaturedImageHeights = () => {
@@ -69,8 +89,14 @@ export default function Home() {
         aria-label={home.workAriaLabel}
         ref={galleryRef}
       >
-        {homepageCaseStudies.map((project) => (
-          <ProjectCard project={project} key={project.slug} />
+        {homepageCaseStudies.map((project, index) => (
+          <ProjectCard
+            className={homepageTileLayouts[index].className}
+            mediaHeightSource={homepageTileLayouts[index].mediaHeightSource}
+            mediaHeightTarget={homepageTileLayouts[index].mediaHeightTarget}
+            project={project}
+            key={project.slug}
+          />
         ))}
       </section>
 

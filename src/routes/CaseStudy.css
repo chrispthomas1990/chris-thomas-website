@@ -113,7 +113,7 @@ body.header-hidden .case-study-subnav {
   bottom: 0;
   left: 0;
   width: 1px;
-  background: color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
+  background: var(--color-subtle-line);
 }
 
 .case-study-subnav a:focus-visible {
