@@ -198,6 +198,38 @@ export function useScrollThreshold(threshold: number, resetThreshold = threshold
   return hasPassedThreshold;
 }
 
+export function useIsScrollingUp() {
+  const [isScrollingUp, setIsScrollingUp] = useState(false);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDelta = currentScrollY - lastScrollY;
+
+      if (currentScrollY < 24) {
+        setIsScrollingUp(false);
+      } else if (scrollDelta > 8) {
+        setIsScrollingUp(false);
+      } else if (scrollDelta < -8) {
+        setIsScrollingUp(true);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return isScrollingUp;
+}
+
 export function useScrollChrome(isHeaderPinned: boolean) {
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
 

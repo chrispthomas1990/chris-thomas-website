@@ -6,18 +6,49 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  caseStudies,
-  caseStudyMediaPanelCount,
-  projectContent,
-} from "../content/caseStudies";
+import { caseStudies, projectContent } from "../content/caseStudies";
+import type { CaseStudyMedia } from "../content/caseStudies";
 import { sharedContent } from "../content/shared";
-import { useScrollThreshold } from "../hooks";
+import { useIsScrollingUp, useScrollThreshold } from "../hooks";
 import NotFound from "./NotFound";
 import "./CaseStudy.css";
 
+function getMediaPanelStyle(media: CaseStudyMedia): CSSProperties {
+  return {
+    "--case-media-aspect-ratio": media.aspectRatio ?? "16 / 9",
+  } as CSSProperties;
+}
+
+function renderCaseStudyMedia(
+  media: CaseStudyMedia,
+  loading: HTMLImageElement["loading"] = "lazy",
+) {
+  return media.kind === "video" ? (
+    <video
+      className={media.className}
+      aria-label={media.alt}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="metadata"
+    >
+      <source src={media.src} type="video/mp4" />
+    </video>
+  ) : (
+    <img
+      className={media.className}
+      src={media.src}
+      alt={media.alt}
+      loading={loading}
+      decoding="async"
+    />
+  );
+}
+
 export default function CaseStudy() {
   const { slug } = useParams();
+  const isScrollingUp = useIsScrollingUp();
   const isSubnavVisible = useScrollThreshold(128, 80);
   const projectIndex = caseStudies.findIndex((item) => item.slug === slug);
   const project = projectIndex >= 0 ? caseStudies[projectIndex] : undefined;
@@ -32,21 +63,14 @@ export default function CaseStudy() {
     caseStudies[(projectIndex - 1 + caseStudies.length) % caseStudies.length];
   const nextProject = caseStudies[(projectIndex + 1) % caseStudies.length];
   const projectTitleForLabels = project.title.replace(/\.$/, "");
-  const mediaPanelIndexes = Array.from(
-    { length: caseStudyMediaPanelCount },
-    (_, index) => index + 1,
-  );
-  const firstMedia = project.image1;
-  const firstMediaPanelStyle = firstMedia?.aspectRatio
-    ? ({
-        "--case-media-aspect-ratio": firstMedia.aspectRatio,
-      } as CSSProperties)
-    : undefined;
+  const [firstMedia, ...remainingMedia] = project.media;
 
   return (
     <article className="case-study">
       <nav
-        className={`case-study-subnav${isSubnavVisible ? " is-visible" : ""}`}
+        className={`case-study-subnav${
+          isSubnavVisible && !isScrollingUp ? " is-visible" : ""
+        }`}
         aria-label={caseStudy.navAriaLabel}
       >
         <Link
@@ -55,7 +79,11 @@ export default function CaseStudy() {
         >
           <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" />
         </Link>
-        <Link className="case-study-subnav-home" to="/" aria-label={caseStudy.homeAriaLabel}>
+        <Link
+          className="case-study-subnav-home"
+          to="/"
+          aria-label={caseStudy.homeAriaLabel}
+        >
           <FontAwesomeIcon icon={faHouse} aria-hidden="true" />
         </Link>
         <Link to={`/work/${nextProject.slug}`} aria-label={caseStudy.nextAriaLabel}>
@@ -78,51 +106,36 @@ export default function CaseStudy() {
       >
         <div
           className="case-panel feature-panel case-media-panel"
-          style={firstMediaPanelStyle}
+          style={firstMedia ? getMediaPanelStyle(firstMedia) : undefined}
         >
           {firstMedia ? (
-            firstMedia.kind === "video" ? (
-              <video
-                className={firstMedia.className}
-                aria-label={firstMedia.alt}
-                autoPlay
-                loop
-                muted
-                playsInline
-              >
-                <source src={firstMedia.src} type="video/mp4" />
-              </video>
-            ) : (
-              <img
-                className={firstMedia.className}
-                src={firstMedia.src}
-                alt={firstMedia.alt}
-              />
-            )
+            renderCaseStudyMedia(firstMedia, "eager")
           ) : (
             <span className="placeholder-image" aria-hidden="true" />
           )}
         </div>
         <div className="case-panel text-panel">
-          <h2>{caseStudy.overviewHeading}</h2>
+          <h2>{project.contextHeading ?? caseStudy.overviewHeading}</h2>
           <p>{project.context}</p>
         </div>
         <div className="case-panel text-panel">
           <h2>{project.role}</h2>
-          <p>{caseStudy.roleBody}</p>
+          <p>{project.roleBody ?? caseStudy.roleBody}</p>
         </div>
-        <div className="case-panel case-media-panel">
-          <span className="placeholder-image" aria-hidden="true" />
-        </div>
-        {mediaPanelIndexes.map((index) => (
+        {remainingMedia.map((media) => (
           <div
-            className="case-panel case-media-panel media-panel"
-            key={`media-panel-${index}`}
-          />
+            className={`case-panel case-media-panel media-panel${
+              media.layout === "compact" ? " media-panel-compact" : ""
+            }`}
+            key={media.src}
+            style={getMediaPanelStyle(media)}
+          >
+            {renderCaseStudyMedia(media)}
+          </div>
         ))}
         <div className="case-panel text-panel wide-panel">
-          <h2>{caseStudy.resultHeading}</h2>
-          <p>{caseStudy.resultBody}</p>
+          <h2>{project.resultHeading ?? caseStudy.resultHeading}</h2>
+          <p>{project.resultBody ?? caseStudy.resultBody}</p>
         </div>
         <div className="cta-section">
           <h2>{cta.heading}</h2>

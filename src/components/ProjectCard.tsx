@@ -33,6 +33,7 @@ export default function ProjectCard({
             loop
             muted
             playsInline
+            preload="metadata"
           >
             <source src={thumbnail.src} type="video/mp4" />
           </video>
@@ -41,6 +42,8 @@ export default function ProjectCard({
             className={thumbnail.className}
             src={thumbnail.src}
             alt={thumbnail.alt}
+            loading="lazy"
+            decoding="async"
           />
         )}
       </span>

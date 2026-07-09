@@ -1,4 +1,6 @@
 .work-tile {
+  --work-focus-ring-width: calc(var(--focus-keyline-width) * 2);
+
   position: relative;
   display: grid;
   gap: 16px;
@@ -53,11 +55,11 @@
 }
 
 .work-tile:focus-visible .work-image {
-  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
+  box-shadow: 0 0 0 var(--work-focus-ring-width) var(--color-accent);
 }
 
 .work-tile:focus-visible .work-image::after {
-  box-shadow: inset 0 0 0 1px var(--color-subtle-line);
+  box-shadow: none;
 }
 
 .work-tile:focus-visible .work-image img,
