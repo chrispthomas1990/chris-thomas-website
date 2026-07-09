@@ -4,6 +4,7 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   caseStudies,
@@ -35,6 +36,12 @@ export default function CaseStudy() {
     { length: caseStudyMediaPanelCount },
     (_, index) => index + 1,
   );
+  const firstMedia = project.image1;
+  const firstMediaPanelStyle = firstMedia?.aspectRatio
+    ? ({
+        "--case-media-aspect-ratio": firstMedia.aspectRatio,
+      } as CSSProperties)
+    : undefined;
 
   return (
     <article className="case-study">
@@ -69,8 +76,32 @@ export default function CaseStudy() {
         className="bento-grid case-grid"
         aria-label={`${projectTitleForLabels} ${caseStudy.gridAriaSuffix}`}
       >
-        <div className="case-panel feature-panel case-media-panel">
-          <span className="placeholder-image" aria-hidden="true" />
+        <div
+          className="case-panel feature-panel case-media-panel"
+          style={firstMediaPanelStyle}
+        >
+          {firstMedia ? (
+            firstMedia.kind === "video" ? (
+              <video
+                className={firstMedia.className}
+                aria-label={firstMedia.alt}
+                autoPlay
+                loop
+                muted
+                playsInline
+              >
+                <source src={firstMedia.src} type="video/mp4" />
+              </video>
+            ) : (
+              <img
+                className={firstMedia.className}
+                src={firstMedia.src}
+                alt={firstMedia.alt}
+              />
+            )
+          ) : (
+            <span className="placeholder-image" aria-hidden="true" />
+          )}
         </div>
         <div className="case-panel text-panel">
           <h2>{caseStudy.overviewHeading}</h2>

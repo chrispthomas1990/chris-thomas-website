@@ -1,9 +1,26 @@
-import leCreusetThumbnail from "../assets/case-studies/le-creuset-classic-kettle/le-creuset-classic-kettle-kitchen-set-a.mp4";
-import softDrinkThumbnail from "../assets/case-studies/soft-drink-can/soft-drink-cans-animation.mp4";
+const caseStudyAssetUrls = import.meta.glob(
+  "../assets/case-studies/**/*.{png,jpg,jpeg,webp,mp4}",
+  {
+    eager: true,
+    import: "default",
+    query: "?url",
+  },
+) as Record<string, string>;
+
+function caseStudyAsset(path: string) {
+  const src = caseStudyAssetUrls[`../assets/case-studies/${path}`];
+
+  if (!src) {
+    throw new Error(`Case study asset not found: ${path}`);
+  }
+
+  return src;
+}
 
 export type CaseStudyMedia = {
   src: string;
   alt: string;
+  aspectRatio?: string;
   className?: string;
   kind?: "image" | "video";
 };
@@ -15,20 +32,25 @@ export type CaseStudy = {
   context: string;
   role: string;
   thumbnail: CaseStudyMedia;
+  image1?: CaseStudyMedia;
+  image2?: CaseStudyMedia;
 };
 
-const thumbnailMedia = {
+const thumbnailMedia: Record<"kettle" | "softDrink", CaseStudyMedia> = {
   kettle: {
-    src: leCreusetThumbnail,
-    alt: "Animated render of the Le Creuset kettle in a kitchen scene.",
-    kind: "video",
+    src: caseStudyAsset(
+      "le-creuset-classic-kettle/le-creuset-classic-kettle-kitchen-set-a.png",
+    ),
+    alt: "Render of the Le Creuset kettle in a kitchen scene.",
+    aspectRatio: "16 / 9",
   },
   softDrink: {
-    src: softDrinkThumbnail,
+    src: caseStudyAsset("soft-drink-can/soft-drink-cans-animation.mp4"),
     alt: "Animated lineup of soft drink can renders.",
+    aspectRatio: "16 / 9",
     kind: "video",
   },
-} satisfies Record<string, CaseStudyMedia>;
+};
 
 export const projectContent = {
   caseStudy: {
@@ -58,6 +80,8 @@ export const caseStudies = [
       "Use this space for project background, design process, constraints, and the story behind the work.",
     role: "Brand design.",
     thumbnail: thumbnailMedia.kettle,
+    image1: thumbnailMedia.kettle,
+    image2: thumbnailMedia.kettle,
   },
   {
     slug: "case-study-2",
@@ -68,6 +92,7 @@ export const caseStudies = [
       "Use this space for project background, design process, constraints, and the story behind the work.",
     role: "Brand design.",
     thumbnail: thumbnailMedia.softDrink,
+    image1: thumbnailMedia.softDrink,
   },
   {
     slug: "case-study-3",
