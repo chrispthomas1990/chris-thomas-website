@@ -141,22 +141,6 @@ body.header-hidden .case-study-subnav {
   height: 14px;
 }
 
-.case-panel {
-  position: relative;
-  display: grid;
-  align-content: end;
-  gap: 16px;
-  min-height: 240px;
-  padding: 24px;
-  overflow: hidden;
-  border: 1px solid var(--color-line);
-  border-radius: 16px;
-  background: var(--color-panel);
-  transition:
-    min-height 240ms ease,
-    padding 240ms ease;
-}
-
 .feature-panel {
   grid-column: 1 / -1;
 }
@@ -173,23 +157,6 @@ body.header-hidden .case-study-subnav {
 
 .case-panel:not(.feature-panel, .text-panel) {
   grid-column: 1 / -1;
-}
-
-.case-media-panel {
-  min-height: 0;
-  padding: 0;
-  aspect-ratio: var(--case-media-aspect-ratio, 16 / 9);
-}
-
-.case-media-panel img,
-.case-media-panel video {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
 .wide-panel {

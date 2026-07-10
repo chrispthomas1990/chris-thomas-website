@@ -4,7 +4,7 @@
   --color-muted: #756f63;
   --color-line: #d5cfc3;
   --color-subtle-line: color-mix(in srgb, var(--color-chrome-text) 20%, transparent);
-  --color-panel: #eae7e1;
+  --color-panel: var(--color-paper);
   --color-surface-raised: var(--color-paper);
   --color-media-surface: #f4f1e1;
   --color-body-muted: #58544b;
@@ -48,7 +48,7 @@
   --color-paper: #101010;
   --color-muted: #756f63;
   --color-line: #363430;
-  --color-panel: #1b1a18;
+  --color-panel: var(--color-paper);
   --color-surface-raised: var(--color-paper);
   --color-media-surface: #292929;
   --color-body-muted: #8e887b;

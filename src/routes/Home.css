@@ -6,39 +6,12 @@
 }
 
 .gallery-grid {
-  --work-row-1-image-height: var(--placeholder-media-height);
-  --work-row-2-image-height: var(--placeholder-media-height);
-  --work-row-3-image-height: var(--placeholder-media-height);
-
-  display: grid;
-  gap: 32px 16px;
+  align-items: stretch;
 }
 
-.gallery-grid .work-tile-wide .work-image {
-  height: auto;
-  min-height: 0;
-  aspect-ratio: 16 / 9;
-}
-
-.gallery-grid [data-height-target="row-1"] {
-  height: var(--work-row-1-image-height);
-  min-height: 0;
-}
-
-.gallery-grid [data-height-target="row-2"] {
-  height: var(--work-row-2-image-height);
-  min-height: 0;
-}
-
-.gallery-grid [data-height-target="row-3"] {
-  height: var(--work-row-3-image-height);
-  min-height: 0;
-}
-
-.gallery-grid .work-image img,
-.gallery-grid .work-image video {
-  min-height: 0;
-  object-fit: cover;
+.gallery-grid .work-tile {
+  grid-column: 1 / -1;
+  margin-bottom: 42px;
 }
 
 @media (width >= 768px) {
@@ -47,21 +20,48 @@
     align-items: end;
   }
 
-  .gallery-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .gallery-grid .work-tile-wide {
-    grid-column: span 2;
+    grid-column: span 6;
   }
 
   .gallery-grid .work-tile-narrow {
-    grid-column: span 1;
+    grid-column: span 3;
+  }
+
+  .gallery-grid .work-tile-narrow .case-media-panel img,
+  .gallery-grid .work-tile-narrow .case-media-panel video {
+    object-fit: contain;
+  }
+
+}
+
+@media (width >= 768px) and (width < 1024px) {
+  .gallery-grid .work-tile:nth-last-child(2) {
+    grid-column: span 3;
   }
 }
 
 @media (width >= 1024px) {
   .portfolio-page {
     gap: 56px;
+  }
+
+  .gallery-grid .work-tile-wide {
+    grid-column: span 8;
+  }
+
+  .gallery-grid .work-tile-narrow {
+    grid-column: span 4;
+    align-self: stretch;
+  }
+
+  .gallery-grid .work-tile-narrow .case-media-panel {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .gallery-grid .work-tile-narrow .case-media-panel img,
+  .gallery-grid .work-tile-narrow .case-media-panel video {
+    object-fit: cover;
   }
 }

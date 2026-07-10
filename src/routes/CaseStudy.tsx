@@ -4,47 +4,13 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
+import { getMediaPanelStyle, MediaContent } from "../components/MediaPanel";
 import { caseStudies, projectContent } from "../content/caseStudies";
-import type { CaseStudyMedia } from "../content/caseStudies";
 import { sharedContent } from "../content/shared";
 import { useIsScrollingUp, useScrollThreshold } from "../hooks";
 import NotFound from "./NotFound";
 import "./CaseStudy.css";
-
-function getMediaPanelStyle(media: CaseStudyMedia): CSSProperties {
-  return {
-    "--case-media-aspect-ratio": media.aspectRatio ?? "16 / 9",
-  } as CSSProperties;
-}
-
-function renderCaseStudyMedia(
-  media: CaseStudyMedia,
-  loading: HTMLImageElement["loading"] = "lazy",
-) {
-  return media.kind === "video" ? (
-    <video
-      className={media.className}
-      aria-label={media.alt}
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="metadata"
-    >
-      <source src={media.src} type="video/mp4" />
-    </video>
-  ) : (
-    <img
-      className={media.className}
-      src={media.src}
-      alt={media.alt}
-      loading={loading}
-      decoding="async"
-    />
-  );
-}
 
 export default function CaseStudy() {
   const { slug } = useParams();
@@ -109,7 +75,7 @@ export default function CaseStudy() {
           style={firstMedia ? getMediaPanelStyle(firstMedia) : undefined}
         >
           {firstMedia ? (
-            renderCaseStudyMedia(firstMedia, "eager")
+            <MediaContent media={firstMedia} loading="eager" />
           ) : (
             <span className="placeholder-image" aria-hidden="true" />
           )}
@@ -130,7 +96,7 @@ export default function CaseStudy() {
             key={media.src}
             style={getMediaPanelStyle(media)}
           >
-            {renderCaseStudyMedia(media)}
+            <MediaContent media={media} />
           </div>
         ))}
         <div className="case-panel text-panel wide-panel">
