@@ -37,7 +37,6 @@ export function MediaContent({
       playsInline
       preload="metadata"
       onLoadedData={() => setReadySrc(media.src)}
-      onError={() => setReadySrc(media.src)}
     >
       <source src={media.src} type="video/mp4" />
     </video>
@@ -51,7 +50,6 @@ export function MediaContent({
       loading={loading}
       decoding={loading === "eager" ? "sync" : "async"}
       onLoad={() => setReadySrc(media.src)}
-      onError={() => setReadySrc(media.src)}
     />
   );
 }
