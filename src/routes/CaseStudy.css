@@ -148,7 +148,7 @@ body.header-hidden .case-study-subnav {
 .text-panel {
   grid-column: 1 / -1;
   min-height: var(--placeholder-media-height);
-  background: var(--color-surface-raised);
+  background: color-mix(in srgb, var(--color-muted) 20%, transparent);
 }
 
 .text-panel p {
@@ -166,7 +166,7 @@ body.header-hidden .case-study-subnav {
 
 .case-grid .media-panel {
   grid-column: 1 / -1;
-  background: var(--color-media-surface);
+  background: transparent;
 }
 
 .case-grid > .cta-section {

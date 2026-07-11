@@ -59,11 +59,11 @@ const softDrinkAsset = (file: string) => `soft-drink-can/${file}`;
 
 const leCreusetMedia = [
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a.png"),
+    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a.webp"),
     "Render of the Le Creuset kettle in a kitchen scene.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b.png"),
+    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b.webp"),
     "Render of the Le Creuset kettle in a second kitchen scene.",
   ),
   caseStudyMedia(
@@ -71,22 +71,22 @@ const leCreusetMedia = [
     "Animated render of the Le Creuset kettle in a kitchen scene.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a-clay.png"),
+    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a-clay.webp"),
     "Clay render of the Le Creuset kettle kitchen scene.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a-wire.png"),
+    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a-wire.webp"),
     "Wireframe render of the Le Creuset kettle kitchen scene.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b-clay.png"),
+    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b-clay.webp"),
     "Clay render of the second Le Creuset kettle kitchen scene.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b-wire.png"),
+    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b-wire.webp"),
     "Wireframe render of the second Le Creuset kettle kitchen scene.",
     { layout: "compact" },
   ),
@@ -95,22 +95,22 @@ const leCreusetMedia = [
     "Animated studio render of the Le Creuset kettle.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-a.png"),
+    leCreusetAsset("le-creuset-classic-kettle-studio-set-a.webp"),
     "Studio render of the Le Creuset kettle.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-b.png"),
+    leCreusetAsset("le-creuset-classic-kettle-studio-set-b.webp"),
     "Alternate studio render of the Le Creuset kettle.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-c.png"),
+    leCreusetAsset("le-creuset-classic-kettle-studio-set-c.webp"),
     "Third studio render of the Le Creuset kettle.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-d.png"),
+    leCreusetAsset("le-creuset-classic-kettle-studio-set-d.webp"),
     "Fourth studio render of the Le Creuset kettle.",
     { layout: "compact" },
   ),
@@ -126,53 +126,53 @@ const softDrinkMedia = [
     "Animated lineup of soft drink can renders.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-coca-cola.png"),
+    softDrinkAsset("soft-drink-can-coca-cola.webp"),
     "Render of a Coca-Cola soft drink can.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-fanta-lemon.png"),
+    softDrinkAsset("soft-drink-can-fanta-lemon.webp"),
     "Render of a Fanta lemon soft drink can.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-irn-bru.png"),
+    softDrinkAsset("soft-drink-can-irn-bru.webp"),
     "Render of an Irn-Bru soft drink can.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-pepsi.png"),
+    softDrinkAsset("soft-drink-can-pepsi.webp"),
     "Render of a Pepsi soft drink can.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-clay-1.png"),
+    softDrinkAsset("soft-drink-can-geo-clay-1.webp"),
     "Clay geometry render of a soft drink can.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-wire-1.png"),
+    softDrinkAsset("soft-drink-can-geo-wire-1.webp"),
     "Wireframe geometry render of a soft drink can.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-clay-2.png"),
+    softDrinkAsset("soft-drink-can-geo-clay-2.webp"),
     "Second clay geometry render of a soft drink can.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-wire-2.png"),
+    softDrinkAsset("soft-drink-can-geo-wire-2.webp"),
     "Second wireframe geometry render of a soft drink can.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-clay-3.png"),
+    softDrinkAsset("soft-drink-can-geo-clay-3.webp"),
     "Third clay geometry render of a soft drink can.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-wire-3.png"),
+    softDrinkAsset("soft-drink-can-geo-wire-3.webp"),
     "Third wireframe geometry render of a soft drink can.",
     { layout: "compact" },
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-sprite.png"),
+    softDrinkAsset("soft-drink-can-sprite.webp"),
     "Render of a Sprite soft drink can.",
   ),
 ];
