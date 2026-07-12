@@ -13,6 +13,20 @@
   align-items: stretch;
 }
 
+.case-panel-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+.case-panel-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 960ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 960ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--case-panel-reveal-delay, 0ms);
+}
+
 .case-study-subnav {
   --case-study-subnav-gap: 8px;
 
@@ -248,6 +262,15 @@ body.header-hidden .case-study-subnav {
   .case-study-subnav.is-visible a:nth-child(2),
   .case-study-subnav.is-visible a:nth-child(3) {
     transition-delay: 0ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-panel-reveal,
+  .case-panel-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

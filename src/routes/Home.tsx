@@ -43,8 +43,7 @@ export default function Home() {
               homepageTileLayouts[index % homepageTileLayouts.length].className
             }
             project={project}
-            revealDelay={(index + 1) * 240}
-            thumbnailLoading={index < 2 ? "eager" : "lazy"}
+            revealDelay={index * 120}
             key={project.slug}
           />
         ))}

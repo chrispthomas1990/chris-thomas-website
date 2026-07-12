@@ -136,6 +136,36 @@ export function useMediaQuery(query: string) {
   return matches;
 }
 
+export function useRevealOnScroll<T extends Element>() {
+  const elementRef = useRef<T>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = elementRef.current;
+
+    if (!element || !("IntersectionObserver" in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { rootMargin: "0px 0px 120px", threshold: 0.01 },
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { elementRef, isVisible };
+}
+
 export function useThemeMode() {
   const [themeMode, setThemeMode] = useState<ThemeMode>(getInitialThemeMode);
 

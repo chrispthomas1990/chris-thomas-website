@@ -21,7 +21,6 @@ export type CaseStudyMedia = {
   src: string;
   alt: string;
   aspectRatio?: string;
-  className?: string;
   kind?: "image" | "video";
   layout?: "compact";
 };
@@ -43,7 +42,7 @@ export type CaseStudy = {
 function caseStudyMedia(
   path: string,
   alt: string,
-  options: Pick<CaseStudyMedia, "aspectRatio" | "className" | "layout"> = {},
+  options: Pick<CaseStudyMedia, "aspectRatio" | "layout"> = {},
 ): CaseStudyMedia {
   return {
     src: caseStudyAsset(path),

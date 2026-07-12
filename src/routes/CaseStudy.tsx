@@ -4,13 +4,96 @@ import {
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { CSSProperties, ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getMediaPanelStyle, MediaContent } from "../components/MediaPanel";
-import { caseStudies, projectContent } from "../content/caseStudies";
+import {
+  caseStudies,
+  projectContent,
+  type CaseStudyMedia,
+} from "../content/caseStudies";
 import { sharedContent } from "../content/shared";
-import { useIsScrollingUp, useScrollThreshold } from "../hooks";
+import {
+  useIsScrollingUp,
+  useRevealOnScroll,
+  useScrollThreshold,
+} from "../hooks";
 import NotFound from "./NotFound";
 import "./CaseStudy.css";
+
+type RevealingMediaPanelProps = {
+  className: string;
+  media?: CaseStudyMedia;
+  revealDelay?: number;
+};
+
+type RevealingTextPanelProps = {
+  children: ReactNode;
+  className?: string;
+  revealDelay?: number;
+};
+
+function RevealingTextPanel({
+  children,
+  className,
+  revealDelay = 0,
+}: RevealingTextPanelProps) {
+  const { elementRef, isVisible } = useRevealOnScroll<HTMLDivElement>();
+  const panelClassName = [
+    "case-panel",
+    "text-panel",
+    "case-panel-reveal",
+    isVisible ? "is-visible" : undefined,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <div
+      ref={elementRef}
+      className={panelClassName}
+      style={
+        {
+          "--case-panel-reveal-delay": `${revealDelay}ms`,
+        } as CSSProperties
+      }
+    >
+      {children}
+    </div>
+  );
+}
+
+function RevealingMediaPanel({
+  className,
+  media,
+  revealDelay = 0,
+}: RevealingMediaPanelProps) {
+  const { elementRef, isVisible } = useRevealOnScroll<HTMLDivElement>();
+  const panelClassName = [
+    className,
+    "case-panel-reveal",
+    isVisible ? "is-visible" : undefined,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const style = media
+    ? ({
+        ...getMediaPanelStyle(media),
+        "--case-panel-reveal-delay": `${revealDelay}ms`,
+      } as CSSProperties)
+    : undefined;
+
+  return (
+    <div ref={elementRef} className={panelClassName} style={style}>
+      {media ? (
+        <MediaContent media={media} />
+      ) : (
+        <span className="placeholder-image" aria-hidden="true" />
+      )}
+    </div>
+  );
+}
 
 export default function CaseStudy() {
   const { slug } = useParams();
@@ -70,39 +153,32 @@ export default function CaseStudy() {
         className="bento-grid case-grid"
         aria-label={`${projectTitleForLabels} ${caseStudy.gridAriaSuffix}`}
       >
-        <div
+        <RevealingMediaPanel
           className="case-panel feature-panel case-media-panel"
-          style={firstMedia ? getMediaPanelStyle(firstMedia) : undefined}
-        >
-          {firstMedia ? (
-            <MediaContent media={firstMedia} loading="eager" />
-          ) : (
-            <span className="placeholder-image" aria-hidden="true" />
-          )}
-        </div>
-        <div className="case-panel text-panel">
+          media={firstMedia}
+        />
+        <RevealingTextPanel revealDelay={120}>
           <h2>{project.contextHeading ?? caseStudy.overviewHeading}</h2>
           <p>{project.context}</p>
-        </div>
-        <div className="case-panel text-panel">
+        </RevealingTextPanel>
+        <RevealingTextPanel revealDelay={240}>
           <h2>{project.role}</h2>
           <p>{project.roleBody ?? caseStudy.roleBody}</p>
-        </div>
-        {remainingMedia.map((media) => (
-          <div
+        </RevealingTextPanel>
+        {remainingMedia.map((media, index) => (
+          <RevealingMediaPanel
             className={`case-panel case-media-panel media-panel${
               media.layout === "compact" ? " media-panel-compact" : ""
             }`}
             key={media.src}
-            style={getMediaPanelStyle(media)}
-          >
-            <MediaContent media={media} />
-          </div>
+            media={media}
+            revealDelay={(index % 2) * 120}
+          />
         ))}
-        <div className="case-panel text-panel wide-panel">
+        <RevealingTextPanel className="wide-panel" revealDelay={120}>
           <h2>{project.resultHeading ?? caseStudy.resultHeading}</h2>
           <p>{project.resultBody ?? caseStudy.resultBody}</p>
-        </div>
+        </RevealingTextPanel>
         <div className="cta-section">
           <h2>{cta.heading}</h2>
           <p>{cta.body}</p>

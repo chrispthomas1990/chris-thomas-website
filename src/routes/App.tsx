@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import CookieConsentBanner from "../components/CookieConsentBanner";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { caseStudies } from "../content/caseStudies";
 import { siteMetadata } from "../content/site";
 import {
   useBodyClass,
@@ -16,6 +17,64 @@ import {
   useThemeMode,
 } from "../hooks";
 import { getThemeColor } from "../theme";
+
+type PageMetadata = {
+  title: string;
+  description: string;
+};
+
+const staticPageMetadata: Record<string, PageMetadata> = {
+  "/": siteMetadata,
+  "/info": {
+    title: "Info | Chris Thomas",
+    description:
+      "Learn about Chris Thomas, a UI Designer and Front-End Engineer working across digital products, brand systems, and campaign sites.",
+  },
+  "/contact": {
+    title: "Contact | Chris Thomas",
+    description:
+      "Contact Chris Thomas to discuss front-end development, website design, design systems, consulting, and digital product work.",
+  },
+  "/privacy-policy": {
+    title: "Privacy Policy | Chris Thomas",
+    description:
+      "Read how Chris Thomas Creative Limited handles personal information submitted through this website and project enquiries.",
+  },
+  "/cookie-policy": {
+    title: "Cookie Policy | Chris Thomas",
+    description:
+      "Read the cookie policy for the Chris Thomas design and front-end development portfolio.",
+  },
+};
+
+function getPageMetadata(pathname: string): PageMetadata {
+  const normalizedPath = pathname === "/" ? pathname : pathname.replace(/\/$/, "");
+  const staticMetadata = staticPageMetadata[normalizedPath];
+
+  if (staticMetadata) {
+    return staticMetadata;
+  }
+
+  const caseStudyMatch = normalizedPath.match(/^\/work\/([^/]+)$/);
+
+  if (caseStudyMatch) {
+    const project = caseStudies.find(
+      ({ slug }) => slug === decodeURIComponent(caseStudyMatch[1]),
+    );
+
+    if (project) {
+      return {
+        title: `${project.title.replace(/\.$/, "")} | Chris Thomas`,
+        description: project.summary,
+      };
+    }
+  }
+
+  return {
+    title: "Page Not Found | Chris Thomas",
+    description: "The requested page could not be found.",
+  };
+}
 
 export default function App() {
   const { hash, pathname } = useLocation();
@@ -41,11 +100,13 @@ export default function App() {
   useMediaQueryChange("(width >= 768px)", closeMenuAtDesktop);
 
   useEffect(() => {
-    document.title = siteMetadata.title;
+    const metadata = getPageMetadata(pathname);
+
+    document.title = metadata.title;
     document
       .querySelector('meta[name="description"]')
-      ?.setAttribute("content", siteMetadata.description);
-  }, []);
+      ?.setAttribute("content", metadata.description);
+  }, [pathname]);
 
   useEffect(() => {
     closeMenu();
