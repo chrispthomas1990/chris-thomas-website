@@ -9,7 +9,7 @@ and production builds. Original image files remain the `src` fallback.
 Source MP4 files are discovered automatically in every case-study directory.
 Files inside `optimised` directories are ignored. Missing variants—or variants
 older than their source—are generated automatically before a production build.
-A 640px WebP poster is extracted from the first frame of each video to provide
+A 1280px WebP poster is extracted from the first frame of each video to provide
 an immediate loading frame. Unchanged variants and posters are skipped.
 
 For colour-critical videos, place a manually exported WebP beside the generated

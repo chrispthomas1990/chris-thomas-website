@@ -181,15 +181,12 @@ caseStudyMedia(
 The optimisation script discovers source MP4 files automatically. It ignores
 optimised folders and creates these files beside each source:
 
-optimised/my-project-animation-640.webm
-optimised/my-project-animation-640.mp4
 optimised/my-project-animation-1280.webm
 optimised/my-project-animation-1280.mp4
 optimised/my-project-animation-poster.webp
 
-The 640px files are used below the existing 768px breakpoint. The 1280px files
-are used at larger viewport widths. The original MP4 remains the final browser
-fallback.
+The 1280px files are used across screen sizes to remain sharp on high-density
+mobile displays. The original MP4 remains the final browser fallback.
 
 Generated videos are silent, use the original aspect ratio, and are not
 upscaled when the source is smaller than the requested output.
@@ -224,7 +221,7 @@ use this manual poster path:
 
 src/assets/case-studies/my-project/optimised/my-project-animation-poster-manual.webp
 
-Prefer a 16:9 poster at 640 x 360 or 1280 x 720 for a 16:9 video. For any other
+Prefer a 16:9 poster at 1280 x 720 for a 16:9 video. For any other
 video shape, preserve the video's real aspect ratio. Export the same opening
 frame and match the video's colour-managed output as closely as possible.
 

@@ -49,8 +49,6 @@ type CaseStudyMediaBase = {
 };
 
 type CaseStudyVideoSources = {
-  mobileMp4?: string;
-  mobileWebm?: string;
   desktopMp4?: string;
   desktopWebm?: string;
   poster?: string;
@@ -115,14 +113,6 @@ function caseStudyMedia(
     ...commonMedia,
     kind: "video",
     videoSources: {
-      mobileWebm:
-        optimisedMediaUrls[
-          `../assets/case-studies/${optimisedVideoStem}-640.webm`
-        ],
-      mobileMp4:
-        optimisedMediaUrls[
-          `../assets/case-studies/${optimisedVideoStem}-640.mp4`
-        ],
       desktopWebm:
         optimisedMediaUrls[
           `../assets/case-studies/${optimisedVideoStem}-1280.webm`

@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { CaseStudyMedia } from "../content/caseStudies";
 import "./MediaPanel.css";
 
@@ -16,36 +16,7 @@ export function MediaContent({
   sizes: string;
 }) {
   return media.kind === "video" ? (
-    <video
-      aria-label={media.alt}
-      autoPlay
-      loop
-      muted
-      playsInline
-      poster={media.videoSources?.poster}
-    >
-      {media.videoSources?.mobileWebm ? (
-        <source
-          src={media.videoSources.mobileWebm}
-          type="video/webm"
-          media="(max-width: 767px)"
-        />
-      ) : null}
-      {media.videoSources?.mobileMp4 ? (
-        <source
-          src={media.videoSources.mobileMp4}
-          type="video/mp4"
-          media="(max-width: 767px)"
-        />
-      ) : null}
-      {media.videoSources?.desktopWebm ? (
-        <source src={media.videoSources.desktopWebm} type="video/webm" />
-      ) : null}
-      {media.videoSources?.desktopMp4 ? (
-        <source src={media.videoSources.desktopMp4} type="video/mp4" />
-      ) : null}
-      <source src={media.src} type="video/mp4" />
-    </video>
+    <ViewportVideo media={media} />
   ) : (
     <img
       src={media.src}
@@ -55,5 +26,104 @@ export function MediaContent({
       width={1920}
       height={1080}
     />
+  );
+}
+
+type NetworkInformation = {
+  saveData?: boolean;
+};
+
+function ViewportVideo({ media }: { media: Extract<CaseStudyMedia, { kind: "video" }> }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isVisibleRef = useRef(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const connection = (navigator as Navigator & {
+      connection?: NetworkInformation;
+    }).connection;
+
+    if (prefersReducedMotion || connection?.saveData) {
+      return;
+    }
+
+    const playWhenReady = () => {
+      if (!isVisibleRef.current) {
+        return;
+      }
+
+      void video.play().catch(() => {
+        // Autoplay can still be blocked by device-level browser policy. In
+        // that case the poster remains visible as the intentional fallback.
+      });
+    };
+    const loadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          loadObserver.disconnect();
+        }
+      },
+      { rootMargin: "300px 0px", threshold: 0 },
+    );
+    const playbackObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+
+        if (isVisibleRef.current) {
+          playWhenReady();
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: [0, 0.35, 0.75] },
+    );
+
+    loadObserver.observe(video);
+    playbackObserver.observe(video);
+    video.addEventListener("canplay", playWhenReady);
+
+    return () => {
+      loadObserver.disconnect();
+      playbackObserver.disconnect();
+      video.removeEventListener("canplay", playWhenReady);
+      video.pause();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (shouldLoad) {
+      videoRef.current?.load();
+    }
+  }, [shouldLoad]);
+
+  return (
+    <video
+      ref={videoRef}
+      aria-label={media.alt}
+      className="viewport-video"
+      loop
+      muted
+      playsInline
+      poster={media.videoSources.poster}
+      preload="none"
+    >
+      {shouldLoad && media.videoSources.desktopWebm ? (
+        <source src={media.videoSources.desktopWebm} type="video/webm" />
+      ) : null}
+      {shouldLoad && media.videoSources.desktopMp4 ? (
+        <source src={media.videoSources.desktopMp4} type="video/mp4" />
+      ) : null}
+      {shouldLoad ? <source src={media.src} type="video/mp4" /> : null}
+    </video>
   );
 }

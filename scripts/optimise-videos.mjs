@@ -5,7 +5,7 @@ import { spawnSync } from "node:child_process";
 import sharp from "sharp";
 
 const caseStudiesDirectory = "src/assets/case-studies";
-const widths = [640, 1280];
+const widths = [1280];
 
 function discoverVideos(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -70,7 +70,7 @@ for (const source of videos) {
         "0:v:0",
         "-an",
         "-vf",
-        "scale='min(640,iw)':-2",
+        "scale='min(1280,iw)':-2",
         "-frames:v",
         "1",
         "-update",
