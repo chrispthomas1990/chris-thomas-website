@@ -191,8 +191,8 @@ mobile displays. The original MP4 remains the final browser fallback.
 Generated videos are silent, use the original aspect ratio, and are not
 upscaled when the source is smaller than the requested output.
 
-Running npm run build automatically runs the video optimiser first. Missing or
-out-of-date files are generated; current files are skipped. FFmpeg must be
+Run npm run optimise:videos after adding or replacing a source video. Missing
+or out-of-date files are generated; current files are skipped. FFmpeg must be
 installed on the machine running the optimisation.
 
 If you add a video while the development server is already running, generate
@@ -240,7 +240,7 @@ Replacing Existing Media
 If a replacement uses the same filename, overwrite only the original source
 file in the project folder. Do not manually overwrite generated video variants.
 
-On the next npm run optimise:videos or npm run build:
+On the next npm run optimise:videos:
 
 - Responsive image candidates are rebuilt by Vite.
 - Video variants and the automatic poster are regenerated when the source MP4
@@ -267,6 +267,6 @@ Run code and CSS checks:
 
 npm run lint
 
-Run the production build, including automatic video optimisation:
+Run the production build using the committed optimised video assets:
 
 npm run build

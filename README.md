@@ -31,5 +31,5 @@ npm run optimise:videos
 ```
 
 Generated videos are written to an `optimised` directory beside each source
-video. The source MP4 files are never modified. `npm run build` invokes this
-command automatically through the `prebuild` lifecycle script.
+video. The source MP4 files are never modified. Commit the generated assets so
+production and deployment builds do not require FFmpeg.
