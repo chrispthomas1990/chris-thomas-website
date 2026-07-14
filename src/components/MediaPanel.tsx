@@ -33,7 +33,11 @@ type NetworkInformation = {
   saveData?: boolean;
 };
 
-function ViewportVideo({ media }: { media: Extract<CaseStudyMedia, { kind: "video" }> }) {
+function ViewportVideo({
+  media,
+}: {
+  media: Extract<CaseStudyMedia, { kind: "video" }>;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isVisibleRef = useRef(false);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -117,13 +121,12 @@ function ViewportVideo({ media }: { media: Extract<CaseStudyMedia, { kind: "vide
       poster={media.videoSources.poster}
       preload="none"
     >
-      {shouldLoad && media.videoSources.desktopWebm ? (
-        <source src={media.videoSources.desktopWebm} type="video/webm" />
+      {shouldLoad ? (
+        <>
+          <source src={media.videoSources.webm} type="video/webm" />
+          <source src={media.videoSources.mp4} type="video/mp4" />
+        </>
       ) : null}
-      {shouldLoad && media.videoSources.desktopMp4 ? (
-        <source src={media.videoSources.desktopMp4} type="video/mp4" />
-      ) : null}
-      {shouldLoad ? <source src={media.src} type="video/mp4" /> : null}
     </video>
   );
 }

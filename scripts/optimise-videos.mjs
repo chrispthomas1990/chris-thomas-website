@@ -1,8 +1,6 @@
-import { mkdirSync, readdirSync, statSync, unlinkSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { mkdirSync, readdirSync, statSync } from "node:fs";
 import { basename, dirname, extname, join } from "node:path";
 import { spawnSync } from "node:child_process";
-import sharp from "sharp";
 
 const caseStudiesDirectory = "src/assets/case-studies";
 const widths = [1280];
@@ -54,42 +52,7 @@ if (videos.length === 0) {
 for (const source of videos) {
   const outputDirectory = join(dirname(source), "optimised");
   const stem = basename(source, extname(source));
-  const posterOutput = join(outputDirectory, `${stem}-poster.webp`);
   mkdirSync(outputDirectory, { recursive: true });
-
-  if (needsOptimisation(source, [posterOutput])) {
-    console.log(`Generating poster: ${source}`);
-    const temporaryFrame = join(tmpdir(), `${stem}-${process.pid}-poster.png`);
-
-    try {
-      run("ffmpeg", [
-        "-y",
-        "-i",
-        source,
-        "-map",
-        "0:v:0",
-        "-an",
-        "-vf",
-        "scale='min(1280,iw)':-2",
-        "-frames:v",
-        "1",
-        "-update",
-        "1",
-        "-c:v",
-        "png",
-        temporaryFrame,
-      ]);
-      await sharp(temporaryFrame).webp({ quality: 82 }).toFile(posterOutput);
-    } finally {
-      try {
-        unlinkSync(temporaryFrame);
-      } catch {
-        // The temporary frame may not exist if FFmpeg failed before writing it.
-      }
-    }
-  } else {
-    console.log(`Poster up to date: ${source}`);
-  }
 
   for (const width of widths) {
     const webmOutput = join(outputDirectory, `${stem}-${width}.webm`);

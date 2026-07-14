@@ -78,8 +78,8 @@ Example:
 src/assets/case-studies/my-project/
 
 Keep original source images and videos directly in that project folder. Do not
-put source media inside an optimised folder; that folder is reserved for files
-created by the video optimisation process.
+put source media inside an optimised folder; that folder is reserved for
+generated video variants and required manual video posters.
 
 In src/content/caseStudies.ts, add a small path helper:
 
@@ -157,8 +157,6 @@ caseStudyMedia(
 During development and production builds, Vite Image Tools automatically makes
 responsive WebP candidates at these widths when the source is large enough:
 
-- 640
-- 960
 - 1280
 - 1680
 - 1920
@@ -179,14 +177,19 @@ caseStudyMedia(
 )
 
 The optimisation script discovers source MP4 files automatically. It ignores
-optimised folders and creates these files beside each source:
+optimised folders and creates these video variants beside each source:
 
 optimised/my-project-animation-1280.webm
 optimised/my-project-animation-1280.mp4
-optimised/my-project-animation-poster.webp
+
+Create this required poster manually; the optimiser does not create it:
+
+optimised/my-project-animation-poster-manual.webp
 
 The 1280px files are used across screen sizes to remain sharp on high-density
-mobile displays. The original MP4 remains the final browser fallback.
+mobile displays. WebM is preferred, with the 1280px MP4 as the compatibility
+fallback. Original MP4 files remain local optimisation sources and are not
+included in the production bundle.
 
 Generated videos are silent, use the original aspect ratio, and are not
 upscaled when the source is smaller than the requested output.
@@ -195,22 +198,32 @@ Run npm run optimise:videos after adding or replacing a source video. Missing
 or out-of-date files are generated; current files are skipped. FFmpeg must be
 installed on the machine running the optimisation.
 
-If you add a video while the development server is already running, generate
-its files before checking it in the browser:
+Before checking a new video in the browser, generate its variants and add its
+manual poster:
 
 npm run optimise:videos
 
-The generated optimised files should be committed with the source video.
+Restart the development server after adding newly named media files so Vite
+discovers them. Replacing the contents of an existing file does not normally
+require a restart.
+
+The generated video variants and manual poster should be committed with the
+source video.
+
+Videos display the manual poster immediately and use preload="none". Their
+sources are attached only when they approach the viewport. Playback starts
+when at least 35% of the video is visible and pauses after it leaves the
+viewport. Reduced Motion and Data Saver users retain the static manual poster.
 
 
 Adding A Manual Video Poster
 ----------------------------
 
-The build creates a first-frame poster automatically. If its colour does not
-match the video closely enough, export a colour-managed WebP poster manually.
+Every video requires a colour-managed WebP poster created manually. The build
+reports an error when the correctly named manual poster is missing.
 
-Place the manual file in the same optimised folder as the generated video
-variants. Its name must exactly match the source video name followed by
+Place the file in the same optimised folder as the generated video variants.
+Its name must exactly match the source video name followed by
 -poster-manual.webp.
 
 For this source video:
@@ -225,27 +238,24 @@ Prefer a 16:9 poster at 1280 x 720 for a 16:9 video. For any other
 video shape, preserve the video's real aspect ratio. Export the same opening
 frame and match the video's colour-managed output as closely as possible.
 
-Poster priority is:
-
-1. my-project-animation-poster-manual.webp
-2. my-project-animation-poster.webp
-
 The optimiser never creates, changes, or deletes -poster-manual.webp files.
-It may continue to maintain the automatic poster as a fallback, which is safe.
 
 
 Replacing Existing Media
 ------------------------
 
-If a replacement uses the same filename, overwrite only the original source
-file in the project folder. Do not manually overwrite generated video variants.
+If an image replacement uses the same filename, overwrite the original source
+file in the project folder.
+
+If a video replacement uses the same filename, overwrite the original source
+MP4 and replace its colour-managed -poster-manual.webp with a matching frame.
+Do not manually overwrite generated MP4 or WebM variants.
 
 On the next npm run optimise:videos:
 
 - Responsive image candidates are rebuilt by Vite.
-- Video variants and the automatic poster are regenerated when the source MP4
-  is newer than those files.
-- A manual -poster-manual.webp file is preserved.
+- Video variants are regenerated when the source MP4 is newer than those files.
+- The manual -poster-manual.webp file is never changed by the optimiser.
 
 If you rename an original media file, update its caseStudyMedia reference in
 src/content/caseStudies.ts. Old generated files with the previous name are not
@@ -259,7 +269,7 @@ Start the local development server:
 
 npm run dev
 
-Generate or refresh video variants and automatic posters:
+Generate or refresh video variants:
 
 npm run optimise:videos
 

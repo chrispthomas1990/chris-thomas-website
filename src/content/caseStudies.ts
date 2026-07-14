@@ -1,6 +1,6 @@
 const caseStudyAssetUrls = import.meta.glob(
   [
-    "../assets/case-studies/**/*.{png,jpg,jpeg,webp,mp4}",
+    "../assets/case-studies/**/*.{png,jpg,jpeg,webp}",
     "!../assets/case-studies/**/optimised/**",
   ],
   {
@@ -18,7 +18,7 @@ const caseStudyImageSrcSets = import.meta.glob(
   {
     eager: true,
     import: "default",
-    query: "?w=640;960;1280;1680;1920&format=webp&as=srcset",
+    query: "?w=1280;1680;1920&format=webp&as=srcset",
   },
 ) as Record<string, string>;
 
@@ -49,9 +49,9 @@ type CaseStudyMediaBase = {
 };
 
 type CaseStudyVideoSources = {
-  desktopMp4?: string;
-  desktopWebm?: string;
-  poster?: string;
+  mp4: string;
+  webm: string;
+  poster: string;
 };
 
 type CaseStudyImageMedia = CaseStudyMediaBase & {
@@ -88,16 +88,13 @@ function caseStudyMedia(
   options: Pick<CaseStudyMedia, "aspectRatio" | "layout"> = {},
 ): CaseStudyMedia {
   const assetPath = `../assets/case-studies/${path}`;
-  const commonMedia = {
-    src: caseStudyAsset(path),
-    alt,
-    aspectRatio: "16 / 9",
-    ...options,
-  };
 
   if (!path.endsWith(".mp4")) {
     return {
-      ...commonMedia,
+      src: caseStudyAsset(path),
+      alt,
+      aspectRatio: "16 / 9",
+      ...options,
       kind: "image",
       srcSet: caseStudyImageSrcSets[assetPath],
     };
@@ -108,26 +105,33 @@ function caseStudyMedia(
     /\/([^/]+)$/,
     "/optimised/$1",
   );
+  const webm =
+    optimisedMediaUrls[
+      `../assets/case-studies/${optimisedVideoStem}-1280.webm`
+    ];
+  const mp4 =
+    optimisedMediaUrls[
+      `../assets/case-studies/${optimisedVideoStem}-1280.mp4`
+    ];
+  const poster =
+    optimisedMediaUrls[
+      `../assets/case-studies/${optimisedVideoStem}-poster-manual.webp`
+    ];
+
+  if (!webm || !mp4 || !poster) {
+    throw new Error(`Optimised video assets or manual poster not found: ${path}`);
+  }
 
   return {
-    ...commonMedia,
+    src: mp4,
+    alt,
+    aspectRatio: "16 / 9",
+    ...options,
     kind: "video",
     videoSources: {
-      desktopWebm:
-        optimisedMediaUrls[
-          `../assets/case-studies/${optimisedVideoStem}-1280.webm`
-        ],
-      desktopMp4:
-        optimisedMediaUrls[
-          `../assets/case-studies/${optimisedVideoStem}-1280.mp4`
-        ],
-      poster:
-        optimisedMediaUrls[
-          `../assets/case-studies/${optimisedVideoStem}-poster-manual.webp`
-        ] ??
-        optimisedMediaUrls[
-          `../assets/case-studies/${optimisedVideoStem}-poster.webp`
-        ],
+      webm,
+      mp4,
+      poster,
     },
   };
 }
