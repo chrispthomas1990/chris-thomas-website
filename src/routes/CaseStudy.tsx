@@ -25,6 +25,7 @@ type RevealingMediaPanelProps = {
   className: string;
   media?: CaseStudyMedia;
   revealDelay?: number;
+  sizes?: string;
 };
 
 type RevealingTextPanelProps = {
@@ -32,6 +33,13 @@ type RevealingTextPanelProps = {
   className?: string;
   revealDelay?: number;
 };
+
+const fullCaseStudyImageSizes =
+  "(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 80px), min(1688px, calc(100vw - 112px))";
+const wideCaseStudyImageSizes =
+  "(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 80px), min(1120px, calc((100vw - 112px) * 2 / 3))";
+const compactCaseStudyImageSizes =
+  "(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 80px), min(836px, calc((100vw - 128px) / 2))";
 
 function RevealingTextPanel({
   children,
@@ -68,6 +76,7 @@ function RevealingMediaPanel({
   className,
   media,
   revealDelay = 0,
+  sizes = fullCaseStudyImageSizes,
 }: RevealingMediaPanelProps) {
   const { elementRef, isVisible } = useRevealOnScroll<HTMLDivElement>();
   const panelClassName = [
@@ -87,7 +96,7 @@ function RevealingMediaPanel({
   return (
     <div ref={elementRef} className={panelClassName} style={style}>
       {media ? (
-        <MediaContent media={media} />
+        <MediaContent media={media} sizes={sizes} />
       ) : (
         <span className="placeholder-image" aria-hidden="true" />
       )}
@@ -156,6 +165,7 @@ export default function CaseStudy() {
         <RevealingMediaPanel
           className="case-panel feature-panel case-media-panel"
           media={firstMedia}
+          sizes={wideCaseStudyImageSizes}
         />
         <RevealingTextPanel revealDelay={120}>
           <h2>{project.contextHeading ?? caseStudy.overviewHeading}</h2>
@@ -173,6 +183,13 @@ export default function CaseStudy() {
             key={media.src}
             media={media}
             revealDelay={(index % 2) * 120}
+            sizes={
+              media.layout === "compact"
+                ? compactCaseStudyImageSizes
+                : index === 0
+                  ? wideCaseStudyImageSizes
+                  : fullCaseStudyImageSizes
+            }
           />
         ))}
         <RevealingTextPanel className="wide-panel" revealDelay={120}>

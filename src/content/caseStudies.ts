@@ -1,5 +1,29 @@
 const caseStudyAssetUrls = import.meta.glob(
-  "../assets/case-studies/**/*.{png,jpg,jpeg,webp,mp4}",
+  [
+    "../assets/case-studies/**/*.{png,jpg,jpeg,webp,mp4}",
+    "!../assets/case-studies/**/optimised/**",
+  ],
+  {
+    eager: true,
+    import: "default",
+    query: "?url",
+  },
+) as Record<string, string>;
+
+const caseStudyImageSrcSets = import.meta.glob(
+  [
+    "../assets/case-studies/**/*.webp",
+    "!../assets/case-studies/**/optimised/**",
+  ],
+  {
+    eager: true,
+    import: "default",
+    query: "?w=640;960;1280;1680;1920&format=webp&as=srcset",
+  },
+) as Record<string, string>;
+
+const optimisedMediaUrls = import.meta.glob(
+  "../assets/case-studies/**/optimised/*.{mp4,webm,webp}",
   {
     eager: true,
     import: "default",
@@ -17,13 +41,34 @@ function caseStudyAsset(path: string) {
   return src;
 }
 
-export type CaseStudyMedia = {
+type CaseStudyMediaBase = {
   src: string;
   alt: string;
   aspectRatio?: string;
-  kind?: "image" | "video";
   layout?: "compact";
 };
+
+type CaseStudyVideoSources = {
+  mobileMp4?: string;
+  mobileWebm?: string;
+  desktopMp4?: string;
+  desktopWebm?: string;
+  poster?: string;
+};
+
+type CaseStudyImageMedia = CaseStudyMediaBase & {
+  kind: "image";
+  srcSet?: string;
+  videoSources?: never;
+};
+
+type CaseStudyVideoMedia = CaseStudyMediaBase & {
+  kind: "video";
+  srcSet?: never;
+  videoSources: CaseStudyVideoSources;
+};
+
+export type CaseStudyMedia = CaseStudyImageMedia | CaseStudyVideoMedia;
 
 export type CaseStudy = {
   slug: string;
@@ -44,12 +89,56 @@ function caseStudyMedia(
   alt: string,
   options: Pick<CaseStudyMedia, "aspectRatio" | "layout"> = {},
 ): CaseStudyMedia {
-  return {
+  const assetPath = `../assets/case-studies/${path}`;
+  const commonMedia = {
     src: caseStudyAsset(path),
     alt,
     aspectRatio: "16 / 9",
-    kind: path.endsWith(".mp4") ? "video" : "image",
     ...options,
+  };
+
+  if (!path.endsWith(".mp4")) {
+    return {
+      ...commonMedia,
+      kind: "image",
+      srcSet: caseStudyImageSrcSets[assetPath],
+    };
+  }
+
+  const videoStem = path.replace(/\.mp4$/, "");
+  const optimisedVideoStem = videoStem.replace(
+    /\/([^/]+)$/,
+    "/optimised/$1",
+  );
+
+  return {
+    ...commonMedia,
+    kind: "video",
+    videoSources: {
+      mobileWebm:
+        optimisedMediaUrls[
+          `../assets/case-studies/${optimisedVideoStem}-640.webm`
+        ],
+      mobileMp4:
+        optimisedMediaUrls[
+          `../assets/case-studies/${optimisedVideoStem}-640.mp4`
+        ],
+      desktopWebm:
+        optimisedMediaUrls[
+          `../assets/case-studies/${optimisedVideoStem}-1280.webm`
+        ],
+      desktopMp4:
+        optimisedMediaUrls[
+          `../assets/case-studies/${optimisedVideoStem}-1280.mp4`
+        ],
+      poster:
+        optimisedMediaUrls[
+          `../assets/case-studies/${optimisedVideoStem}-poster-manual.webp`
+        ] ??
+        optimisedMediaUrls[
+          `../assets/case-studies/${optimisedVideoStem}-poster.webp`
+        ],
+    },
   };
 }
 

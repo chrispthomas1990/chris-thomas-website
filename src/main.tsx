@@ -2,12 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./routes/App";
-import CaseStudy from "./routes/CaseStudy";
-import Contact from "./routes/Contact";
-import Home from "./routes/Home";
-import Info from "./routes/Info";
-import LegalPage from "./routes/LegalPage";
-import NotFound from "./routes/NotFound";
 import "./styles.css";
 
 const routes = [
@@ -17,31 +11,53 @@ const routes = [
     children: [
       {
         index: true,
-        element: <Home />,
+        lazy: async () => ({
+          Component: (await import("./routes/Home")).default,
+        }),
       },
       {
         path: "work/:slug",
-        element: <CaseStudy />,
+        lazy: async () => ({
+          Component: (await import("./routes/CaseStudy")).default,
+        }),
       },
       {
         path: "info",
-        element: <Info />,
+        lazy: async () => ({
+          Component: (await import("./routes/Info")).default,
+        }),
       },
       {
         path: "contact",
-        element: <Contact />,
+        lazy: async () => ({
+          Component: (await import("./routes/Contact")).default,
+        }),
       },
       {
         path: "privacy-policy",
-        element: <LegalPage page="privacy" />,
+        lazy: async () => {
+          const LegalPage = (await import("./routes/LegalPage")).default;
+
+          return {
+            Component: () => <LegalPage page="privacy" />,
+          };
+        },
       },
       {
         path: "cookie-policy",
-        element: <LegalPage page="cookies" />,
+        lazy: async () => {
+          const LegalPage = (await import("./routes/LegalPage")).default;
+
+          return {
+            Component: () => <LegalPage page="cookies" />,
+          };
+        },
       },
       {
         path: "*",
-        element: <NotFound />,
+        lazy: async () => ({
+          Component: (await import("./routes/NotFound")).default,
+        }),
       },
     ],
   },

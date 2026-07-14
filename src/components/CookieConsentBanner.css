@@ -35,66 +35,6 @@
   flex-wrap: wrap;
 }
 
-.cookie-banner button {
-  appearance: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  min-height: 44px;
-  padding: 0 16px;
-  border: 1px solid var(--color-ink);
-  border-radius: 999px;
-  color: var(--color-paper);
-  background: var(--color-ink);
-  font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
-  text-wrap: balance;
-  cursor: pointer;
-  transition:
-    background-color 240ms ease,
-    color 240ms ease,
-    transform 240ms ease;
-}
-
-.cookie-banner button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
-  color: var(--color-accent-contrast);
-  background: var(--color-accent);
-  transition: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .cookie-banner button:hover {
-    color: var(--color-accent-contrast);
-    background: var(--color-accent);
-  }
-}
-
-:root[data-theme="dark"] .cookie-banner button:focus-visible {
-  background: var(--color-accent);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  :root[data-theme="dark"] .cookie-banner button:hover {
-    background: var(--color-accent);
-  }
-}
-
-.cookie-banner button:active {
-  transform: scale(0.98);
-}
-
-:root[data-theme="dark"] .cookie-banner button {
-  border-color: transparent;
-}
-
 @media (width >= 768px) {
   .cookie-banner {
     right: var(--page-gutter-right);

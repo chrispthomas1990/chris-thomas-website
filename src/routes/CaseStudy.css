@@ -184,7 +184,7 @@ body.header-hidden .case-study-subnav {
 }
 
 .case-grid > .cta-section {
-  padding-top: 48px;
+  padding-top: 16px;
 }
 
 @media (width >= 768px) {
@@ -216,7 +216,7 @@ body.header-hidden .case-study-subnav {
   }
 
   .case-grid > .cta-section {
-    padding-top: 64px;
+    padding-top: 48px;
   }
 }
 

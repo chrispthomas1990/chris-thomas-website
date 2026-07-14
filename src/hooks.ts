@@ -5,6 +5,71 @@ import {
   type ThemeMode,
 } from "./theme";
 
+type MediaQuerySubscription = {
+  mediaQuery: MediaQueryList;
+  listeners: Set<(matches: boolean) => void>;
+  handleChange: (event: MediaQueryListEvent) => void;
+};
+
+const mediaQuerySubscriptions = new Map<string, MediaQuerySubscription>();
+
+function subscribeToMediaQuery(
+  query: string,
+  listener: (matches: boolean) => void,
+) {
+  let subscription = mediaQuerySubscriptions.get(query);
+
+  if (!subscription) {
+    const mediaQuery = window.matchMedia(query);
+    const listeners = new Set<(matches: boolean) => void>();
+    const handleChange = (event: MediaQueryListEvent) => {
+      listeners.forEach((currentListener) => currentListener(event.matches));
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    subscription = { mediaQuery, listeners, handleChange };
+    mediaQuerySubscriptions.set(query, subscription);
+  }
+
+  subscription.listeners.add(listener);
+  listener(subscription.mediaQuery.matches);
+
+  return () => {
+    subscription.listeners.delete(listener);
+
+    if (subscription.listeners.size === 0) {
+      subscription.mediaQuery.removeEventListener(
+        "change",
+        subscription.handleChange,
+      );
+      mediaQuerySubscriptions.delete(query);
+    }
+  };
+}
+
+const scrollListeners = new Set<() => void>();
+
+function handleSharedScroll() {
+  scrollListeners.forEach((listener) => listener());
+}
+
+function subscribeToScroll(listener: () => void) {
+  if (scrollListeners.size === 0) {
+    window.addEventListener("scroll", handleSharedScroll, { passive: true });
+  }
+
+  scrollListeners.add(listener);
+  listener();
+
+  return () => {
+    scrollListeners.delete(listener);
+
+    if (scrollListeners.size === 0) {
+      window.removeEventListener("scroll", handleSharedScroll);
+    }
+  };
+}
+
 export function useManualScrollRestoration() {
   useEffect(() => {
     const originalScrollRestoration = window.history.scrollRestoration;
@@ -102,17 +167,7 @@ export function useEscapeKey(isActive: boolean, onEscape: () => void) {
 
 export function useMediaQueryChange(query: string, onChange: (matches: boolean) => void) {
   useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
-    const handleChange = (event: MediaQueryListEvent) => {
-      onChange(event.matches);
-    };
-
-    onChange(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
+    return subscribeToMediaQuery(query, onChange);
   }, [onChange, query]);
 }
 
@@ -120,17 +175,7 @@ export function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
-    const handleChange = (event: MediaQueryListEvent) => {
-      setMatches(event.matches);
-    };
-
-    setMatches(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
+    return subscribeToMediaQuery(query, setMatches);
   }, [query]);
 
   return matches;
@@ -217,12 +262,7 @@ export function useScrollThreshold(threshold: number, resetThreshold = threshold
       });
     };
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return subscribeToScroll(handleScroll);
   }, [resetThreshold, threshold]);
 
   return hasPassedThreshold;
@@ -249,12 +289,7 @@ export function useIsScrollingUp() {
       lastScrollY = currentScrollY;
     };
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return subscribeToScroll(handleScroll);
   }, []);
 
   return isScrollingUp;
@@ -289,12 +324,7 @@ export function useScrollChrome(isHeaderPinned: boolean) {
       lastScrollY = currentScrollY;
     };
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return subscribeToScroll(handleScroll);
   }, [isHeaderPinned]);
 
   return { isHeaderHidden };

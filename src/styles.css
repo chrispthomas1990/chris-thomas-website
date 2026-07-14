@@ -222,7 +222,7 @@ main {
   display: grid;
   grid-column: 1 / -1;
   gap: 16px;
-  padding: 32px 0 0;
+  padding: 0;
 }
 
 h1,
@@ -353,9 +353,6 @@ p {
     gap: 8px;
   }
 
-  .cta-section {
-    padding-top: 16px;
-  }
 }
 
 @media (width >= 768px) {
@@ -371,6 +368,10 @@ p {
 
   body.nav-open {
     overflow: auto;
+  }
+
+  .cta-section {
+    padding-top: 16px;
   }
 
   .not-found-section .button-link {

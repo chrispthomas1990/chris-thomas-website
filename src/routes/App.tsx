@@ -3,7 +3,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import CookieConsentBanner from "../components/CookieConsentBanner";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { caseStudies } from "../content/caseStudies";
 import { siteMetadata } from "../content/site";
 import {
   useBodyClass,
@@ -47,7 +46,7 @@ const staticPageMetadata: Record<string, PageMetadata> = {
   },
 };
 
-function getPageMetadata(pathname: string): PageMetadata {
+async function getPageMetadata(pathname: string): Promise<PageMetadata> {
   const normalizedPath = pathname === "/" ? pathname : pathname.replace(/\/$/, "");
   const staticMetadata = staticPageMetadata[normalizedPath];
 
@@ -58,6 +57,7 @@ function getPageMetadata(pathname: string): PageMetadata {
   const caseStudyMatch = normalizedPath.match(/^\/work\/([^/]+)$/);
 
   if (caseStudyMatch) {
+    const { caseStudies } = await import("../content/caseStudies");
     const project = caseStudies.find(
       ({ slug }) => slug === decodeURIComponent(caseStudyMatch[1]),
     );
@@ -100,12 +100,22 @@ export default function App() {
   useMediaQueryChange("(width >= 768px)", closeMenuAtDesktop);
 
   useEffect(() => {
-    const metadata = getPageMetadata(pathname);
+    let isCurrentRoute = true;
 
-    document.title = metadata.title;
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute("content", metadata.description);
+    void getPageMetadata(pathname).then((metadata) => {
+      if (!isCurrentRoute) {
+        return;
+      }
+
+      document.title = metadata.title;
+      document
+        .querySelector('meta[name="description"]')
+        ?.setAttribute("content", metadata.description);
+    });
+
+    return () => {
+      isCurrentRoute = false;
+    };
   }, [pathname]);
 
   useEffect(() => {

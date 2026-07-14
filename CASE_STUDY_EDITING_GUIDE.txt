@@ -1,38 +1,39 @@
 Case Study Editing Guide
 ========================
 
-Case study content now lives in one place:
+Case study content and media configuration live in:
 
 src/content/caseStudies.ts
 
-Use that file to edit:
+Case study source media lives in:
 
-- Case study slugs
-- Case study titles
-- Case study summary copy
-- Case study context copy
-- Case study role labels
-- Homepage thumbnail media
-- Homepage case study order
+src/assets/case-studies/
+
+You should not need to edit CaseStudy.tsx, MediaPanel.tsx, or any CSS when
+adding or updating normal case study content and media.
 
 
-Editing Case Study Page Content
--------------------------------
+Editing Case Study Content
+--------------------------
 
-Each case study is currently generated as a placeholder object:
+Each entry in the exported caseStudies array controls one homepage tile and
+one case study page:
 
 {
-  slug: "case-study-1",
-  title: "Case Study 1.",
-  summary: "A placeholder case study page ready for project imagery, notes, and outcomes.",
-  context: "Use this space for project background, design process, constraints, and the story behind the work.",
+  slug: "le-creuset-classic-kettle",
+  title: "Le Creuset Classic Kettle.",
+  summary: "A short introduction to the project.",
+  contextHeading: "Project context.",
+  context: "Background, process, constraints, and project goals.",
   role: "Brand design.",
-  thumbnail: homepageThumbnailOrder[index],
+  roleBody: "Responsibilities, collaborators, and deliverables.",
+  resultHeading: "Project outcome.",
+  resultBody: "Results, impact, and any useful links or metrics.",
+  thumbnail: leCreusetMedia[0],
+  media: leCreusetMedia,
 }
 
-The slug controls the URL.
-
-Example:
+The slug controls the URL. For example:
 
 slug: "le-creuset-classic-kettle"
 
@@ -40,99 +41,235 @@ becomes:
 
 /work/le-creuset-classic-kettle
 
-
-Editing Homepage Thumbnails
----------------------------
-
-Homepage thumbnail media is defined in:
-
-thumbnailMedia
-
-The current homepage order is defined in:
-
-homepageThumbnailOrder
-
-The current order is:
-
-1. Kettle thumbnail
-2. Soft drink thumbnail
-3. Soft drink thumbnail
-4. Kettle thumbnail
-5. Kettle thumbnail
-6. Soft drink thumbnail
-
-This matches the current wide/small homepage layout.
+contextHeading, roleBody, resultHeading, and resultBody are optional. If they
+are omitted, the shared defaults in projectContent are used.
 
 
-Adding New Images Or Videos
----------------------------
+Homepage And Navigation Order
+-----------------------------
 
-Add project assets in folders like:
+The order of objects in the caseStudies array controls:
+
+- Homepage case study order
+- Previous and next case study navigation
+- Which project receives each repeating wide or narrow homepage tile layout
+
+The homepage uses the same exported array through homepageCaseStudies. There
+is no separate homepage thumbnail order to maintain.
+
+The thumbnail field selects the media displayed on the homepage. It can reuse
+an item from the project's media array:
+
+thumbnail: leCreusetMedia[0]
+
+Changing the array index changes the homepage thumbnail without changing the
+order of media on the case study page.
+
+
+Adding A New Case Study Folder
+------------------------------
+
+Create a folder beneath:
+
+src/assets/case-studies/
+
+Example:
 
 src/assets/case-studies/my-project/
 
-Then import them in:
+Keep original source images and videos directly in that project folder. Do not
+put source media inside an optimised folder; that folder is reserved for files
+created by the video optimisation process.
 
-src/content/caseStudies.ts
+In src/content/caseStudies.ts, add a small path helper:
 
-Example:
+const myProjectAsset = (file: string) => `my-project/${file}`;
 
-import myThumbnail from "../assets/case-studies/my-project/my-thumbnail.mp4";
+Then define the project's ordered media array:
 
-Then add the media to thumbnailMedia:
+const myProjectMedia = [
+  caseStudyMedia(
+    myProjectAsset("my-project-hero.webp"),
+    "Describe the hero image for screen-reader users.",
+  ),
+  caseStudyMedia(
+    myProjectAsset("my-project-animation.mp4"),
+    "Describe the animated project render.",
+  ),
+  caseStudyMedia(
+    myProjectAsset("my-project-detail.webp"),
+    "Describe the project detail image.",
+    { layout: "compact" },
+  ),
+];
 
-myProject: {
-  src: myThumbnail,
-  alt: "Describe the thumbnail.",
-  kind: "video",
+Finally, add the new project object to the caseStudies array and select its
+thumbnail:
+
+{
+  slug: "my-project",
+  title: "My Project.",
+  summary: "A short introduction to the project.",
+  contextHeading: "Project context.",
+  context: "Project context copy.",
+  role: "My role.",
+  roleBody: "Responsibilities and collaborators.",
+  resultHeading: "Project outcome.",
+  resultBody: "Project results.",
+  thumbnail: myProjectMedia[0],
+  media: myProjectMedia,
 }
 
-For an image, use:
 
-myProject: {
-  src: myThumbnail,
-  alt: "Describe the thumbnail.",
-}
+Ordering And Sizing Case Study Media
+------------------------------------
+
+The order of items in a project's media array controls their order on the case
+study page.
+
+- The first item is the lead feature panel.
+- Later items use the standard full-width media layout.
+- Add { layout: "compact" } to place suitable items in the existing compact
+  desktop layout.
+- Media defaults to a 16:9 panel. For a differently shaped source, pass its
+  real ratio, for example { aspectRatio: "4 / 3" }. Options can be combined as
+  { layout: "compact", aspectRatio: "4 / 3" }.
+- On mobile, media continues to use the existing responsive page layout.
+
+Do not add wrappers, image elements, video elements, CSS classes, or new CSS
+for normal media additions. caseStudyMedia supplies the existing responsive
+media implementation while preserving the site's layout and reveal behavior.
 
 
-Case Study Page Images
-----------------------
+Adding Images
+-------------
 
-The case study pages currently use placeholder image panels. When you are ready
-to manually add real page images, edit:
+Use WebP for case study images. The current source images are 1920 x 1080.
+Keep an image's intended aspect ratio and do not stretch it.
 
-src/routes/CaseStudy.tsx
+Reference an image through caseStudyMedia:
 
-Replace a placeholder like this:
+caseStudyMedia(
+  myProjectAsset("my-project-image.webp"),
+  "Useful, concise alternative text.",
+)
 
-<span className="placeholder-image" aria-hidden="true" />
+During development and production builds, Vite Image Tools automatically makes
+responsive WebP candidates at these widths when the source is large enough:
 
-with an image:
+- 640
+- 960
+- 1280
+- 1680
+- 1920
 
-<img className="case-study-media" src={myImage} alt="Describe the image." />
+The original image remains the fallback. Do not manually create, rename, or
+place responsive image variants in the source folder.
 
-Then add CSS in:
 
-src/routes/CaseStudy.css
+Adding Videos
+-------------
 
-Example:
+Add the original silent MP4 directly to the project folder and reference it
+through caseStudyMedia:
 
-.case-study-media {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+caseStudyMedia(
+  myProjectAsset("my-project-animation.mp4"),
+  "Useful description of the animation.",
+)
+
+The optimisation script discovers source MP4 files automatically. It ignores
+optimised folders and creates these files beside each source:
+
+optimised/my-project-animation-640.webm
+optimised/my-project-animation-640.mp4
+optimised/my-project-animation-1280.webm
+optimised/my-project-animation-1280.mp4
+optimised/my-project-animation-poster.webp
+
+The 640px files are used below the existing 768px breakpoint. The 1280px files
+are used at larger viewport widths. The original MP4 remains the final browser
+fallback.
+
+Generated videos are silent, use the original aspect ratio, and are not
+upscaled when the source is smaller than the requested output.
+
+Running npm run build automatically runs the video optimiser first. Missing or
+out-of-date files are generated; current files are skipped. FFmpeg must be
+installed on the machine running the optimisation.
+
+If you add a video while the development server is already running, generate
+its files before checking it in the browser:
+
+npm run optimise:videos
+
+The generated optimised files should be committed with the source video.
+
+
+Adding A Manual Video Poster
+----------------------------
+
+The build creates a first-frame poster automatically. If its colour does not
+match the video closely enough, export a colour-managed WebP poster manually.
+
+Place the manual file in the same optimised folder as the generated video
+variants. Its name must exactly match the source video name followed by
+-poster-manual.webp.
+
+For this source video:
+
+src/assets/case-studies/my-project/my-project-animation.mp4
+
+use this manual poster path:
+
+src/assets/case-studies/my-project/optimised/my-project-animation-poster-manual.webp
+
+Prefer a 16:9 poster at 640 x 360 or 1280 x 720 for a 16:9 video. For any other
+video shape, preserve the video's real aspect ratio. Export the same opening
+frame and match the video's colour-managed output as closely as possible.
+
+Poster priority is:
+
+1. my-project-animation-poster-manual.webp
+2. my-project-animation-poster.webp
+
+The optimiser never creates, changes, or deletes -poster-manual.webp files.
+It may continue to maintain the automatic poster as a fallback, which is safe.
+
+
+Replacing Existing Media
+------------------------
+
+If a replacement uses the same filename, overwrite only the original source
+file in the project folder. Do not manually overwrite generated video variants.
+
+On the next npm run optimise:videos or npm run build:
+
+- Responsive image candidates are rebuilt by Vite.
+- Video variants and the automatic poster are regenerated when the source MP4
+  is newer than those files.
+- A manual -poster-manual.webp file is preserved.
+
+If you rename an original media file, update its caseStudyMedia reference in
+src/content/caseStudies.ts. Old generated files with the previous name are not
+automatically deleted.
 
 
 Useful Commands
 ---------------
 
-Run checks after editing:
-
-npm run lint
-npm run build
-
-Preview locally:
+Start the local development server:
 
 npm run dev
+
+Generate or refresh video variants and automatic posters:
+
+npm run optimise:videos
+
+Run code and CSS checks:
+
+npm run lint
+
+Run the production build, including automatic video optimisation:
+
+npm run build
