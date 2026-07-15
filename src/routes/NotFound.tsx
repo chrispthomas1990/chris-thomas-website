@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import NavigationButton from "../components/NavigationButton";
 import { sharedContent } from "../content/shared";
 
 export default function NotFound() {
@@ -10,9 +10,9 @@ export default function NotFound() {
         <section className="content-section not-found-section">
           <h1>{pageNotFound.heading}</h1>
           <p>{pageNotFound.body}</p>
-          <Link className="button-link" to={pageNotFound.actionTo}>
+          <NavigationButton to={pageNotFound.actionTo}>
             {pageNotFound.actionLabel}
-          </Link>
+          </NavigationButton>
         </section>
       </section>
     </div>

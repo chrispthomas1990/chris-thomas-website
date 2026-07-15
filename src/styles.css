@@ -269,7 +269,7 @@ p {
   text-wrap: balance;
 }
 
-.button-link {
+.button {
   appearance: none;
   display: inline-flex;
   align-items: center;
@@ -296,7 +296,7 @@ p {
     transform 240ms ease;
 }
 
-.button-link:focus-visible {
+.button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 var(--focus-keyline-width) var(--color-ink);
   color: var(--color-accent-contrast);
@@ -305,31 +305,37 @@ p {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .button-link:hover {
+  .button:hover {
     color: var(--color-accent-contrast);
     background: var(--color-accent);
   }
 }
 
-:root[data-theme="dark"] .button-link:focus-visible {
+:root[data-theme="dark"] .button:focus-visible {
   background: var(--color-accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :root[data-theme="dark"] .button-link:hover {
+  :root[data-theme="dark"] .button:hover {
     background: var(--color-accent);
   }
 }
 
-.button-link:active {
+.button:active {
   transform: scale(0.98);
 }
 
-:root[data-theme="dark"] .button-link {
+@media (hover: none) and (pointer: coarse) {
+  .button:active {
+    transform: none;
+  }
+}
+
+:root[data-theme="dark"] .button {
   border-color: transparent;
 }
 
-.not-found-section .button-link {
+.not-found-section .button {
   margin-top: 8px;
 }
 
@@ -352,7 +358,6 @@ p {
   .content-section {
     gap: 8px;
   }
-
 }
 
 @media (width >= 768px) {
@@ -374,7 +379,7 @@ p {
     padding-top: 16px;
   }
 
-  .not-found-section .button-link {
+  .not-found-section .button {
     margin-top: 0;
   }
 

@@ -235,7 +235,7 @@ export default function Contact() {
               </span>
             ) : null}
           </label>
-          <button className="button-link" type="submit">
+          <button className="button" type="submit">
             {form.submitLabel}
           </button>
           <p className="sr-only" aria-live="polite">

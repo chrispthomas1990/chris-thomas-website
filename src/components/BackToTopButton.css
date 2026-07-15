@@ -63,6 +63,12 @@
   transform: scale(0.96);
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .back-to-top:active {
+    transform: none;
+  }
+}
+
 @media (width < 768px) {
   .back-to-top {
     width: 44px;

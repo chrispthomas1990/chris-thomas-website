@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import NavigationButton from "../components/NavigationButton";
 import ProjectCard from "../components/ProjectCard";
 import { homepageCaseStudies } from "../content/caseStudies";
 import { pageContent } from "../content/pages";
@@ -52,9 +52,9 @@ export default function Home() {
       <div className="cta-section">
         <h2>{cta.heading}</h2>
         <p>{cta.body}</p>
-        <Link className="button-link" to={cta.actionTo}>
+        <NavigationButton to={cta.actionTo}>
           {cta.actionLabel}
-        </Link>
+        </NavigationButton>
       </div>
     </div>
   );

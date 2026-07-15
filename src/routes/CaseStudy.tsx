@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { CSSProperties, ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getMediaPanelStyle, MediaContent } from "../components/MediaPanel";
+import NavigationButton from "../components/NavigationButton";
 import {
   caseStudies,
   projectContent,
@@ -199,9 +200,9 @@ export default function CaseStudy() {
         <div className="cta-section">
           <h2>{cta.heading}</h2>
           <p>{cta.body}</p>
-          <Link className="button-link" to={cta.actionTo}>
+          <NavigationButton to={cta.actionTo}>
             {cta.actionLabel}
-          </Link>
+          </NavigationButton>
         </div>
       </section>
     </article>

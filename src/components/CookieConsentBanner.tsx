@@ -31,7 +31,7 @@ export default function CookieConsentBanner() {
         <Link className="text-link" to={cookieBanner.policyTo}>
           {cookieBanner.policyLabel}
         </Link>
-        <button className="button-link" type="button" onClick={acceptCookies}>
+        <button className="button" type="button" onClick={acceptCookies}>
           {cookieBanner.acceptLabel}
         </button>
       </div>
