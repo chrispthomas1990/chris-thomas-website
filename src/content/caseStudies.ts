@@ -138,6 +138,7 @@ function caseStudyMedia(
 
 const leCreusetAsset = (file: string) => `le-creuset-classic-kettle/${file}`;
 const softDrinkAsset = (file: string) => `soft-drink-can/${file}`;
+const testAsset = (file: string) => `test-images/${file}`;
 
 const leCreusetMedia = [
   caseStudyMedia(
@@ -259,6 +260,33 @@ const softDrinkMedia = [
   ),
 ];
 
+const testMedia = [
+  caseStudyMedia(
+    testAsset("test-image-1.webp"),
+    "Test image 1.",
+  ),
+  caseStudyMedia(
+    testAsset("test-image-2.webp"),
+    "Test image 1.",
+  ),
+  caseStudyMedia(
+    testAsset("test-image-3.webp"),
+    "Test image 1.",
+  ),
+  caseStudyMedia(
+    testAsset("test-image-4.webp"),
+    "Test image 1.",
+  ),
+  caseStudyMedia(
+    testAsset("test-image-5.webp"),
+    "Test image 1.",
+  ),
+  caseStudyMedia(
+    testAsset("test-image-6.webp"),
+    "Test image 1.",
+  ),
+];
+
 export const projectContent = {
   caseStudy: {
     navAriaLabel: "Case study navigation",
@@ -303,42 +331,42 @@ export const caseStudies = [
     slug: "case-study-1",
     title: "Case Study 1.",
     ...defaultCaseStudyCopy,
-    thumbnail: leCreusetMedia[0],
+    thumbnail: testMedia[0],
     media: leCreusetMedia,
   },
   {
     slug: "case-study-2",
     title: "Case Study 2.",
     ...defaultCaseStudyCopy,
-    thumbnail: softDrinkMedia[0],
+    thumbnail: testMedia[1],
     media: softDrinkMedia,
   },
   {
     slug: "case-study-3",
     title: "Case Study 3.",
     ...defaultCaseStudyCopy,
-    thumbnail: softDrinkMedia[0],
+    thumbnail: testMedia[2],
     media: softDrinkMedia,
   },
   {
     slug: "case-study-4",
     title: "Case Study 4.",
     ...defaultCaseStudyCopy,
-    thumbnail: leCreusetMedia[0],
+    thumbnail: testMedia[3],
     media: leCreusetMedia,
   },
   {
     slug: "case-study-5",
     title: "Case Study 5.",
     ...defaultCaseStudyCopy,
-    thumbnail: leCreusetMedia[0],
+    thumbnail: testMedia[4],
     media: leCreusetMedia,
   },
   {
     slug: "case-study-6",
     title: "Case Study 6.",
     ...defaultCaseStudyCopy,
-    thumbnail: softDrinkMedia[0],
+    thumbnail: testMedia[5],
     media: softDrinkMedia,
   },
 ] satisfies CaseStudy[];
