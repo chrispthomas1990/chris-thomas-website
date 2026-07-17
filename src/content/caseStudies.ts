@@ -365,25 +365,25 @@ export const projectContent = {
     gridAriaSuffix: "case study",
     overviewHeading: "Project context.",
     roleBody:
-      "Placeholder copy for responsibilities, collaborators, constraints, and outcomes.",
+      "Placeholder copy for responsibilities, collaborators, constraints and outcomes.",
     resultHeading: "A concise case study area ready for final content.",
     resultBody:
-      "Add process notes, metrics, client impact, and links to live work here. The bento layout will adapt from desktop to mobile.",
+      "Add process notes, metrics, client impact and links to live work here. The bento layout will adapt from desktop to mobile.",
   },
 } as const;
 
 const defaultCaseStudyCopy = {
   summary:
-    "A placeholder case study page ready for project imagery, notes, and outcomes.",
+    "A placeholder case study page ready for project imagery, notes and outcomes.",
   contextHeading: "Project context.",
   context:
-    "Use this space for project background, design process, constraints, and the story behind the work.",
+    "Use this space for project background, design process, constraints and the story behind the work.",
   role: "Brand design.",
   roleBody:
-    "Placeholder copy for responsibilities, collaborators, constraints, and outcomes.",
+    "Placeholder copy for responsibilities, collaborators, constraints and outcomes.",
   resultHeading: "A concise case study area ready for final content.",
   resultBody:
-    "Add process notes, key metrics, client impact, and links to the live work here.",
+    "Add process notes, key metrics, client impact and links to the live work here.",
 } satisfies Pick<
   CaseStudy,
   | "summary"

@@ -19,7 +19,7 @@ export const sharedContent = {
   pageNotFound: {
     heading: "This page is not available.",
     body:
-      "The page may have moved, the address may be incorrect, or the content may no longer be available.",
+      "The page may have moved, the address may be incorrect or the content may no longer be available.",
     actionLabel: "Back to the homepage",
     actionTo: "/",
   },

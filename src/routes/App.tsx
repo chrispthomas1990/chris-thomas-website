@@ -27,12 +27,12 @@ const staticPageMetadata: Record<string, PageMetadata> = {
   "/info": {
     title: "Info | Chris Thomas",
     description:
-      "Learn about Chris Thomas and his approach to distinctive brand, digital, and campaign work.",
+      "Learn about Chris Thomas and his approach to distinctive brand, digital and campaign work.",
   },
   "/contact": {
     title: "Contact | Chris Thomas",
     description:
-      "Contact Chris Thomas to discuss brand, digital, campaign, and creative projects or collaborations.",
+      "Contact Chris Thomas to discuss brand, digital, campaign and creative projects or collaborations.",
   },
   "/privacy-policy": {
     title: "Privacy Policy | Chris Thomas",
@@ -42,7 +42,7 @@ const staticPageMetadata: Record<string, PageMetadata> = {
   "/cookie-policy": {
     title: "Cookie Policy | Chris Thomas",
     description:
-      "Read the cookie policy for the Chris Thomas brand, digital, and campaign portfolio.",
+      "Read the cookie policy for the Chris Thomas brand, digital and campaign portfolio.",
   },
 };
 

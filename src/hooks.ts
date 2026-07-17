@@ -4,6 +4,7 @@ import {
   themeStorageKey,
   type ThemeMode,
 } from "./theme";
+import { setStoredValue } from "./storage";
 
 type MediaQuerySubscription = {
   mediaQuery: MediaQueryList;
@@ -220,7 +221,7 @@ export function useThemeMode() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = themeMode;
-    window.localStorage.setItem(themeStorageKey, themeMode);
+    setStoredValue(themeStorageKey, themeMode);
   }, [themeMode]);
 
   return { themeMode, toggleTheme };

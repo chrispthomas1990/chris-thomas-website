@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { sharedContent } from "../content/shared";
+import { getStoredValue, setStoredValue } from "../storage";
 import "./CookieConsentBanner.css";
 
 const { cookieBanner } = sharedContent;
@@ -9,11 +10,11 @@ export default function CookieConsentBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(window.localStorage.getItem(cookieBanner.storageKey) !== "accepted");
+    setIsVisible(getStoredValue(cookieBanner.storageKey) !== "accepted");
   }, []);
 
   const acceptCookies = () => {
-    window.localStorage.setItem(cookieBanner.storageKey, "accepted");
+    setStoredValue(cookieBanner.storageKey, "accepted");
     setIsVisible(false);
   };
 

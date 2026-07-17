@@ -1,3 +1,5 @@
+import { getStoredValue } from "./storage";
+
 export type ThemeMode = "light" | "dark";
 
 export const themeStorageKey = "preferred-theme";
@@ -13,7 +15,7 @@ export function isThemeMode(value: string | null): value is ThemeMode {
 }
 
 export function getInitialThemeMode(): ThemeMode {
-  const savedTheme = window.localStorage.getItem(themeStorageKey);
+  const savedTheme = getStoredValue(themeStorageKey);
 
   if (isThemeMode(savedTheme)) {
     return savedTheme;

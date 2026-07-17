@@ -5,7 +5,7 @@ export const companyName = "Chris Thomas Creative Limited";
 export const siteMetadata = {
   title: "Chris Thomas | Brand, Digital & Campaign",
   description:
-    "Chris Thomas design portfolio showcasing selected brand, digital, and creative work.",
+    "Chris Thomas design portfolio showcasing selected brand, digital and creative work.",
 } as const;
 
 export const brandContent = {
