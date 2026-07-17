@@ -1,8 +1,8 @@
 export const sharedContent = {
   cta: {
-    heading: "Interested in work like this?",
+    heading: "Interested in working together?",
     body:
-      "If this project feels close to what you are planning, send over a few details and I will help shape the next step.",
+      "Share a little about your project, and let’s see where it could go.",
     actionLabel: "Get in touch",
     actionTo: "/contact",
   },

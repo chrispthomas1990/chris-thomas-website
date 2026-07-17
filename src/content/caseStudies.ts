@@ -67,6 +67,7 @@ type CaseStudyVideoMedia = CaseStudyMediaBase & {
 };
 
 export type CaseStudyMedia = CaseStudyImageMedia | CaseStudyVideoMedia;
+type CaseStudyMediaList = [CaseStudyMedia, ...CaseStudyMedia[]];
 
 export type CaseStudy = {
   slug: string;
@@ -79,7 +80,7 @@ export type CaseStudy = {
   resultHeading?: string;
   resultBody?: string;
   thumbnail: CaseStudyMedia;
-  media: CaseStudyMedia[];
+  media: CaseStudyMediaList;
 };
 
 function caseStudyMedia(
@@ -136,156 +137,224 @@ function caseStudyMedia(
   };
 }
 
-const leCreusetAsset = (file: string) => `le-creuset-classic-kettle/${file}`;
-const softDrinkAsset = (file: string) => `soft-drink-can/${file}`;
-const testAsset = (file: string) => `test-images/${file}`;
+const placeholderAsset = (file: string) => file;
+const testCaseStudyAsset1 = (file: string) => `case-study-1/${file}`;
+const testCaseStudyAsset2 = (file: string) => `case-study-2/${file}`;
+const testCaseStudyAsset3 = (file: string) => `case-study-3/${file}`;
+const testCaseStudyAsset4 = (file: string) => `case-study-4/${file}`;
+const testCaseStudyAsset5 = (file: string) => `case-study-5/${file}`;
+const testCaseStudyAsset6 = (file: string) => `case-study-6/${file}`;
 
-const leCreusetMedia = [
+const testCaseStudyMedia1 = [
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a.webp"),
-    "Render of the Le Creuset kettle in a kitchen scene.",
+    testCaseStudyAsset1("test-image-1.webp"),
+    "Test image 1.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b.webp"),
-    "Render of the Le Creuset kettle in a second kitchen scene.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a.mp4"),
-    "Animated render of the Le Creuset kettle in a kitchen scene.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a-clay.webp"),
-    "Clay render of the Le Creuset kettle kitchen scene.",
-    { layout: "compact" },
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-a-wire.webp"),
-    "Wireframe render of the Le Creuset kettle kitchen scene.",
-    { layout: "compact" },
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b-clay.webp"),
-    "Clay render of the second Le Creuset kettle kitchen scene.",
-    { layout: "compact" },
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b-wire.webp"),
-    "Wireframe render of the second Le Creuset kettle kitchen scene.",
-    { layout: "compact" },
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-c.mp4"),
-    "Animated studio render of the Le Creuset kettle.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
-  caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-a.webp"),
-    "Studio render of the Le Creuset kettle.",
-    { layout: "compact" },
-  ),
-  caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-b.webp"),
-    "Alternate studio render of the Le Creuset kettle.",
-    { layout: "compact" },
-  ),
-  caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-c.webp"),
-    "Third studio render of the Le Creuset kettle.",
-    { layout: "compact" },
-  ),
-  caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-studio-set-d.webp"),
-    "Fourth studio render of the Le Creuset kettle.",
-    { layout: "compact" },
-  ),
-  caseStudyMedia(
-    leCreusetAsset("le-creuset-classic-kettle-kitchen-set-b.mp4"),
-    "Animated render of the Le Creuset kettle in a second kitchen scene.",
-  ),
-];
+] satisfies CaseStudyMediaList;
 
-const softDrinkMedia = [
+const testCaseStudyMedia2 = [
   caseStudyMedia(
-    softDrinkAsset("soft-drink-cans-animation.mp4"),
-    "Animated lineup of soft drink can renders.",
+    testCaseStudyAsset2("test-image-2.webp"),
+    "Test image 2.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-coca-cola.webp"),
-    "Render of a Coca-Cola soft drink can.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-fanta-lemon.webp"),
-    "Render of a Fanta lemon soft drink can.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-irn-bru.webp"),
-    "Render of an Irn-Bru soft drink can.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-pepsi.webp"),
-    "Render of a Pepsi soft drink can.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-clay-1.webp"),
-    "Clay geometry render of a soft drink can.",
-    { layout: "compact" },
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-wire-1.webp"),
-    "Wireframe geometry render of a soft drink can.",
-    { layout: "compact" },
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-clay-2.webp"),
-    "Second clay geometry render of a soft drink can.",
-    { layout: "compact" },
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
-  caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-wire-2.webp"),
-    "Second wireframe geometry render of a soft drink can.",
-    { layout: "compact" },
-  ),
-  caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-clay-3.webp"),
-    "Third clay geometry render of a soft drink can.",
-    { layout: "compact" },
-  ),
-  caseStudyMedia(
-    softDrinkAsset("soft-drink-can-geo-wire-3.webp"),
-    "Third wireframe geometry render of a soft drink can.",
-    { layout: "compact" },
-  ),
-  caseStudyMedia(
-    softDrinkAsset("soft-drink-can-sprite.webp"),
-    "Render of a Sprite soft drink can.",
-  ),
-];
+] satisfies CaseStudyMediaList;
 
-const testMedia = [
+const testCaseStudyMedia3 = [
   caseStudyMedia(
-    testAsset("test-image-1.webp"),
-    "Test image 1.",
+    testCaseStudyAsset3("test-image-3.webp"),
+    "Test image 3.",
   ),
   caseStudyMedia(
-    testAsset("test-image-2.webp"),
-    "Test image 1.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    testAsset("test-image-3.webp"),
-    "Test image 1.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    testAsset("test-image-4.webp"),
-    "Test image 1.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    testAsset("test-image-5.webp"),
-    "Test image 1.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
   caseStudyMedia(
-    testAsset("test-image-6.webp"),
-    "Test image 1.",
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
   ),
-];
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+] satisfies CaseStudyMediaList;
+
+const testCaseStudyMedia4 = [
+  caseStudyMedia(
+    testCaseStudyAsset4("test-image-4.webp"),
+    "Test image 4.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+] satisfies CaseStudyMediaList;
+
+const testCaseStudyMedia5 = [
+  caseStudyMedia(
+    testCaseStudyAsset5("test-image-5.webp"),
+    "Test image 5.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+] satisfies CaseStudyMediaList;
+
+const testCaseStudyMedia6 = [
+  caseStudyMedia(
+    testCaseStudyAsset6("test-image-6.webp"),
+    "Test image 6.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+  caseStudyMedia(
+    placeholderAsset("placeholder-image.webp"),
+    "Placeholder image.",
+  ),
+] satisfies CaseStudyMediaList;
+
 
 export const projectContent = {
   caseStudy: {
@@ -314,7 +383,7 @@ const defaultCaseStudyCopy = {
     "Placeholder copy for responsibilities, collaborators, constraints, and outcomes.",
   resultHeading: "A concise case study area ready for final content.",
   resultBody:
-    "Add process notes, metrics, client impact, and links to live work here. The bento layout will adapt from desktop to mobile.",
+    "Add process notes, key metrics, client impact, and links to the live work here.",
 } satisfies Pick<
   CaseStudy,
   | "summary"
@@ -331,43 +400,43 @@ export const caseStudies = [
     slug: "case-study-1",
     title: "Case Study 1.",
     ...defaultCaseStudyCopy,
-    thumbnail: testMedia[0],
-    media: leCreusetMedia,
+    thumbnail: testCaseStudyMedia1[0],
+    media: testCaseStudyMedia1,
   },
   {
     slug: "case-study-2",
     title: "Case Study 2.",
     ...defaultCaseStudyCopy,
-    thumbnail: testMedia[1],
-    media: softDrinkMedia,
+    thumbnail: testCaseStudyMedia2[0],
+    media: testCaseStudyMedia2,
   },
   {
     slug: "case-study-3",
     title: "Case Study 3.",
     ...defaultCaseStudyCopy,
-    thumbnail: testMedia[2],
-    media: softDrinkMedia,
+    thumbnail: testCaseStudyMedia3[0],
+    media: testCaseStudyMedia3,
   },
   {
     slug: "case-study-4",
     title: "Case Study 4.",
     ...defaultCaseStudyCopy,
-    thumbnail: testMedia[3],
-    media: leCreusetMedia,
+    thumbnail: testCaseStudyMedia4[0],
+    media: testCaseStudyMedia4,
   },
   {
     slug: "case-study-5",
     title: "Case Study 5.",
     ...defaultCaseStudyCopy,
-    thumbnail: testMedia[4],
-    media: leCreusetMedia,
+    thumbnail: testCaseStudyMedia5[0],
+    media: testCaseStudyMedia5,
   },
   {
     slug: "case-study-6",
     title: "Case Study 6.",
     ...defaultCaseStudyCopy,
-    thumbnail: testMedia[5],
-    media: softDrinkMedia,
+    thumbnail: testCaseStudyMedia6[0],
+    media: testCaseStudyMedia6,
   },
 ] satisfies CaseStudy[];
 

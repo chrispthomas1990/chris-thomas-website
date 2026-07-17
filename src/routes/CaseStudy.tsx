@@ -160,6 +160,7 @@ export default function CaseStudy() {
       </section>
 
       <section
+        key={project.slug}
         className="bento-grid case-grid"
         aria-label={`${projectTitleForLabels} ${caseStudy.gridAriaSuffix}`}
       >
@@ -181,7 +182,7 @@ export default function CaseStudy() {
             className={`case-panel case-media-panel media-panel${
               media.layout === "compact" ? " media-panel-compact" : ""
             }`}
-            key={media.src}
+            key={`${media.src}-${index}`}
             media={media}
             revealDelay={(index % 2) * 120}
             sizes={

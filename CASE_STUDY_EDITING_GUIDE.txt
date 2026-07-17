@@ -20,8 +20,8 @@ Each entry in the exported caseStudies array controls one homepage tile and
 one case study page:
 
 {
-  slug: "le-creuset-classic-kettle",
-  title: "Le Creuset Classic Kettle.",
+  slug: "example-project",
+  title: "Example Project.",
   summary: "A short introduction to the project.",
   contextHeading: "Project context.",
   context: "Background, process, constraints, and project goals.",
@@ -29,17 +29,17 @@ one case study page:
   roleBody: "Responsibilities, collaborators, and deliverables.",
   resultHeading: "Project outcome.",
   resultBody: "Results, impact, and any useful links or metrics.",
-  thumbnail: leCreusetMedia[0],
-  media: leCreusetMedia,
+  thumbnail: exampleProjectMedia[0],
+  media: exampleProjectMedia,
 }
 
 The slug controls the URL. For example:
 
-slug: "le-creuset-classic-kettle"
+slug: "example-project"
 
 becomes:
 
-/work/le-creuset-classic-kettle
+/work/example-project
 
 contextHeading, roleBody, resultHeading, and resultBody are optional. If they
 are omitted, the shared defaults in projectContent are used.
@@ -60,7 +60,7 @@ is no separate homepage thumbnail order to maintain.
 The thumbnail field selects the media displayed on the homepage. It can reuse
 an item from the project's media array:
 
-thumbnail: leCreusetMedia[0]
+thumbnail: exampleProjectMedia[0]
 
 Changing the array index changes the homepage thumbnail without changing the
 order of media on the case study page.

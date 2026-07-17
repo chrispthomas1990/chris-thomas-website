@@ -7,7 +7,7 @@ export type ContentSection = {
 export const pageContent = {
   home: {
     hero: {
-      heading: "Brand identity, digital and campaign work with a clear point of view.",
+      heading: "Distinctive brand, digital and campaign work built to make an impact.",
     },
     workAriaLabel: "Selected work",
   },
@@ -15,35 +15,35 @@ export const pageContent = {
     sections: [
       {
         heading:
-          "UI Designer/Front-End Engineer creating interfaces, launches, and visual systems.",
+          "I create distinctive brand, digital and campaign work built to make an impact.",
         paragraphs: [
-          "I work across digital products, brand systems, and campaign sites, bringing visual direction together with careful front-end execution.",
-          "My work sits between design and engineering: taking visual ideas, product goals, and messy real-world constraints, then turning them into fast, maintainable interfaces.",
+          "I help turn ideas into clear, memorable creative that connects with the right audience and feels consistent wherever it appears.",
+          "My work spans visual identities, digital experiences, campaigns, and the systems that bring them together—from early thinking and creative direction through to final delivery.",
         ],
       },
       {
         heading: "What I do.",
         paragraphs: [
-          "I design and build websites, portfolios, campaign pages, product interfaces, and front-end systems for teams that care about detail.",
+          "I work with businesses, agencies, and creative teams on projects that need a strong idea, a distinctive visual approach, and thoughtful execution.",
         ],
         list: [
-          "Responsive website design and front-end development.",
-          "Design system implementation and component libraries.",
-          "Portfolio, editorial, and launch pages with strong visual direction.",
-          "Interface audits, prototyping, and front-end consulting.",
+          "Brand identities and flexible visual systems.",
+          "Websites and digital experiences.",
+          "Campaign concepts, content, and launch materials.",
+          "Creative direction, design support, and production.",
         ],
       },
       {
         heading: "How I work.",
         paragraphs: [
-          "Projects usually start with a clear definition of the audience, the content, and the actions the interface needs to support. From there, I focus on a sharp visual system, strong interaction details, and code that can keep moving after launch.",
-          "I can work independently, partner with designers and studios, or join an existing product team for focused front-end delivery.",
+          "Projects begin by getting clear on the audience, the message, and what the work needs to achieve. From there, I develop a focused creative direction and carry it through with care across every relevant touchpoint.",
+          "I can lead a project independently, collaborate with agencies and studios, or join an existing team wherever extra creative thinking and hands-on support are needed.",
         ],
       },
       {
         heading: "Availability.",
         paragraphs: [
-          "Based in London and available for selected freelance projects, collaborations, and front-end roles. I am especially interested in work where brand, motion, content, and implementation need to feel connected.",
+          "Based in London and available for selected freelance projects, collaborations, and roles. I am especially interested in ambitious work where brand, digital, content, and campaign thinking need to feel connected.",
         ],
       },
     ] satisfies ContentSection[],
@@ -51,19 +51,19 @@ export const pageContent = {
   contact: {
     sections: [
       {
-        heading: "Have a project in mind or a role to discuss? Send over the details.",
+        heading: "Have a project in mind or a role to discuss? Let’s talk.",
         paragraphs: [
-          "I am interested in thoughtful front-end work, design systems, portfolio sites, and digital products where visual craft and implementation need to move together.",
-          "Share a little context, timeline, and what you are looking to make. I will get back to you as soon as I can.",
+          "I am always interested in distinctive brand, digital, and campaign projects with a clear purpose and the ambition to make an impact.",
+          "Share a little context, what you are hoping to create, and any timings you have in mind. I will get back to you as soon as I can.",
         ],
       },
       {
         heading: "Useful things to include.",
         list: [
           "The type of project and what needs to be delivered.",
-          "Any existing brand, design, content, or technical constraints.",
+          "Any existing brand, audience, content, or practical considerations.",
           "Your preferred timeline and whether there is a fixed launch date.",
-          "Links to references, live sites, prototypes, or a current codebase.",
+          "Links to references, existing work, or anything else that provides useful context.",
         ],
       },
     ] satisfies ContentSection[],
@@ -79,10 +79,10 @@ export const pageContent = {
         message: "Tell me about the project, timeline, and any useful links.",
       },
       projectTypes: [
-        "Front-end build",
-        "Website design and build",
-        "Design system",
-        "Consulting",
+        "Brand identity",
+        "Digital project",
+        "Campaign",
+        "Creative support or consulting",
         "Other",
       ],
       submitLabel: "Send enquiry",

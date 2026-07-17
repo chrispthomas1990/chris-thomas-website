@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useRef, useState } from "react";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { pageContent } from "../content/pages";
@@ -76,6 +76,7 @@ function createContactMailto(values: ContactFormValues) {
 }
 
 export default function Contact() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState<ContactFormErrors>({});
   const formErrorCount = Object.keys(formErrors).length;
@@ -119,6 +120,19 @@ export default function Contact() {
     setFormErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
+      window.requestAnimationFrame(() => {
+        const firstInvalidField = formRef.current?.querySelector<HTMLElement>(
+          '[aria-invalid="true"]',
+        );
+
+        firstInvalidField?.focus({ preventScroll: true });
+        firstInvalidField?.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth",
+          block: "center",
+        });
+      });
       return;
     }
 
@@ -152,7 +166,12 @@ export default function Contact() {
           ))}
         </div>
 
-        <form className="contact-form" noValidate onSubmit={handleSubmit}>
+        <form
+          ref={formRef}
+          className="contact-form"
+          noValidate
+          onSubmit={handleSubmit}
+        >
           <label>
             <span>{form.labels.name}</span>
             <input

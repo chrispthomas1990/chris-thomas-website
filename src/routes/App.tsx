@@ -27,12 +27,12 @@ const staticPageMetadata: Record<string, PageMetadata> = {
   "/info": {
     title: "Info | Chris Thomas",
     description:
-      "Learn about Chris Thomas, a UI Designer and Front-End Engineer working across digital products, brand systems, and campaign sites.",
+      "Learn about Chris Thomas and his approach to distinctive brand, digital, and campaign work.",
   },
   "/contact": {
     title: "Contact | Chris Thomas",
     description:
-      "Contact Chris Thomas to discuss front-end development, website design, design systems, consulting, and digital product work.",
+      "Contact Chris Thomas to discuss brand, digital, campaign, and creative projects or collaborations.",
   },
   "/privacy-policy": {
     title: "Privacy Policy | Chris Thomas",
@@ -42,7 +42,7 @@ const staticPageMetadata: Record<string, PageMetadata> = {
   "/cookie-policy": {
     title: "Cookie Policy | Chris Thomas",
     description:
-      "Read the cookie policy for the Chris Thomas design and front-end development portfolio.",
+      "Read the cookie policy for the Chris Thomas brand, digital, and campaign portfolio.",
   },
 };
 

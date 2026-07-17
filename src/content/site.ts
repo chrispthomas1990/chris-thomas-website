@@ -3,15 +3,15 @@ export const contactEmail = "hello@christhomas.design";
 export const companyName = "Chris Thomas Creative Limited";
 
 export const siteMetadata = {
-  title: "Chris Thomas | UI Designer/Front-End Engineer",
+  title: "Chris Thomas | Brand, Digital & Campaign",
   description:
     "Chris Thomas design portfolio showcasing selected brand, digital, and creative work.",
 } as const;
 
 export const brandContent = {
   name: "Chris Thomas",
-  role: "UI Designer/Front-End Engineer",
-  homeAriaLabel: "Chris Thomas UI Designer/Front-End Engineer home",
+  role: "Brand, Digital & Campaign",
+  homeAriaLabel: "Chris Thomas, Brand, Digital & Campaign, home",
 } as const;
 
 export const navigationContent = {
